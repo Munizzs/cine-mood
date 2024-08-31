@@ -2,6 +2,11 @@
 
 ## Funcionalidades
 
-### Na tela inicial
+### Tela inicial
 
-* Simulador Financeiro 
+* Simulador Financeiro (venda) - area não logada 
+
+### Tela Login
+
+* hierarquia de acesso
+
