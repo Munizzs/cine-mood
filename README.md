@@ -1,17 +1,11 @@
-# Projeção Orçamento Contrução Civil
+# CineMood
 
 ## Funcionalidades
 
-### Tela inicial
+### Area não logada
 
-* Simulador Financeiro (venda) - area não logada 
+* Ver 1 filme por escolha do humor
 
-### Tela Login
 
-* hierarquia de acesso
+### Area logada
 
-### Menu
-
-* Projeção da Construção Civil
-
-* Simulador do orçamento
