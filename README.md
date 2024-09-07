@@ -2,10 +2,12 @@
 
 ## Funcionalidades
 
-### Area não logada
+### Área não logada
 
 * Ver 1 filme por escolha do humor
+* Pesquisar Filmes
 
 
-### Area logada
+### Área logada
 
+* Pesquisar Filmes
