@@ -11,5 +11,7 @@
 ### Área logada
 
 * Pesquisar Filmes
-* quizz para retornar filmes baseado no humor
+* quiz para retornar filmes baseado no humor
 * analise de histórico
+* Recomendação de Filme
+* Ver Favoritos
