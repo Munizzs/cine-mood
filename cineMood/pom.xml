@@ -9,6 +9,18 @@
   <url>http://maven.apache.org</url>
   <dependencies>
     <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.0.1</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.2</version>
+    </dependency>
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
@@ -17,5 +29,36 @@
   </dependencies>
   <build>
     <finalName>cineMood</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.tomcat.maven</groupId>
+        <artifactId>tomcat7-maven-plugin</artifactId>
+        <version>2.1</version>
+        <configuration>
+          <path>/</path>
+        </configuration>
+        <executions>
+          <execution>
+            <id>tomcat-run</id>
+            <goals>
+              <goal>exec-war</goal>
+            </goals>
+            <phase>package</phase>
+            <configuration>
+              <enableNaming>false</enableNaming>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.2.2</version>
+        <configuration>
+          <webXml>src\main\webapp\WEB-INF\web.xml</webXml>
+          <warSourceDirectory>src/main/webapp</warSourceDirectory>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
+
 </project>
