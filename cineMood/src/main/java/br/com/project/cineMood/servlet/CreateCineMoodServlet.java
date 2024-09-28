@@ -1,5 +1,8 @@
 package br.com.project.cineMood.servlet;
 
+import br.com.project.cineMood.dao.FilmeDao;
+import br.com.project.cineMood.model.Filme;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +18,14 @@ public class CreateCineMoodServlet extends HttpServlet {
         String nomeFilme = request.getParameter("nome-filme");
 
         System.out.println(nomeFilme);
+
+        Filme filme = new Filme();
+
+        filme.setName(nomeFilme);
+
+        FilmeDao filmeDao = new FilmeDao();
+
+        filmeDao.createFilme(filme);
 
         request.getRequestDispatcher("index.jsp").forward(request, response);
 
