@@ -8,14 +8,14 @@ public class ListaFilme {
     
     
 
-    private String id_lista;
-    private String id_usuario;
-    private String id_filme;
+    private int  id_lista;
+    private int id_usuario;
+    private int id_filme;
     private String status;
     private int avaliacao;
     private LocalDate data_adicao;
 
-    public ListaFilme(int avaliacao, LocalDate data_adicao, String id_filme, String id_lista, String id_usuario, String status) {
+    public ListaFilme(int avaliacao, LocalDate data_adicao, int id_filme, int id_lista, int id_usuario, String status) {
         this.avaliacao = avaliacao;
         this.data_adicao = data_adicao;
         this.id_filme = id_filme;
@@ -24,27 +24,27 @@ public class ListaFilme {
         this.status = status;
     }
 
-    public String getId_lista() {
+    public int getId_lista() {
         return id_lista;
     }
 
-    public void setId_lista(String id_lista) {
+    public void setId_lista(int id_lista) {
         this.id_lista = id_lista;
     }
 
-    public String getId_usuario() {
+    public int getId_usuario() {
         return id_usuario;
     }
 
-    public void setId_usuario(String id_usuario) {
+    public void setId_usuario(int id_usuario) {
         this.id_usuario = id_usuario;
     }
 
-    public String getId_filme() {
+    public int getId_filme() {
         return id_filme;
     }
 
-    public void setId_filme(String id_filme) {
+    public void setId_filme(int id_filme) {
         this.id_filme = id_filme;
     }
 
