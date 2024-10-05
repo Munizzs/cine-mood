@@ -13,7 +13,7 @@ public class FilmeDao {
 
         try {
 
-            Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa","sa");
+            Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432", "sa","sa");
 
             System.out.println("success in database connection");
 
