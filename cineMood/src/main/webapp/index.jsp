@@ -5,7 +5,7 @@
 <form action="/create-cineMood" method="post">
 
     <label>Nome Filme</label>
-    <input type="text" name="nome-filme" id="nome-filme">
+    <input type="text" name="nome-film" id="nome-film">
 
     <button type="submit">Register</button>
 

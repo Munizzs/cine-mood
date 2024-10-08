@@ -23,7 +23,8 @@ public class InitDao {
 
         } catch (SQLException e) {
             System.out.println("fail in database connection:" + e.getMessage());
-            return null;
+            conex.close();
+            return conex;
         }
     }
 
@@ -34,9 +35,17 @@ public class InitDao {
             pst.execute();
 
         } catch (Exception e) {
-             System.out.println("fail in database connection" + e.getMessage());
+             System.out.println("fail in database connection:" + e.getMessage());
 
         }
     }
 
+    public void fecharConne()throws SQLException {
+        try {
+            conex.close();
+        } catch (SQLException e) {
+            System.out.println("Failure to close the connection:" + e.getMessage());
+        }
+
+    }
 }

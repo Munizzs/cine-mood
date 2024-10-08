@@ -3,28 +3,26 @@ package br.com.project.cineMood.dao;
 import br.com.project.cineMood.model.Filme;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class FilmeDao {
-    public void createFilme(Filme filme){
+    public void createFilme(Filme filme)throws SQLException {
 
         String SQL = "INSERT INTO FILME (NAME) VALUES (?)";
 
         try {
 
-            Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432", "sa","sa");
-
+            InitDao conex = new InitDao();
+            Connection conn = conex.getConnection();
             System.out.println("success in database connection");
 
-            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
-
-            preparedStatement.setString(1, filme.getName());
+            PreparedStatement preparedStatement = conn.prepareStatement(SQL);
+            preparedStatement.setString(1, filme.getTitulo());
             preparedStatement.execute();
-
             System.out.println("success in insert filme");
 
-            connection.close();
+            conn.close();
 
         } catch (Exception e) {
 

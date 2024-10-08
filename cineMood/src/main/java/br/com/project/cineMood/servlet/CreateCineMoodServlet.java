@@ -9,24 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet("/create-cineMood")
 public class CreateCineMoodServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String nomeFilme = request.getParameter("nome-filme");
+        String nomeFilm = request.getParameter("nome-filme");
+        try {
+        System.out.println(nomeFilm);
+        Filme filme = new Filme(nomeFilm);
+        new FilmeDao().createFilme(filme);
 
-        System.out.println(nomeFilme);
-
-        Filme filme = new Filme();
-
-        filme.setName(nomeFilme);
-
-        FilmeDao filmeDao = new FilmeDao();
-
-        filmeDao.createFilme(filme);
-
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         request.getRequestDispatcher("index.jsp").forward(request, response);
 
     }
