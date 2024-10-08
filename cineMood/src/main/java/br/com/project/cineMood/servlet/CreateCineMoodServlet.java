@@ -16,16 +16,17 @@ public class CreateCineMoodServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String nomeFilm = request.getParameter("nome-filme");
+        String titulo = request.getParameter("titulo");
+        String tipo = request.getParameter("tipo");
         try {
-        System.out.println(nomeFilm);
-        Filme filme = new Filme(nomeFilm);
+        System.out.println(titulo+" | "+tipo);
+        Filme filme = new Filme(titulo,tipo);
         new FilmeDao().createFilme(filme);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        request.getRequestDispatcher("/find-all-film").forward(request, response);
 
     }
 }

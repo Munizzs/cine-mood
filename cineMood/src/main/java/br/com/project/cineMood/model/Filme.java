@@ -11,9 +11,15 @@ public class Filme {
     private String duracao;
     private String classificao_indicativa;
 
-
-    public Filme(String titulo) {
+    public Filme(String titulo, String tipo) {
         this.titulo = titulo;
+        this.tipo = tipo;
+    }
+
+    public Filme(int id_filme,String titulo,String tipo) {
+        this.id_filme = id_filme;
+        this.titulo = titulo;
+        this.tipo = tipo;
     }
 
     public Filme(int id_filme, String titulo, String diretor, String tipo, String genero, String ano_lancamento, String sinopse, String duracao, String classificao_indicativa) {
