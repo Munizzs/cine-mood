@@ -16,6 +16,6 @@ public class DelFilmeServelet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id_delFilm"));
         new FilmeDao().deleteFilmById(id);
-        req.getRequestDispatcher("/find-all-film").forward(req, resp);
+        resp.sendRedirect("/find-all-film");
     }
 }
