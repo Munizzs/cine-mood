@@ -6,7 +6,6 @@ public class Usuario {
     private String email;
     private String senha;
     private String data_nascimento;
-    private String estado_emocional;
 
     public Usuario(int id_usuario, String nome, String email, String senha, String data_nascimento, String estado_emocional) {
         this.id_usuario = id_usuario;
@@ -14,7 +13,6 @@ public class Usuario {
         this.email = email;
         this.senha = senha;
         this.data_nascimento = data_nascimento;
-        this.estado_emocional = estado_emocional;
     }
 
     public int getId_usuario() {return id_usuario;}
@@ -37,10 +35,6 @@ public class Usuario {
 
     public void setData_nascimento(String data_nascimento) {this.data_nascimento = data_nascimento;}
 
-    public String getEstado_emocional() {return estado_emocional;}
-
-    public void setEstado_emocional(String estado_emocional) {this.estado_emocional = estado_emocional;}
-
 
     @Override
     public String toString() {
@@ -50,7 +44,6 @@ public class Usuario {
                 ", email='" + email + '\'' +
                 ", senha='" + senha + '\'' +
                 ", data_nascimento='" + data_nascimento + '\'' +
-                ", estado_emocional='" + estado_emocional + '\'' +
                 '}';
     }
 
