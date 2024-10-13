@@ -1,13 +1,20 @@
-# Instructions SQL Querys
-## Querys para criação do banco 
-### CREATE usuario para banco de dados PostgreSQL
-    * "CREATE ROLE "cineGodness" WITH 
-       LOGIN NOSUPERUSER CREATEDB CREATEROLE INHERIT
-       NOREPLICATION
-       NOBYPASSRLS
-       CONNECTION LIMIT -1
-       PASSWORD 'adaoeva11';
-       COMMENT ON ROLE "cineGodness" IS 'usuario da aplicação';"
+# README Revisado e Otimizado
+## Instructions SQL Queries
+
+## **Criação do Banco de Dados**
+
+### **1. Criação de Usuário no PostgreSQL**
+    CREATE ROLE "cineGodness" WITH 
+    LOGIN NOSUPERUSER CREATEDB CREATEROLE INHERIT
+    NOREPLICATION NOBYPASSRLS
+    CONNECTION LIMIT -1
+    PASSWORD 'adaoeva11';
+    COMMENT ON ROLE "cineGodness" IS 'usuario da aplicação';
+
+### Alterando Permisão
+    * "ALTER TABLE IF EXISTS filmes
+    OWNER TO "cineGodness";"
+
 
 ### CREATE de database
     * "CREATE DATABASE "CineFilmes"
@@ -18,9 +25,7 @@
        CONNECTION LIMIT = -1
        IS_TEMPLATE = False;"
 
-### Alterando Permisão
-    * "ALTER TABLE IF EXISTS filmes
-    OWNER TO "cineGodness";"
+
 
 ### Criação das tabelas no banco de dados
 ## CREATE  de filmes (teste para verificar a conexão com base de dados)
@@ -68,4 +73,3 @@
        '2h 55m',
        '18 anos'
        );"
-
