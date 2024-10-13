@@ -22,7 +22,7 @@
         <button type="submit">Register</button>
 
     </div>
-</form>
+
 
 <div>
     <table class="table table-striped">
@@ -51,6 +51,6 @@
     </table>
 </div>
 
-
+</form>
 </body>
 </html>

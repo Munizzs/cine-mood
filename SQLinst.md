@@ -6,8 +6,8 @@
        NOREPLICATION
        NOBYPASSRLS
        CONNECTION LIMIT -1
-       PASSWORD 'xxxxxx';
-       COMMENT ON ROLE "cineGodness" IS 'usuario da aplicação'";"
+       PASSWORD 'adaoeva11';
+       COMMENT ON ROLE "cineGodness" IS 'usuario da aplicação';"
 ### CREATE de database
     * "CREATE DATABASE "CineFilmes"
        WITH
@@ -17,7 +17,8 @@
        CONNECTION LIMIT = -1
        IS_TEMPLATE = False;"
 ### CREATE  de filmes (teste para verificar a conexão com base de dados)
-    * "id_filme SERIAL PRIMARY KEY,
+    * "CREATE TABLE FILMES (
+       id_filme SERIAL PRIMARY KEY,
        titulo VARCHAR(255) NOT NULL,
        diretor VARCHAR(255),
        tipo VARCHAR(100),
@@ -42,5 +43,5 @@
        '18 anos'
        );"
 ### Alterando Permisão
-    * "ALTER TABLE IF EXISTS public.filmes
+    * "ALTER TABLE IF EXISTS filmes
     OWNER TO "cineGodness";"

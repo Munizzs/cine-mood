@@ -9,8 +9,9 @@ import java.sql.SQLException;
 
 public class InitDao {
     private static String url = "jdbc:postgresql://localhost:5432/CineFilmes";
+    //private static String url = "jdbc:postgresql://3.15.6.30:5432/CineFilmes";
     private static String user = "cineGodness";
-    private static String pass = "adaoeva";
+    private static String pass = "adaoeva11";
     private static Connection conex = null;
     private PreparedStatement pst;
     private String sql = null;

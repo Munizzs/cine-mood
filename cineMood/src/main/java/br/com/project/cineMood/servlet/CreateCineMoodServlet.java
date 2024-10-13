@@ -26,7 +26,7 @@ public class CreateCineMoodServlet extends HttpServlet {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        request.getRequestDispatcher("/find-all-film").forward(request, response);
+        response.sendRedirect("/find-all-film");
 
     }
 }
