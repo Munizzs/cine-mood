@@ -8,6 +8,7 @@
        CONNECTION LIMIT -1
        PASSWORD 'adaoeva11';
        COMMENT ON ROLE "cineGodness" IS 'usuario da aplicação';"
+
 ### CREATE de database
     * "CREATE DATABASE "CineFilmes"
        WITH
@@ -16,7 +17,13 @@
        LOCALE_PROVIDER = 'libc'
        CONNECTION LIMIT = -1
        IS_TEMPLATE = False;"
-### CREATE  de filmes (teste para verificar a conexão com base de dados)
+
+### Alterando Permisão
+    * "ALTER TABLE IF EXISTS filmes
+    OWNER TO "cineGodness";"
+
+### Criação das tabelas no banco de dados
+## CREATE  de filmes (teste para verificar a conexão com base de dados)
     * "CREATE TABLE FILMES (
        id_filme SERIAL PRIMARY KEY,
        titulo VARCHAR(255) NOT NULL,
@@ -28,6 +35,25 @@
        duracao VARCHAR(50),
        classificacao_indicativa VARCHAR(50)
        );"
+
+## Tabela Usuario
+        "CREATE TABLE Usuario(
+        id_usuario SERIAL PRIMARY KEY,
+        nome VARCHAR(100) NOT NULL,
+        email VARCHAR(100) UNIQUE NOT NULL,
+        senha VARCHAR(255) NOT NULL,
+        data_nacimento DATE NOT NULL
+        );"
+
+## Tabela Favorito
+
+## Tabela Emoção
+
+## Tabela Lista de Filme
+
+## Tabela Recomendação
+
+
 
 ### INSERT de filmes (teste para verificar a conexão com base de dados)
     * "INSERT INTO filmes 
@@ -42,6 +68,4 @@
        '2h 55m',
        '18 anos'
        );"
-### Alterando Permisão
-    * "ALTER TABLE IF EXISTS filmes
-    OWNER TO "cineGodness";"
+
