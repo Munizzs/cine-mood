@@ -18,7 +18,6 @@ public class ListFilmeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Filme> films = new FilmeDao().findAllFilm();
         req.setAttribute("films",films);
-        req.getRequestDispatcher("/resources/usuarioTeste/index.jsp").forward(req,resp);
-
+        req.getRequestDispatcher("/resources/filmeTeste/index.jsp").forward(req,resp);
     }
 }
