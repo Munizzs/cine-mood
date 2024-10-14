@@ -1,14 +1,23 @@
 package br.com.project.cineMood.model;
 
+import java.util.Date;
+
 public class Usuario {
     private int id_usuario;
     private String nome;
     private String email;
     private String senha;
-    private String data_nascimento;
+    private Date data_nascimento;
 
-    public Usuario(int id_usuario, String nome, String email, String senha, String data_nascimento, String estado_emocional) {
+    public Usuario(int id_usuario, String nome, String email, String senha, Date data_nascimento) {
         this.id_usuario = id_usuario;
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.data_nascimento = data_nascimento;
+    }
+
+    public Usuario(String nome, String email, String senha, Date data_nascimento) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
@@ -31,9 +40,9 @@ public class Usuario {
 
     public void setSenha(String senha) {this.senha = senha;}
 
-    public String getData_nascimento() {return data_nascimento;}
+    public Date getData_nascimento() {return data_nascimento;}
 
-    public void setData_nascimento(String data_nascimento) {this.data_nascimento = data_nascimento;}
+    public void setData_nascimento(Date data_nascimento) {this.data_nascimento = data_nascimento;}
 
 
     @Override
