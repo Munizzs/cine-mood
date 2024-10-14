@@ -1,4 +1,4 @@
-package br.com.project.cineMood.servlet;
+package br.com.project.cineMood.controller;
 
 
 import br.com.project.cineMood.dao.FilmeDao;
