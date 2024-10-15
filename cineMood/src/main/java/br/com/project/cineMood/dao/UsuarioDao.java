@@ -13,7 +13,7 @@ import java.util.List;
 public class UsuarioDao {
     public void createUsuario(Usuario usuario)throws SQLException {
 
-        String SQL = "INSERT INTO usuario (nome,email, senha, data_nacimento) VALUES (?,?,?,?)";
+        String SQL = "INSERT INTO usuario (nome,email, senha, data_nascimento) VALUES (?,?,?,?)";
 
         try {
 
