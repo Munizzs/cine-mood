@@ -43,21 +43,39 @@
 
 ## Tabela Usuario
         "CREATE TABLE Usuario(
-        id_usuario SERIAL PRIMARY KEY,
-        nome VARCHAR(100) NOT NULL,
-        email VARCHAR(100) UNIQUE NOT NULL,
-        senha VARCHAR(255) NOT NULL,
-        data_nacimento VARCHAR(10) NOT NULL
-        );"
+    id_usuario SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    senha VARCHAR(255) NOT NULL,
+    data_nascimento VARCHAR(10) NOT NULL
+    );"
 
 ## Tabela Favorito
 
 ## Tabela Emoção
 
 ## Tabela Lista de Filme
-
+    "CREATE TABLE Lista_Filmes (
+    id_lista SERIAL PRIMARY KEY,
+    id_usuario INT NOT NULL,
+    id_filme INT NOT NULL,
+    status VARCHAR(50) NOT NULL, -- Ex.: "Já assistido", "Assistindo", etc.
+    avaliacao NUMERIC(2,1), -- Avaliação pode ser em uma escala de 0 a 10, ex.: 8.5
+    data_adicao DATE NOT NULL DEFAULT CURRENT_DATE,
+    CONSTRAINT fk_usuario_lista FOREIGN KEY (id_usuario) REFERENCES Usuario (id_usuario),
+    CONSTRAINT fk_filme_lista FOREIGN KEY (id_filme) REFERENCES Filmes (id_filme)
+    );"
 ## Tabela Recomendação
-
+    "CREATE TABLE Recomendacao (
+    id_recomendacao SERIAL PRIMARY KEY,
+    id_usuario INT NOT NULL,
+    id_filme INT NOT NULL,
+    id_emocao INT NOT NULL,
+    data_recomendacao DATE NOT NULL DEFAULT CURRENT_DATE,
+    CONSTRAINT fk_usuario_recomendacao FOREIGN KEY (id_usuario) REFERENCES Usuario (id_usuario),
+    CONSTRAINT fk_filme_recomendacao FOREIGN KEY (id_filme) REFERENCES Filmes (id_filme),
+    CONSTRAINT fk_emocao_recomendacao FOREIGN KEY (id_emocao) REFERENCES Emocoes (id_emocao)
+    );"
 
 
 ### INSERT de filmes (teste para verificar a conexão com base de dados)
