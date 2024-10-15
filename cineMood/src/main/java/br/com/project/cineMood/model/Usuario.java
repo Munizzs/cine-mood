@@ -7,9 +7,9 @@ public class Usuario {
     private String nome;
     private String email;
     private String senha;
-    private Date data_nascimento;
+    private String data_nascimento;
 
-    public Usuario(int id_usuario, String nome, String email, String senha, Date data_nascimento) {
+    public Usuario(int id_usuario, String nome, String email, String senha, String data_nascimento) {
         this.id_usuario = id_usuario;
         this.nome = nome;
         this.email = email;
@@ -17,7 +17,7 @@ public class Usuario {
         this.data_nascimento = data_nascimento;
     }
 
-    public Usuario(String nome, String email, String senha, Date data_nascimento) {
+    public Usuario(String nome, String email, String senha, String data_nascimento) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
@@ -40,9 +40,9 @@ public class Usuario {
 
     public void setSenha(String senha) {this.senha = senha;}
 
-    public Date getData_nascimento() {return data_nascimento;}
+    public String getData_nascimento() {return data_nascimento;}
 
-    public void setData_nascimento(Date data_nascimento) {this.data_nascimento = data_nascimento;}
+    public void setData_nascimento(String data_nascimento) {this.data_nascimento = data_nascimento;}
 
 
     @Override

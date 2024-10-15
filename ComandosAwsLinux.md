@@ -64,6 +64,20 @@ escutar todos os endereços de ip
     * \l
     sair 
     * \q
+### Permitindo o ip no postgreSQL 
+    Alterando permissões de ip
+    * sudo vi  /var/lib/pgsql/data/pg_hba.conf
+    Alterar permissões para que fiquem assim
+    * # IPv4 local connections:
+    host    all             all             all            md5
+    Salvar alterações e sair do editor do vi com 
+    * "esc" + ":wq"
+    Reiniciando o serviço
+    * sudo systemctl restart postgresql
+### Alterando senha de um usuário 
+    acessar pelo terminal
+    * psql -U postgres
+    
 ### Desistalar PostgreSQL
     Parar serviço
     * sudo systemctl stop postgresql

@@ -47,7 +47,7 @@
         nome VARCHAR(100) NOT NULL,
         email VARCHAR(100) UNIQUE NOT NULL,
         senha VARCHAR(255) NOT NULL,
-        data_nacimento DATE NOT NULL
+        data_nacimento VARCHAR(10) NOT NULL
         );"
 
 ## Tabela Favorito

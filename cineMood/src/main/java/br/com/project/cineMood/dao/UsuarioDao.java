@@ -25,7 +25,7 @@ public class UsuarioDao {
             preparedStatement.setString(1, usuario.getNome());
             preparedStatement.setString(2, usuario.getEmail());
             preparedStatement.setString(3, usuario.getSenha());
-            preparedStatement.setDate(4, usuario.getData_nascimento());
+            preparedStatement.setString(4, usuario.getData_nascimento());
 
             preparedStatement.execute();
             System.out.println("success in insert usuario");
