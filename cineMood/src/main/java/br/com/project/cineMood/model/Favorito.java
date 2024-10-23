@@ -2,42 +2,49 @@ package br.com.project.cineMood.model;
 
 public class Favorito {
 
-    private int id_favorito;
-    private int id_usuario;
-    private int id_filme;
+    private String id_favorito;
+    private String id_usuario;
+    private String id_filme;
     private String data_favoritado;
 
-    public Favorito(String data_favoritado, int id_favorito, int id_filme, int id_usuario) {
-        this.data_favoritado = data_favoritado;
+    public Favorito(String id_favorito, String id_usuario, String id_filme, String data_favoritado) {
         this.id_favorito = id_favorito;
-        this.id_filme = id_filme;
         this.id_usuario = id_usuario;
+        this.id_filme = id_filme;
+        this.data_favoritado = data_favoritado;
     }
 
-    public int getId_favorito() {
+    public String getId_favorito() {
         return id_favorito;
     }
 
-    public void setId_favorito(int id_favorito) {this.id_favorito = id_favorito;}
+    public void setId_favorito(String id_favorito) {
+        this.id_favorito = id_favorito;
+    }
 
-    public int getId_usuario() {
+    public String getId_usuario() {
         return id_usuario;
     }
 
-    public void setId_usuario(int id_usuario) {this.id_usuario = id_usuario;}
+    public void setId_usuario(String id_usuario) {
+        this.id_usuario = id_usuario;
+    }
 
-    public int getId_filme() {
+    public String getId_filme() {
         return id_filme;
     }
 
-    public void setId_filme(int id_filme) {this.id_filme = id_filme;}
+    public void setId_filme(String id_filme) {
+        this.id_filme = id_filme;
+    }
 
     public String getData_favoritado() {
         return data_favoritado;
     }
 
-    public void setData_favoritado(String data_favoritado) {this.data_favoritado = data_favoritado;}
-
+    public void setData_favoritado(String data_favoritado) {
+        this.data_favoritado = data_favoritado;
+    }
 
     @Override
     public String toString() {

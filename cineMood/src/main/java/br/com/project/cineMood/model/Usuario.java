@@ -3,13 +3,13 @@ package br.com.project.cineMood.model;
 import java.util.Date;
 
 public class Usuario {
-    private int id_usuario;
+    private String id_usuario;
     private String nome;
     private String email;
     private String senha;
     private String data_nascimento;
 
-    public Usuario(int id_usuario, String nome, String email, String senha, String data_nascimento) {
+    public Usuario(String id_usuario, String nome, String email, String senha, String data_nascimento) {
         this.id_usuario = id_usuario;
         this.nome = nome;
         this.email = email;
@@ -24,9 +24,9 @@ public class Usuario {
         this.data_nascimento = data_nascimento;
     }
 
-    public int getId_usuario() {return id_usuario;}
+    public String getId_usuario() {return id_usuario;}
 
-    public void setId_usuario(int id_usuario) {this.id_usuario = id_usuario;}
+    public void setId_usuario(String id_usuario) {this.id_usuario = id_usuario;}
 
     public String getNome() {return nome;}
 

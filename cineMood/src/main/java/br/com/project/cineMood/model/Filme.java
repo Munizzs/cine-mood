@@ -1,7 +1,7 @@
 package br.com.project.cineMood.model;
 
 public class Filme {
-    private int id_filme;
+    private String id_filme;
     private String titulo;
     private String diretor;
     private String tipo;
@@ -16,13 +16,13 @@ public class Filme {
         this.tipo = tipo;
     }
 
-    public Filme(int id_filme,String titulo,String tipo) {
+    public Filme(String id_filme,String titulo,String tipo) {
         this.id_filme = id_filme;
         this.titulo = titulo;
         this.tipo = tipo;
     }
 
-    public Filme(int id_filme, String titulo, String diretor, String tipo, String genero, String ano_lancamento, String sinopse, String duracao, String classificao_indicativa) {
+    public Filme(String id_filme, String titulo, String diretor, String tipo, String genero, String ano_lancamento, String sinopse, String duracao, String classificao_indicativa) {
         this.id_filme = id_filme;
         this.titulo = titulo;
         this.diretor = diretor;
@@ -35,9 +35,9 @@ public class Filme {
     }
 
 
-    public int getId_filme() {return id_filme;}
+    public String getId_filme() {return id_filme;}
 
-    public void setId_filme(int id_filme) {this.id_filme = id_filme;}
+    public void setId_filme(String id_filme) {this.id_filme = id_filme;}
 
     public String getTitulo() {return titulo;}
 

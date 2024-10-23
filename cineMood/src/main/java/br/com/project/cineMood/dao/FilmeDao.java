@@ -49,7 +49,7 @@ public class FilmeDao {
 
             List<Filme> films = new ArrayList<>();
             while(resultSet.next()) {
-                int id = resultSet.getInt("id_filme");
+                String id = resultSet.getString("id_filme");
                 String titulo = resultSet.getString("titulo");
                 String tipo = resultSet.getString("tipo");
                 Filme film= new Filme(id,titulo,tipo);

@@ -51,7 +51,7 @@ public class UsuarioDao {
 
             List<Usuario> usuarios = new ArrayList<>();
             while(resultSet.next()) {
-                int id = resultSet.getInt("id_usuario");
+                String id = resultSet.getString("id_usuario");
                 String nome = resultSet.getString("nome");
                 String email = resultSet.getString("email");
                 String senha = resultSet.getString("senha");
