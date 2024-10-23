@@ -20,6 +20,14 @@ public class ListaFilme {
         this.data_adicao = data_adicao;
     }
 
+    public ListaFilme(int id_usuario, int id_filme, String status, int avaliacao, String data_adicao) {
+        this.id_usuario = id_usuario;
+        this.id_filme = id_filme;
+        this.status = status;
+        this.avaliacao = avaliacao;
+        this.data_adicao = data_adicao;
+    }
+
     public int getId_lista() {
         return id_lista;
     }

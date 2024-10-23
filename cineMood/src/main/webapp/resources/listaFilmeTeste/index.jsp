@@ -14,8 +14,6 @@
 
 <form action="/create-lista_filmes" method="post">
     <div>
-        <label>Lista</label>
-        <input type="number" name="lista" id="lista">
         <label>Usuário</label>
         <input type="number" name="usuario" id="usuario">
         <label>Filme</label>
@@ -30,6 +28,33 @@
         <button type="submit">Register</button>
     </div>
 </form>
+
+<div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>id_lista</th>
+            <th>id_usuario</th>
+            <th>id_filme</th>
+            <th>status</th>
+            <th>avaliacao</th>
+            <th>data_adicao</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach var="listaFilme" items="${listafilmes}">
+            <tr>
+                <td>${listaFilme.id_lista}</td>
+                <td>${listaFilme.id_usuario}</td>
+                <td>${listaFilme.id_filme}</td>
+                <td>${listaFilme.status}</td>
+                <td>${listaFilme.avaliacao}</td>
+                <td>${listaFilme.data_adicao}</td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+</div>
 
 </body>
 </html>

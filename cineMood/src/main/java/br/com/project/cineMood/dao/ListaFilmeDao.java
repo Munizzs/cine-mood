@@ -15,7 +15,7 @@ public class ListaFilmeDao {
 
     public void createListaFilme(ListaFilme lista)throws SQLException {
 
-        String SQL = "INSERT INTO lista_filmes (id_lista,id_filme,avaliacao, data_adicao, status, id_usuario) VALUES (?,?,?,?,?,?)";
+        String SQL = "INSERT INTO lista_filmes (id_lista, id_usuario, id_filme, status, avaliação, data_adicao) VALUES (?,?,?,?,?,?)";
 
         try {
 
