@@ -71,7 +71,7 @@
     id_usuario INT NOT NULL,
     id_filme INT NOT NULL,
     id_emocao INT NOT NULL,
-    data_recomendacao DATE NOT NULL DEFAULT CURRENT_DATE,
+    data_adicao VARCHAR(10),
     CONSTRAINT fk_usuario_recomendacao FOREIGN KEY (id_usuario) REFERENCES Usuario (id_usuario),
     CONSTRAINT fk_filme_recomendacao FOREIGN KEY (id_filme) REFERENCES Filmes (id_filme),
     CONSTRAINT fk_emocao_recomendacao FOREIGN KEY (id_emocao) REFERENCES Emocoes (id_emocao)
