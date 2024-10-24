@@ -61,8 +61,21 @@
     );"
 
 ## Tabela Favorito
+    CREATE TABLE Favorito (
+    id_favorito SERIAL PRIMARY KEY,
+    id_usuario INT NOT NULL,
+    id_filme INT NOT NULL,
+    data_favoritado VARCHAR(10),
+    CONSTRAINT fk_usuario_favorito FOREIGN KEY (id_usuario) REFERENCES Usuario (id_usuario),
+    CONSTRAINT fk_filme_favorito FOREIGN KEY (id_filme) REFERENCES Filmes (id_filme)
+    );
 
 ## Tabela Emoção
+    "CREATE TABLE Emocoes (
+    id_emocao SERIAL PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL,
+    descricao TEXT
+    );"
 
 ## Tabela Lista de Filme
     "CREATE TABLE Lista_Filmes (
