@@ -15,7 +15,7 @@ public class ListaFilmeDao {
 
     public void createListaFilme(ListaFilme lista)throws SQLException {
 
-        String SQL = "INSERT INTO lista_filmes (id_lista, id_usuario, id_filme, status, avaliação, data_adicao) VALUES (?,?,?,?,?,?)";
+        String SQL = "INSERT INTO lista_filmes (id_lista, id_usuario, id_filme, status, avaliacao, data_adicao) VALUES (?,?,?,?,?,?)";
 
         try {
 
@@ -57,9 +57,9 @@ public class ListaFilmeDao {
             while(resultSet.next()) {
                 int id_lista = resultSet.getInt("id_lista");
                 int id_filme = resultSet.getInt("id_filme");
-                int avaliação = resultSet.getInt("avaliação");
+                int avaliação = resultSet.getInt("avaliacao");
                 String status = resultSet.getString("Status");
-                String data_adição = resultSet.getString("data_adição");
+                String data_adição = resultSet.getString("data_adicao");
                 int id_usuario = resultSet.getInt("id_usuario");
                 ListaFilme listaFilme= new ListaFilme(id_lista,id_usuario, id_filme, status, avaliação, data_adição);
                 listafilmes.add(listaFilme);
