@@ -42,14 +42,14 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="listaFilme" items="${listafilmes}">
+        <c:forEach var="lista_filme" items="${lista_filmes}">
             <tr>
-                <td>${listaFilme.id_lista}</td>
-                <td>${listaFilme.id_usuario}</td>
-                <td>${listaFilme.id_filme}</td>
-                <td>${listaFilme.status}</td>
-                <td>${listaFilme.avaliacao}</td>
-                <td>${listaFilme.data_adicao}</td>
+                <td>${lista_filme.id_lista}</td>
+                <td>${lista_filme.id_usuario}</td>
+                <td>${lista_filme.id_filme}</td>
+                <td>${lista_filme.status}</td>
+                <td>${lista_filme.avaliacao}</td>
+                <td>${lista_filme.data_adicao}</td>
             </tr>
         </c:forEach>
         </tbody>
