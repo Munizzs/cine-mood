@@ -71,10 +71,11 @@
     id_filme INT NOT NULL,
     status VARCHAR(50) NOT NULL, -- Ex.: "Já assistido", "Assistindo", etc.
     avaliacao NUMERIC(2,1), -- Avaliação pode ser em uma escala de 0 a 10, ex.: 8.5
-    data_adicao DATE NOT NULL DEFAULT CURRENT_DATE,
+    data_adicao VARCHAR(10),
     CONSTRAINT fk_usuario_lista FOREIGN KEY (id_usuario) REFERENCES Usuario (id_usuario),
     CONSTRAINT fk_filme_lista FOREIGN KEY (id_filme) REFERENCES Filmes (id_filme)
     );"
+
 ## Tabela Recomendação
     "CREATE TABLE Recomendacao (
     id_recomendacao SERIAL PRIMARY KEY,
