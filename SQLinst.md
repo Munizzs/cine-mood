@@ -3,7 +3,7 @@
 
 ## **Criação do Banco de Dados**
 
-### **1. Criação de Usuário no PostgreSQL**
+### **Criação de Usuário no PostgreSQL**
     CREATE ROLE "cineGodness" WITH 
     LOGIN NOSUPERUSER CREATEDB CREATEROLE INHERIT
     NOREPLICATION NOBYPASSRLS
@@ -11,20 +11,30 @@
     PASSWORD 'adaoeva11';
     COMMENT ON ROLE "cineGodness" IS 'usuario da aplicação';
 
-### Alterando Permisão
+## Permisão
+
+### Alterando permisão para tabelas existentes
+    "DO $$
+        DECLARE
+        table_name RECORD;
+        BEGIN
+        FOR table_name IN
+        SELECT tablename
+        FROM pg_tables
+        WHERE schemaname = 'public'
+        LOOP
+        EXECUTE format('ALTER TABLE public.%I OWNER TO "cineGodness";', table_name.tablename);
+        END LOOP;
+        END $$;"
+
+### Alterando permisão para futuras tabelas criadas
+    "ALTER SCHEMA public OWNER TO "cineGodness";
+    ALTER DEFAULT PRIVILEGES IN SCHEMA public
+    GRANT ALL ON TABLES TO "cineGodness";"
+
+### Alterando Permisão de tabela em tabela
     * "ALTER TABLE IF EXISTS filmes
     OWNER TO "cineGodness";"
-
-
-### CREATE de database
-    * "CREATE DATABASE "CineFilmes"
-       WITH
-       OWNER = "cineGodness"
-       ENCODING = 'UTF8'
-       LOCALE_PROVIDER = 'libc'
-       CONNECTION LIMIT = -1
-       IS_TEMPLATE = False;"
-
 
 
 ### Criação das tabelas no banco de dados
