@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 @WebServlet("/create-filme")
-public class CreateCineMoodServlet extends HttpServlet {
+public class CreateFilmeController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -26,7 +26,7 @@ public class CreateCineMoodServlet extends HttpServlet {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        response.sendRedirect("/find-all-film");
+        response.sendRedirect("/find-all-filme");
 
     }
 }

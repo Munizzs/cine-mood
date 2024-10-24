@@ -12,7 +12,7 @@
 <body>
 <h2>Adicionar Filme aminha lista</h2>
 
-<form action="/create-cineMood" method="post">
+<form action="/create-filme" method="post">
     <div>
         <label>Nome do Filme</label>
         <input type="text" name="titulo" id="titulo">
