@@ -24,10 +24,10 @@ public class ListaFilmeDao {
             System.out.println("success in database connection(createFilme)");
 
             PreparedStatement preparedStatement = conn.prepareStatement(SQL);
-            preparedStatement.setInt(1, lista.getId_filme());
-            preparedStatement.setInt(2, lista.getAvaliacao());
+            preparedStatement.setInt(1, lista.getId_usuario());
+            preparedStatement.setInt(2, lista.getId_filme());
             preparedStatement.setString(3, lista.getStatus());
-            preparedStatement.setInt(4, lista.getId_usuario());
+            preparedStatement.setInt(4, lista.getAvaliacao());
             preparedStatement.setString(5, lista.getData_adicao());
 
             preparedStatement.execute();
@@ -55,11 +55,12 @@ public class ListaFilmeDao {
             List<ListaFilme> lista_filmes = new ArrayList<>();
             while(resultSet.next()) {
                 int id_lista = resultSet.getInt("id_lista");
-                int id_filme = resultSet.getInt("id_filme");
-                int avaliação = resultSet.getInt("avaliacao");
-                String status = resultSet.getString("Status");
-                String data_adição = resultSet.getString("data_adicao");
                 int id_usuario = resultSet.getInt("id_usuario");
+                int id_filme = resultSet.getInt("id_filme");
+                String status = resultSet.getString("Status");
+                int avaliação = resultSet.getInt("avaliacao");
+                String data_adição = resultSet.getString("data_adicao");
+
                 ListaFilme lista_filme= new ListaFilme(id_lista,id_usuario, id_filme, status, avaliação, data_adição);
                 lista_filmes.add(lista_filme);
             }
