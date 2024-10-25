@@ -1,49 +1,53 @@
 package br.com.project.cineMood.model;
 
 public class Recomendacao {
-    private String id_recomendacao;
-    private String id_usuario;
-    private String id_filme;
-    private String id_emocao;
+    private int id_recomendacao;
+    private int id_usuario;
+    private int id_filme;
+    private int id_emocao;
     private String data_recomendacao;
 
-    public Recomendacao(String id_recomendacao, String id_usuario, String id_filme, String id_emocao, String data_recomendacao) {
+    public Recomendacao(int id_recomendacao, int id_usuario, int id_filme, int id_emocao, String data_recomendacao) {
         this.id_recomendacao = id_recomendacao;
         this.id_usuario = id_usuario;
         this.id_filme = id_filme;
         this.id_emocao = id_emocao;
         this.data_recomendacao = data_recomendacao;
     }
+    public Recomendacao( int id_usuario, int id_filme, int id_emocao, String data_recomendacao) {
+        this.id_usuario = id_usuario;
+        this.id_filme = id_filme;
+        this.id_emocao = id_emocao;
+        this.data_recomendacao = data_recomendacao;
+    }
 
-    public String getId_recomendacao() {
+    public int getId_recomendacao() {
         return id_recomendacao;
     }
 
-    public void setId_recomendacao(String id_recomendacao) {
+    public void setId_recomendacao(int id_recomendacao) {
         this.id_recomendacao = id_recomendacao;
     }
 
-    public String getId_usuario() {
+    public int getId_usuario() {
         return id_usuario;
     }
 
-    public void setId_usuario(String id_usuario) {
+    public void setId_usuario(int id_usuario) {
         this.id_usuario = id_usuario;
     }
 
-    public String getId_filme() {
+    public int getId_filme() {
         return id_filme;
     }
 
-    public void setId_filme(String id_filme) {
-        this.id_filme = id_filme;
-    }
+    public void setId_filme(int id_filme) {this.id_filme = id_filme;}
 
-    public String getId_emocao() {
+    public int getId_emocao() {
         return id_emocao;
     }
 
-    public void setId_emocao(String id_emocao) {
+    public void setId_emocao(int id_emocao) {
         this.id_emocao = id_emocao;
     }
 
