@@ -5,11 +5,13 @@ public class Emocao {
     private String nome;
     private String descricao;
 
-    public Emocao(String id_emocao, String nome, String descricao) {
+    public Emocao(String id_emocao,String nome, String descricao) {
         this.id_emocao = id_emocao;
         this.nome = nome;
         this.descricao = descricao;
     }
+
+    public Emocao(){}
 
     public String getId_emocao() {return id_emocao;}
 
