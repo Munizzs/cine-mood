@@ -52,13 +52,13 @@
        );"
 
 ## Tabela Usuario
-        "CREATE TABLE Usuario(
+    CREATE TABLE Usuario(
     id_usuario SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     senha VARCHAR(255) NOT NULL,
     data_nascimento VARCHAR(10) NOT NULL
-    );"
+    );
 
 ## Tabela Favorito
     CREATE TABLE Favorito (
@@ -71,14 +71,14 @@
     );
 
 ## Tabela Emoção
-    "CREATE TABLE Emocoes (
+    CREATE TABLE Emocoes (
     id_emocao SERIAL PRIMARY KEY,
-    nome VARCHAR(50) NOT NULL,
+    nome VARCHAR(50) NOT NULL
     descricao TEXT
-    );"
+    );
 
 ## Tabela Lista de Filme
-    "CREATE TABLE Lista_Filmes (
+    CREATE TABLE Lista_Filmes (
     id_lista SERIAL PRIMARY KEY,
     id_usuario INT NOT NULL,
     id_filme INT NOT NULL,
@@ -87,10 +87,10 @@
     data_adicao VARCHAR(10),
     CONSTRAINT fk_usuario_lista FOREIGN KEY (id_usuario) REFERENCES Usuario (id_usuario),
     CONSTRAINT fk_filme_lista FOREIGN KEY (id_filme) REFERENCES Filmes (id_filme)
-    );"
+    );
 
 ## Tabela Recomendação
-    "CREATE TABLE Recomendacao (
+    CREATE TABLE Recomendacao (
     id_recomendacao SERIAL PRIMARY KEY,
     id_usuario INT NOT NULL,
     id_filme INT NOT NULL,
@@ -99,11 +99,11 @@
     CONSTRAINT fk_usuario_recomendacao FOREIGN KEY (id_usuario) REFERENCES Usuario (id_usuario),
     CONSTRAINT fk_filme_recomendacao FOREIGN KEY (id_filme) REFERENCES Filmes (id_filme),
     CONSTRAINT fk_emocao_recomendacao FOREIGN KEY (id_emocao) REFERENCES Emocoes (id_emocao)
-    );"
+    );
 
 
 ### INSERT de filmes (teste para verificar a conexão com base de dados)
-    * "INSERT INTO filmes 
+    * INSERT INTO filmes 
        (titulo, diretor, tipo, genero, ano_lancamento, sinopse, duracao, classificacao_indicativa) 
        VALUES (
        'O Poderoso Chefão',
@@ -114,4 +114,14 @@
        'A história da ascensão e queda da família Corleone, uma das mais poderosas famílias da máfia.',
        '2h 55m',
        '18 anos'
-       );"
+       );
+
+### INSERT de emocoes
+
+       GRANT USAGE, SELECT ON SEQUENCE emocoes_id_emocao_seq TO "cineGodness";
+       
+       INSERT INTO emocoes 
+       (nome, descricao)
+	   VALUES (
+       'Alegria','Felicidade'
+       )
