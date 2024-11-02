@@ -8,6 +8,8 @@
     * sudo yum install java-devel -y
 ## Comando para instalar o GIT
     * sudo yum install git -y
+## Comando para instalar Nguinx(serviço utilizado como proxy para redirecionar portas)
+    * sudo yum install nginx -y
 ## Comando para instalar o PostgreSql
     * sudo dnf install postgresql15.x86_64 postgresql15-server -y
 ## PostgreSQL
@@ -87,6 +89,26 @@ escutar todos os endereços de ip
     * sudo dnf remove postgresql15.x86_64 postgresql15-server
     Completely Remove PostgreSQL
     * sudo rm -rf /var/lib/pgsql /var/log/postgresql /etc/postgresql
+## Redirecionando Porta 80 para 8080 com Nginx
+### Navegue até o diretório
+    *  cd /etc/nginx/conf.d
+### Crie um arquivo "redirecionamento.conf"
+    * sudo nano redirecionamento.conf
+### Configuração a seguir inserida
+    * server {
+        listen 80;
+        server_name localhost;
+    
+        location / {
+            proxy_pass http://127.0.0.1:8080;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+    }
+### Reiniciando o Serviço
+    * sudo systemctl restart nginx
 ## Iniciando o Serviço de server Tumcat7 
 ### Navegar até o repositorio do projeto maven
     *  cd cine-mood/cineMood/ 
