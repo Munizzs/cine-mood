@@ -12,7 +12,7 @@
 <body>
 <h2>Adicionar às recomendações a minha lista</h2>
 
-<form action="/create-recomendacao" method="post">
+<form action="/recomendacao" method="post">
     <div>
         <label>Usuário</label>
         <input type="number" name="usuario" id="usuario">
@@ -21,7 +21,7 @@
         <label>Emoção</label>
         <input type="number" name="emocao" id="emocao">
         <label>Data de recomendação</label>
-        <input type="text" name="data_recomendacao" id="data_recomendacao">
+        <input type="text" name="data_adicao" id="data_adicao">
 
         <button type="submit">Register</button>
     </div>
@@ -45,7 +45,7 @@
                 <td>${recomendacao.id_usuario}</td>
                 <td>${recomendacao.id_filme}</td>
                 <td>${recomendacao.id_emocao}</td>
-                <td>${recomendacao.data_recomendacao}</td>
+                <td>${recomendacao.data_adicao}</td>
             </tr>
         </c:forEach>
         </tbody>

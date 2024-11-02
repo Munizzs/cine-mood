@@ -10,15 +10,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet("/favoritos")
+@WebServlet("/favorito")
 public class FavoritoController extends HttpServlet {
-
-        @Override
-        protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            List<Favorito> favoritos = new FavoritoDao().findAllFavorito();
-            req.setAttribute("favoritos",favoritos);
-            req.getRequestDispatcher("resources/favoritoTeste/index.jsp").forward(req,resp);
-        }
 
         @Override
         protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -37,6 +30,13 @@ public class FavoritoController extends HttpServlet {
 
             response.sendRedirect("/favoritos");
         }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<Favorito> favoritos = new FavoritoDao().findAllFavorito();
+        req.setAttribute("favoritos",favoritos);
+        req.getRequestDispatcher("resources/favoritoTeste/index.jsp").forward(req,resp);
+    }
     }
 
 

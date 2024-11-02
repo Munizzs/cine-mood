@@ -14,7 +14,7 @@ import java.util.List;
 public class RecomendacaoDao {
     public void createRecomendacao(Recomendacao recomendacao)throws SQLException {
 
-        String SQL = "INSERT INTO lista_filmes (id_usuario, id_filme, id_emocao, data_recomendacao) VALUES (?,?,?,?)";
+        String SQL = "INSERT INTO recomendacao(id_usuario, id_filme, id_emocao, data_adicao) VALUES (?,?,?,?)";
 
         try {
 
@@ -26,7 +26,7 @@ public class RecomendacaoDao {
             preparedStatement.setInt(1, recomendacao.getId_usuario());
             preparedStatement.setInt(2, recomendacao.getId_filme());
             preparedStatement.setInt(3, recomendacao.getId_emocao());
-            preparedStatement.setString(4, recomendacao.getData_recomendacao());
+            preparedStatement.setString(4, recomendacao.getData_adicao());
 
 
             preparedStatement.execute();
@@ -56,10 +56,10 @@ public class RecomendacaoDao {
                 int id_usuario = resultSet.getInt("id_usuario");
                 int id_filme = resultSet.getInt("id_filme");
                 int id_emocao = resultSet.getInt("id_emocao");
-                String data_recomendacao = resultSet.getString("data_recomendacao");
+                String data_adicao = resultSet.getString("data_adicao");
 
 
-                Recomendacao recomendacao= new Recomendacao(id_usuario, id_filme, id_emocao, data_recomendacao);
+                Recomendacao recomendacao= new Recomendacao(id_usuario, id_filme, id_emocao, data_adicao);
                 recomendacoes.add(recomendacao);
             }
 

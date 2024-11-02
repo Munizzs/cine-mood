@@ -11,7 +11,7 @@
 <body>
 <h2>Emocões</h2>
 
-<form action="/emocoes" method="post">
+<form action="/emocao" method="post">
     <div>
         <label>Nome da emoção</label>
         <input type="text" name="nome" id="nome">

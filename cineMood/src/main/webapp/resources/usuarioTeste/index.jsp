@@ -12,7 +12,7 @@
 <body>
 <h2>Adicionar Usuario aminha lista</h2>
 
-<form action="/create-usuario" method="post">
+<form action="/usuario" method="post">
     <div>
         <label>Nome</label>
         <input type="text" name="nome" id="nome">

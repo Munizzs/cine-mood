@@ -12,7 +12,7 @@
 <body>
 <h2>Adicionar Filme aminha lista</h2>
 
-<form action="/create-filme" method="post">
+<form action="/filme" method="post">
     <div>
         <label>Nome do Filme</label>
         <input type="text" name="titulo" id="titulo">
@@ -40,7 +40,7 @@
                 <td>${film.titulo}</td>
                 <td>${film.tipo}</td>
                 <td>
-                    <form action="/delete-film" method="post">
+                    <form action="/filme" method="post">
                         <input type="hidden" id="id_delFilm" name="id_delFilm" value="${film.id_filme}">
                         <button type="submit">Delete</button>
                     </form>
