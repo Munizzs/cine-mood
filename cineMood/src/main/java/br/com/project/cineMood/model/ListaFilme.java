@@ -9,7 +9,8 @@ public class ListaFilme {
     private int avaliacao;
     private String data_adicao;
 
-
+    public ListaFilme() {
+    }
 
     public ListaFilme(int id_lista, int id_usuario, int id_filme, String status, int avaliacao, String data_adicao) {
         this.id_lista = id_lista;

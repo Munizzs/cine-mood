@@ -12,7 +12,7 @@
 <body>
 <h2>Adicionar à lista de filmes a minha lista</h2>
 
-<form action="/create-lista_filmes" method="post">
+<form action="/lista_filme" method="post">
     <div>
         <label>Usuário</label>
         <input type="number" name="usuario" id="usuario">

@@ -9,6 +9,9 @@ public class Usuario {
     private String senha;
     private String data_nascimento;
 
+    public Usuario() {
+    }
+
     public Usuario(String id_usuario, String nome, String email, String senha, String data_nascimento) {
         this.id_usuario = id_usuario;
         this.nome = nome;
