@@ -28,6 +28,10 @@ public class FavoritoController extends HttpServlet {
                 throw new RuntimeException(e);
             }
 
+            //Remover
+            int id_remover = Integer.parseInt(request.getParameter("id_favorito_delete"));
+            new FavoritoDao().deleteFavoritoById(id_remover);
+
             response.sendRedirect("/favoritos");
         }
 

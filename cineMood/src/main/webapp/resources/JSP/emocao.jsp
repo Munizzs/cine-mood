@@ -38,6 +38,12 @@
                 <td>${emocaoList.nome}</td>
                 <td>${emocaoList.descricao}</td>
             </tr>
+            <td>
+                <form action="/emocao" method="post">
+                    <input type="hidden" id="id_emocao_delete" name="id_emocao_delete" value="${emocao.id_emocao}">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
         </c:forEach>
         </tbody>
     </table>

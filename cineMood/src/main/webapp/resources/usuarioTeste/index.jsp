@@ -47,6 +47,12 @@
                 <td>${usuario.email}</td>
                 <td>${usuario.senha}</td>
                 <td>${usuario.data_nascimento}</td>
+                <td>
+                    <form action="/usuario" method="post">
+                        <input type="hidden" id="id_usuario_delete" name="id_usuario_delete" value="${usuario.id_usuario}">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
             </tr>
         </c:forEach>
         </tbody>

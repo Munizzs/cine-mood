@@ -28,7 +28,6 @@ public class RecomendacaoDao {
             preparedStatement.setInt(3, recomendacao.getId_emocao());
             preparedStatement.setString(4, recomendacao.getData_adicao());
 
-
             preparedStatement.execute();
             System.out.println("success in insert recomendacao");
 
@@ -71,6 +70,24 @@ public class RecomendacaoDao {
             System.out.println("fail in database connection"+e.getMessage());
             return Collections.emptyList();
         }
+    }
 
+    public void deleteRecomendacaoById(int id) {
+        String SQL = "DELETE FROM recomendacao WHERE id_recomendacao = ?";
+        try{
+            InitDao conex = new InitDao();
+            Connection conn = conex.getConnection();
+            System.out.println("Sucesso na conexão (Deletar Recomendacao)");
+
+            PreparedStatement preparedStatement = conn.prepareStatement(SQL);
+            preparedStatement.setInt(1, id);
+            preparedStatement.execute();
+
+            System.out.println("Sucesso em remover o id: "+id);
+            conn.close();
+
+        }catch (Exception e) {
+            System.out.println("Erro ao remover: "+e.getMessage());
+        }
     }
 }

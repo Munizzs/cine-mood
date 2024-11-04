@@ -1,6 +1,7 @@
 package br.com.project.cineMood.controller;
 
 import br.com.project.cineMood.dao.ListaFilmeDao;
+import br.com.project.cineMood.dao.UsuarioDao;
 import br.com.project.cineMood.model.ListaFilme;
 
 import javax.servlet.ServletException;
@@ -31,6 +32,11 @@ public class ListaFilmeController extends HttpServlet {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        //Remover
+        int id_remover = Integer.parseInt(request.getParameter("id_lista_filme_delete"));
+        new ListaFilmeDao().deleteListaFilmeById(id_remover);
+
         response.sendRedirect("/lista_filme");
     }
 

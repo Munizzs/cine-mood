@@ -38,6 +38,7 @@ public class UsuarioDao {
 
         }
     }
+
     public List<Usuario> findAllUsuario() {
         String SQL = "SELECT * FROM usuario";
         try {
@@ -68,6 +69,24 @@ public class UsuarioDao {
             System.out.println("fail in database connection"+e.getMessage());
             return Collections.emptyList();
         }
+    }
 
+    public void deleteUsuarioById(int id) {
+        String SQL = "DELETE FROM usuario WHERE id_usuario = ?";
+        try{
+            InitDao conex = new InitDao();
+            Connection conn = conex.getConnection();
+            System.out.println("Sucesso na conexão (Deletar Usuario)");
+
+            PreparedStatement preparedStatement = conn.prepareStatement(SQL);
+            preparedStatement.setInt(1, id);
+            preparedStatement.execute();
+
+            System.out.println("Sucesso em remover o id: "+id);
+            conn.close();
+
+        }catch (Exception e) {
+            System.out.println("Erro ao remover: "+e.getMessage());
+        }
     }
 }

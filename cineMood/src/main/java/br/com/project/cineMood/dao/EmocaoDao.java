@@ -65,6 +65,24 @@ public class EmocaoDao {
             System.out.println("Falhou na procura da emoção:"+e.getMessage());
             return Collections.emptyList();
         }
+    }
 
+    public void deleteEmocaoById(int id) {
+        String SQL = "DELETE FROM usuario WHERE id_emocao = ?";
+        try{
+            InitDao conex = new InitDao();
+            Connection conn = conex.getConnection();
+            System.out.println("Sucesso na conexão (Deletar Emocao)");
+
+            PreparedStatement preparedStatement = conn.prepareStatement(SQL);
+            preparedStatement.setInt(1, id);
+            preparedStatement.execute();
+
+            System.out.println("Sucesso em remover o id: "+id);
+            conn.close();
+
+        }catch (Exception e) {
+            System.out.println("Erro ao remover: "+e.getMessage());
+        }
     }
 }

@@ -73,7 +73,25 @@ public class  ListaFilmeDao {
             System.out.println("fail in database connection"+e.getMessage());
             return Collections.emptyList();
         }
+    }
 
+    public void deleteListaFilmeById(int id) {
+        String SQL = "DELETE FROM usuario WHERE id_lista = ?";
+        try{
+            InitDao conex = new InitDao();
+            Connection conn = conex.getConnection();
+            System.out.println("Sucesso na conexão (Deletar Lista)");
+
+            PreparedStatement preparedStatement = conn.prepareStatement(SQL);
+            preparedStatement.setInt(1, id);
+            preparedStatement.execute();
+
+            System.out.println("Sucesso em remover o id: "+id);
+            conn.close();
+
+        }catch (Exception e) {
+            System.out.println("Erro ao remover: "+e.getMessage());
+        }
     }
 }
 

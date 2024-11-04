@@ -1,6 +1,7 @@
 package br.com.project.cineMood.controller;
 
 import br.com.project.cineMood.dao.RecomendacaoDao;
+import br.com.project.cineMood.dao.UsuarioDao;
 import br.com.project.cineMood.model.Recomendacao;
 
 import javax.servlet.ServletException;
@@ -23,7 +24,7 @@ public class RecomendacaoController extends HttpServlet {
         recomendacao.setId_usuario(Integer.parseInt(request.getParameter("usuario")));
         recomendacao.setId_filme(Integer.parseInt(request.getParameter("filme")));
         recomendacao.setId_emocao(Integer.parseInt(request.getParameter("emocao")));
-        recomendacao.setData_adicao(request.getParameter("data_recomendacao"));
+        recomendacao.setData_adicao(request.getParameter("data_adicao"));
 
         try {
             System.out.println(recomendacao.getId_usuario()+" | "+recomendacao.getId_filme()+" | "+recomendacao.getId_filme()+" | "+recomendacao.getId_emocao()+" | "+recomendacao.getData_adicao());
@@ -32,6 +33,11 @@ public class RecomendacaoController extends HttpServlet {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        //Remover
+        recomendacao.setId_recomendacao(Integer.parseInt(request.getParameter("id_recomendacao_delete")));
+        new RecomendacaoDao().deleteRecomendacaoById(recomendacao.getId_recomendacao());
+
         response.sendRedirect("/recomendacao");
     }
 

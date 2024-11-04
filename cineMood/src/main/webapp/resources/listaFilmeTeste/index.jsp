@@ -50,6 +50,12 @@
                 <td>${lista_filme.status}</td>
                 <td>${lista_filme.avaliacao}</td>
                 <td>${lista_filme.data_adicao}</td>
+                <td>
+                    <form action="/lista_filme" method="post">
+                        <input type="hidden" id="id_lista_filme_delete" name="id_lista_filme_delete" value="${lista_filme.id_lista}">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
             </tr>
         </c:forEach>
         </tbody>

@@ -1,5 +1,6 @@
 package br.com.project.cineMood.controller;
 
+import br.com.project.cineMood.dao.FilmeDao;
 import br.com.project.cineMood.dao.UsuarioDao;
 import br.com.project.cineMood.model.Usuario;
 
@@ -32,9 +33,12 @@ public class UsuarioController extends HttpServlet {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        response.sendRedirect("/usuario");
 
         //Remover
+        int id_remover = Integer.parseInt(request.getParameter("id_usuario_delete"));
+        new UsuarioDao().deleteUsuarioById(id_remover);
+
+        response.sendRedirect("/usuario");
     }
 
     @Override

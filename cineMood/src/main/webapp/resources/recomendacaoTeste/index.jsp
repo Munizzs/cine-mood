@@ -46,6 +46,12 @@
                 <td>${recomendacao.id_filme}</td>
                 <td>${recomendacao.id_emocao}</td>
                 <td>${recomendacao.data_adicao}</td>
+                <td>
+                    <form action="/recomendacao" method="post">
+                        <input type="hidden" id="id_recomendacao_delete" name="id_recomendacao_delete" value="${recomendacao.id_recomendacao}">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
             </tr>
         </c:forEach>
         </tbody>

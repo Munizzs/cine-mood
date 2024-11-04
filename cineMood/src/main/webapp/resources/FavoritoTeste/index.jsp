@@ -42,7 +42,12 @@
                 <td>${favorito.id_usuario}</td>
                 <td>${favorito.id_filme}</td>
                 <td>${favorito.data_favoritado}</td>
-
+                <td>
+                    <form action="/favorito" method="post">
+                        <input type="hidden" id="id_favorito_delete" name="id_favorito_delete" value="${favorito.id_favorito}">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
             </tr>
         </c:forEach>
         </tbody>

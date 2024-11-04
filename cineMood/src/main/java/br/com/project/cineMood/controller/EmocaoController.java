@@ -30,6 +30,10 @@ public class EmocaoController extends HttpServlet {
             throw new RuntimeException(e);
         }
 
+        //Remover
+        int id_remover = Integer.parseInt(request.getParameter("id_emocao_delete"));
+        new EmocaoDao().deleteEmocaoById(id_remover);
+
         response.sendRedirect("/emocao");
     }
 
