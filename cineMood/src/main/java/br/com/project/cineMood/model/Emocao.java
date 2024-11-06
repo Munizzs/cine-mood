@@ -11,6 +11,11 @@ public class Emocao {
         this.descricao = descricao;
     }
 
+    public Emocao(String nome, String descricao) {
+        this.nome = nome;
+        this.descricao = descricao;
+    }
+
     public Emocao(){}
 
     public String getId_emocao() {return id_emocao;}
