@@ -27,11 +27,18 @@ public class EmocaoController extends HttpServlet {
                 int idRemover = Integer.parseInt(idEmocaoDelete);
                 emocaoDao.deleteEmocaoById(idRemover);
             } else {
+                int idEmocao = Integer.parseInt(request.getParameter("emocao"));
                 String nome = request.getParameter("nome");
                 String descricao = request.getParameter("descricao");
 
                 Emocao emocao = new Emocao(nome, descricao);
                 emocaoDao.createEmocao(emocao);
+
+                if (idEmocao == 0) {
+                    emocaoDao.createEmocao(emocao);
+                }else {
+                    emocaoDao.updateEmocao(emocao);
+                }
             }
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao processar a requisição", e);

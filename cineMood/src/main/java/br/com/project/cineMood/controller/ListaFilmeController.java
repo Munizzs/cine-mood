@@ -25,6 +25,7 @@ public class ListaFilmeController extends HttpServlet {
                 listaFilmeDao.deleteListaFilmeById(idRemover);
             } else {
                 ListaFilme listaFilme = new ListaFilme();
+                listaFilme.setId_lista(Integer.parseInt(request.getParameter("lista")));
                 listaFilme.setId_usuario(Integer.parseInt(request.getParameter("usuario")));
                 listaFilme.setId_filme(Integer.parseInt(request.getParameter("filme")));
                 listaFilme.setStatus(request.getParameter("status"));
@@ -33,6 +34,12 @@ public class ListaFilmeController extends HttpServlet {
 
                 System.out.println(listaFilme.getId_usuario() + " | " + listaFilme.getId_filme() + " | " + listaFilme.getStatus() + " | " + listaFilme.getAvaliacao() + " | " + listaFilme.getData_adicao());
                 listaFilmeDao.createListaFilme(listaFilme);
+
+                if (listaFilme.getId_lista() == 0) {
+                    listaFilmeDao.createListaFilme(listaFilme);
+                }else {
+                    listaFilmeDao.updateListaFilme(listaFilme);
+                }
             }
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao processar a requisição", e);

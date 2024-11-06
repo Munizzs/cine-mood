@@ -18,26 +18,41 @@ public class UsuarioController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        //Criar
-        Usuario usuario = new Usuario();
+        UsuarioDao usuarioDao = new UsuarioDao();
 
-        usuario.setNome(request.getParameter("nome"));
-        usuario.setEmail(request.getParameter("email"));
-        usuario.setSenha(request.getParameter("senha"));
-        usuario.setData_nascimento(request.getParameter("data_nascimento"));
+        String idRemover = request.getParameter("id_usuario_delete");
+        if (idRemover != null && !idRemover.isEmpty()) {
+            try {
+                int id = Integer.parseInt(idRemover);
+                usuarioDao.deleteUsuarioById(id);
+                System.out.println("Usuário removido com sucesso: ID " + id);
+            } catch (NumberFormatException e) {
+                System.out.println("Erro: ID inválido para remoção.");
+            }
+        } else {
+            Usuario usuario = new Usuario();
+            usuario.setId_usuario(request.getParameter("id_usuario"));
+            usuario.setNome(request.getParameter("nome"));
+            usuario.setEmail(request.getParameter("email"));
+            usuario.setSenha(request.getParameter("senha"));
+            usuario.setData_nascimento(request.getParameter("data_nascimento"));
 
-        try {
-            System.out.println(usuario.getNome()+" | "+usuario.getEmail()+" | "+usuario.getSenha()+" | "+usuario.getData_nascimento());
-            new UsuarioDao().createUsuario(usuario);
+            try {
+                System.out.println(usuario.getNome() + " | " + usuario.getEmail() + " | " + usuario.getSenha() + " | " + usuario.getData_nascimento());
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+                if (usuario.getId_usuario() == null || usuario.getId_usuario().isEmpty()) {
+                    usuarioDao.createUsuario(usuario);
+                    System.out.println("Usuário criado com sucesso.");
+                } else {
+                    usuarioDao.updateUsuario(usuario);
+                    System.out.println("Usuário atualizado com sucesso: ID " + usuario.getId_usuario());
+                }
+            } catch (SQLException e) {
+                System.out.println("Erro ao criar/atualizar usuário: " + e.getMessage());
+                throw new RuntimeException(e);
+            }
         }
-
-        //Remover
-        int id_remover = Integer.parseInt(request.getParameter("id_usuario_delete"));
-        new UsuarioDao().deleteUsuarioById(id_remover);
-
+        
         response.sendRedirect("/usuario");
     }
 

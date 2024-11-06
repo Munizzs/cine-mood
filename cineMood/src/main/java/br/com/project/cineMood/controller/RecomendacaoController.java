@@ -26,6 +26,7 @@ public class RecomendacaoController extends HttpServlet {
                 recomendacaoDao.deleteRecomendacaoById(idRemover);
             } else {
                 Recomendacao recomendacao = new Recomendacao();
+                recomendacao.setId_recomendacao(Integer.parseInt(request.getParameter("recomendacao")));
                 recomendacao.setId_usuario(Integer.parseInt(request.getParameter("usuario")));
                 recomendacao.setId_filme(Integer.parseInt(request.getParameter("filme")));
                 recomendacao.setId_emocao(Integer.parseInt(request.getParameter("emocao")));

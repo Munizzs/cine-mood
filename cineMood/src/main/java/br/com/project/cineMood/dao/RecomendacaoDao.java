@@ -90,4 +90,32 @@ public class RecomendacaoDao {
             System.out.println("Erro ao remover: "+e.getMessage());
         }
     }
+
+    public void updateRecomendacao(Recomendacao recomendacao) {
+        String SQL = "UPDATE recomendacao SET id_usuario = ?, id_filme = ?, id_emocao = ?, data_adicao = ? WHERE ID = ?";
+
+        try {
+
+            InitDao conex = new InitDao();
+            Connection conn = conex.getConnection();
+            System.out.println("Sucesso em conectar com o banco de dados");
+
+            PreparedStatement preparedStatement = conn.prepareStatement(SQL);
+            preparedStatement.setInt(1, recomendacao.getId_usuario());
+            preparedStatement.setInt(2, recomendacao.getId_filme());
+            preparedStatement.setInt(3, recomendacao.getId_emocao());
+            preparedStatement.setString(4, recomendacao.getData_recomendacao());
+            preparedStatement.execute();
+
+            System.out.println("Atualizado com sucesso");
+
+            conn.close();
+
+        } catch (Exception e) {
+
+            System.out.println("Falha na conexão da database");
+            System.out.println("Erro: " + e.getMessage());
+
+        }
+    }
 }

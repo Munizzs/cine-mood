@@ -89,4 +89,33 @@ public class UsuarioDao {
             System.out.println("Erro ao remover: "+e.getMessage());
         }
     }
+
+    public void updateUsuario(Usuario usuario) {
+        String SQL = "UPDATE usuario SET nome = ?,email = ?, senha = ?, data_nascimento = ? WHERE id_usuario = ?";
+
+        try {
+
+            InitDao conex = new InitDao();
+            Connection conn = conex.getConnection();
+            System.out.println("Sucesso em conectar com o banco de dados");
+
+            PreparedStatement preparedStatement = conn.prepareStatement(SQL);
+            preparedStatement.setString(1, usuario.getNome());
+            preparedStatement.setString(2, usuario.getEmail());
+            preparedStatement.setString(3, usuario.getSenha());
+            preparedStatement.setString(4, usuario.getData_nascimento());
+            preparedStatement.setString(5, usuario.getId_usuario());
+            preparedStatement.execute();
+
+            System.out.println("Atualizado com sucesso");
+
+            conn.close();
+
+        } catch (Exception e) {
+
+            System.out.println("Falha na conexão da database");
+            System.out.println("Erro: " + e.getMessage());
+
+        }
+    }
 }

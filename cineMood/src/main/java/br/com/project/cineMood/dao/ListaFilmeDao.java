@@ -92,5 +92,34 @@ public class  ListaFilmeDao {
             System.out.println("Erro ao remover: "+e.getMessage());
         }
     }
+
+    public void updateListaFilme(ListaFilme lista) {
+        String SQL = "UPDATE lista_filmes SET id_usuario = ?, id_filme = ?, status = ?, avaliacao = ?, data_adicao = ? WHERE ID = ?";
+
+        try {
+
+            InitDao conex = new InitDao();
+            Connection conn = conex.getConnection();
+            System.out.println("Sucesso em conectar com o banco de dados");
+
+            PreparedStatement preparedStatement = conn.prepareStatement(SQL);
+            preparedStatement.setInt(1, lista.getId_usuario());
+            preparedStatement.setInt(2, lista.getId_filme());
+            preparedStatement.setString(3, lista.getStatus());
+            preparedStatement.setInt(4, lista.getAvaliacao());
+            preparedStatement.setString(5, lista.getData_adicao());
+            preparedStatement.execute();
+
+            System.out.println("Atualizado com sucesso");
+
+            conn.close();
+
+        } catch (Exception e) {
+
+            System.out.println("Falha na conexão da database");
+            System.out.println("Erro: " + e.getMessage());
+
+        }
+    }
 }
 

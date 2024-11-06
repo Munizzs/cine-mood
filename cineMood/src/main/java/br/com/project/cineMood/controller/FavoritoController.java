@@ -23,12 +23,19 @@ public class FavoritoController extends HttpServlet {
                 int idRemover = Integer.parseInt(idFavoritoDelete);
                 favoritoDao.deleteFavoritoById(idRemover);
             } else {
+                int idFavorito = Integer.parseInt(request.getParameter("favorito"));
                 int id_usuario = Integer.parseInt(request.getParameter("usuario"));
                 int id_filme = Integer.parseInt(request.getParameter("filme"));
                 String data_favoritado = request.getParameter("data_favoritado");
 
                 Favorito favorito = new Favorito(id_usuario, id_filme, data_favoritado);
                 favoritoDao.createFavorito(favorito);
+
+                if (idFavorito == 0) {
+                    favoritoDao.createFavorito(favorito);
+                }else {
+                    favoritoDao.updateFavorito(favorito);
+                }
             }
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao processar a requisição", e);

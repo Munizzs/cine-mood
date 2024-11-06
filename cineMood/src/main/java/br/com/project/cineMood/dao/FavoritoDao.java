@@ -1,5 +1,6 @@
 package br.com.project.cineMood.dao;
 
+import br.com.project.cineMood.model.Emocao;
 import br.com.project.cineMood.model.Favorito;
 
 import java.sql.Connection;
@@ -86,6 +87,33 @@ import java.util.List;
 
             }catch (Exception e) {
                 System.out.println("Erro ao remover: "+e.getMessage());
+            }
+        }
+
+        public void updateFavorito(Favorito favorito) {
+            String SQL = "UPDATE favorito SET id_usuario = ?, id_filme= ?, data_favoritado = ? WHERE ID = ?";
+
+            try {
+
+                InitDao conex = new InitDao();
+                Connection conn = conex.getConnection();
+                System.out.println("Sucesso em conectar com o banco de dados");
+
+                PreparedStatement preparedStatement = conn.prepareStatement(SQL);
+                preparedStatement.setInt(1, favorito.getId_usuario());
+                preparedStatement.setInt(2, favorito.getId_filme());
+                preparedStatement.setString(3, favorito.getData_favoritado());
+                preparedStatement.execute();
+
+                System.out.println("Atualizado com sucesso");
+
+                conn.close();
+
+            } catch (Exception e) {
+
+                System.out.println("Falha na conexão da database");
+                System.out.println("Erro: " + e.getMessage());
+
             }
         }
     }

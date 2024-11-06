@@ -85,4 +85,30 @@ public class EmocaoDao {
             System.out.println("Erro ao remover: "+e.getMessage());
         }
     }
+
+    public void updateEmocao(Emocao emocao) {
+        String SQL = "UPDATE emocoes SET nome = ?, descricao = ? WHERE ID = ?";
+
+        try {
+
+            InitDao conex = new InitDao();
+            Connection conn = conex.getConnection();
+            System.out.println("Sucesso em conectar com o banco de dados");
+
+            PreparedStatement preparedStatement = conn.prepareStatement(SQL);
+            preparedStatement.setString(1, emocao.getNome());
+            preparedStatement.setString(2, emocao.getDescricao());
+            preparedStatement.execute();
+
+            System.out.println("Atualizado com sucesso");
+
+            conn.close();
+
+        } catch (Exception e) {
+
+            System.out.println("Falha na conexão da database");
+            System.out.println("Erro: " + e.getMessage());
+
+        }
+    }
 }

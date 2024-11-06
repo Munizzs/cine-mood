@@ -15,15 +15,16 @@
 <form action="/usuario" method="post">
     <div>
         <label>Nome</label>
-        <input type="text" name="nome" id="nome">
+        <input type="text" name="nome" id="nome" value="${param.name}">
+        <input type="hidden" id="id_usuario" name="id_usuario" value="${param.id_usuario}">
         <label>Email</label>
-        <input type="text" name="email" id="email">
+        <input type="text" name="email" id="email" value="${param.email}">
         <label>senha</label>
-        <input type="text" name="senha" id="senha">
+        <input type="text" name="senha" id="senha" value="${param.senha}">
         <label>Data de Nascimento</label>
-        <input type="text" name="data_nascimento" id="data_nascimento">
+        <input type="text" name="data_nascimento" id="data_nascimento" value="${param.data_nascimento}">
 
-        <button type="submit">Register</button>
+        <button type="submit">Salvar</button>
 
     </div>
 
@@ -51,6 +52,8 @@
                     <form action="/usuario" method="post">
                         <input type="hidden" id="id_usuario_delete" name="id_usuario_delete" value="${usuario.id_usuario}">
                         <button type="submit">Delete</button>
+                        <span> | </span>
+                        <a href="/usuario?id=${usuario.id_usuario}&name=${usuario.nome}&email=${usuario.email}&senha=${usuario.senha}&data_nascimento=${usuario.data_nascimento}">Update</a>
                     </form>
                 </td>
             </tr>
