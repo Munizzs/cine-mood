@@ -5,23 +5,23 @@ public class Recomendacao {
     private int id_usuario;
     private int id_filme;
     private int id_emocao;
-    private String data_adicao;
+    private String data_recomendacao;
 
     public Recomendacao() {
     }
 
-    public Recomendacao(int id_recomendacao, int id_usuario, int id_filme, int id_emocao, String data_adicao) {
+    public Recomendacao(int id_recomendacao, int id_usuario, int id_filme, int id_emocao, String data_recomendacao) {
         this.id_recomendacao = id_recomendacao;
         this.id_usuario = id_usuario;
         this.id_filme = id_filme;
         this.id_emocao = id_emocao;
-        this.data_adicao = data_adicao;
+        this.data_recomendacao = data_recomendacao;
     }
-    public Recomendacao( int id_usuario, int id_filme, int id_emocao, String data_adicao) {
+    public Recomendacao( int id_usuario, int id_filme, int id_emocao, String data_recomendacao) {
         this.id_usuario = id_usuario;
         this.id_filme = id_filme;
         this.id_emocao = id_emocao;
-        this.data_adicao = data_adicao;
+        this.data_recomendacao = data_recomendacao;
     }
 
     public int getId_recomendacao() {
@@ -54,18 +54,18 @@ public class Recomendacao {
         this.id_emocao = id_emocao;
     }
 
-    public String getData_adicao() {
-        return data_adicao;
+    public String getData_recomendacao() {
+        return data_recomendacao;
     }
 
-    public void setData_adicao(String data_adicao) {
-        this.data_adicao = data_adicao;
+    public void setData_recomendacao(String data_adicao) {
+        this.data_recomendacao = data_adicao;
     }
 
     @Override
     public String toString() {
         return "Recomendacao [id_recomendacao=" + id_recomendacao + ", id_usuario=" + id_usuario + ", id_filme="
-                + id_filme + ", id_emocao=" + id_emocao + ", data_recomendacao=" + data_adicao + "]";
+                + id_filme + ", id_emocao=" + id_emocao + ", data_recomendacao=" + data_recomendacao + "]";
     }
 
     

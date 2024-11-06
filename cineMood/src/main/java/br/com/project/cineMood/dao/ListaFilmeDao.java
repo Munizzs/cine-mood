@@ -1,7 +1,6 @@
 package br.com.project.cineMood.dao;
 
 import br.com.project.cineMood.model.ListaFilme;
-import br.com.project.cineMood.model.Usuario;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -76,7 +75,7 @@ public class  ListaFilmeDao {
     }
 
     public void deleteListaFilmeById(int id) {
-        String SQL = "DELETE FROM usuario WHERE id_lista = ?";
+        String SQL = "DELETE FROM lista_filmes WHERE id_lista = ?";
         try{
             InitDao conex = new InitDao();
             Connection conn = conex.getConnection();

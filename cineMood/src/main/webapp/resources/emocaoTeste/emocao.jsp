@@ -32,11 +32,11 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="emocaoList" items="${emocaoList}">
+        <c:forEach var="emocao" items="${emocoes}">
             <tr>
-                <td>${emocaoList.id_emocao}</td>
-                <td>${emocaoList.nome}</td>
-                <td>${emocaoList.descricao}</td>
+                <td>${emocao.id_emocao}</td>
+                <td>${emocao.nome}</td>
+                <td>${emocao.descricao}</td>
             </tr>
             <td>
                 <form action="/emocao" method="post">

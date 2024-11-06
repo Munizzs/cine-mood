@@ -1,6 +1,5 @@
 package br.com.project.cineMood.dao;
 
-import br.com.project.cineMood.model.ListaFilme;
 import br.com.project.cineMood.model.Recomendacao;
 
 import java.sql.Connection;
@@ -26,7 +25,7 @@ public class RecomendacaoDao {
             preparedStatement.setInt(1, recomendacao.getId_usuario());
             preparedStatement.setInt(2, recomendacao.getId_filme());
             preparedStatement.setInt(3, recomendacao.getId_emocao());
-            preparedStatement.setString(4, recomendacao.getData_adicao());
+            preparedStatement.setString(4, recomendacao.getData_recomendacao());
 
             preparedStatement.execute();
             System.out.println("success in insert recomendacao");
@@ -52,13 +51,14 @@ public class RecomendacaoDao {
 
             List<Recomendacao> recomendacoes = new ArrayList<>();
             while(resultSet.next()) {
+                int id_recomendacao = resultSet.getInt("id_recomendacao");
                 int id_usuario = resultSet.getInt("id_usuario");
                 int id_filme = resultSet.getInt("id_filme");
                 int id_emocao = resultSet.getInt("id_emocao");
-                String data_adicao = resultSet.getString("data_adicao");
+                String data_recomendacao = resultSet.getString("data_adicao");
 
 
-                Recomendacao recomendacao= new Recomendacao(id_usuario, id_filme, id_emocao, data_adicao);
+                Recomendacao recomendacao= new Recomendacao(id_recomendacao,id_usuario, id_filme, id_emocao, data_recomendacao);
                 recomendacoes.add(recomendacao);
             }
 

@@ -12,7 +12,7 @@
 <body>
 <h2>Adicionar à minha lista de favoritos</h2>
 
-<form action="/favoritos" method="post">
+<form action="/favorito" method="post">
     <div>
         <label>Usuário</label>
         <input type="number" name="usuario" id="usuario">

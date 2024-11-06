@@ -21,7 +21,7 @@
         <label>Emoção</label>
         <input type="number" name="emocao" id="emocao">
         <label>Data de recomendação</label>
-        <input type="text" name="data_adicao" id="data_adicao">
+        <input type="text" name="data_recomendacao" id="data_recomendacao">
 
         <button type="submit">Register</button>
     </div>
@@ -45,7 +45,7 @@
                 <td>${recomendacao.id_usuario}</td>
                 <td>${recomendacao.id_filme}</td>
                 <td>${recomendacao.id_emocao}</td>
-                <td>${recomendacao.data_adicao}</td>
+                <td>${recomendacao.data_recomendacao}</td>
                 <td>
                     <form action="/recomendacao" method="post">
                         <input type="hidden" id="id_recomendacao_delete" name="id_recomendacao_delete" value="${recomendacao.id_recomendacao}">

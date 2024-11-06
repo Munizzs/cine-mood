@@ -13,27 +13,29 @@ import java.util.List;
 @WebServlet("/favorito")
 public class FavoritoController extends HttpServlet {
 
-        @Override
-        protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String idFavoritoDelete = request.getParameter("id_favorito_delete");
 
-            int id_usuario = Integer.parseInt(request.getParameter("usuario"));
-            int id_filme = Integer.parseInt(request.getParameter("filme"));
-            String data_favoritado = request.getParameter("data_favoritado");
+        try {
+            FavoritoDao favoritoDao = new FavoritoDao();
+            if (idFavoritoDelete != null && !idFavoritoDelete.isEmpty()) {
+                int idRemover = Integer.parseInt(idFavoritoDelete);
+                favoritoDao.deleteFavoritoById(idRemover);
+            } else {
+                int id_usuario = Integer.parseInt(request.getParameter("usuario"));
+                int id_filme = Integer.parseInt(request.getParameter("filme"));
+                String data_favoritado = request.getParameter("data_favoritado");
 
-            try {
-                System.out.println(id_usuario+" | "+ id_filme+" | "+data_favoritado);
                 Favorito favorito = new Favorito(id_usuario, id_filme, data_favoritado);
-                new FavoritoDao().createFavorito(favorito);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
+                favoritoDao.createFavorito(favorito);
             }
-
-            //Remover
-            int id_remover = Integer.parseInt(request.getParameter("id_favorito_delete"));
-            new FavoritoDao().deleteFavoritoById(id_remover);
-
-            response.sendRedirect("/favoritos");
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao processar a requisição", e);
         }
+
+        response.sendRedirect("/favorito");
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

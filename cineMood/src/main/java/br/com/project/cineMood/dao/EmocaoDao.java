@@ -68,7 +68,7 @@ public class EmocaoDao {
     }
 
     public void deleteEmocaoById(int id) {
-        String SQL = "DELETE FROM usuario WHERE id_emocao = ?";
+        String SQL = "DELETE FROM emocoes WHERE id_emocao = ?";
         try{
             InitDao conex = new InitDao();
             Connection conn = conex.getConnection();

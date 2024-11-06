@@ -1,7 +1,6 @@
 package br.com.project.cineMood.controller;
 
 import br.com.project.cineMood.dao.RecomendacaoDao;
-import br.com.project.cineMood.dao.UsuarioDao;
 import br.com.project.cineMood.model.Recomendacao;
 
 import javax.servlet.ServletException;
@@ -18,28 +17,30 @@ public class RecomendacaoController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        Recomendacao recomendacao = new Recomendacao();
-
-        recomendacao.setId_usuario(Integer.parseInt(request.getParameter("usuario")));
-        recomendacao.setId_filme(Integer.parseInt(request.getParameter("filme")));
-        recomendacao.setId_emocao(Integer.parseInt(request.getParameter("emocao")));
-        recomendacao.setData_adicao(request.getParameter("data_adicao"));
+        String idRecomendacaoDelete = request.getParameter("id_recomendacao_delete");
 
         try {
-            System.out.println(recomendacao.getId_usuario()+" | "+recomendacao.getId_filme()+" | "+recomendacao.getId_filme()+" | "+recomendacao.getId_emocao()+" | "+recomendacao.getData_adicao());
+            RecomendacaoDao recomendacaoDao = new RecomendacaoDao();
+            if (idRecomendacaoDelete != null && !idRecomendacaoDelete.isEmpty()) {
+                int idRemover = Integer.parseInt(idRecomendacaoDelete);
+                recomendacaoDao.deleteRecomendacaoById(idRemover);
+            } else {
+                Recomendacao recomendacao = new Recomendacao();
+                recomendacao.setId_usuario(Integer.parseInt(request.getParameter("usuario")));
+                recomendacao.setId_filme(Integer.parseInt(request.getParameter("filme")));
+                recomendacao.setId_emocao(Integer.parseInt(request.getParameter("emocao")));
+                recomendacao.setData_recomendacao(request.getParameter("data_recomendacao"));
 
-            new RecomendacaoDao().createRecomendacao(recomendacao);
+                System.out.println(recomendacao.getId_usuario() + " | " + recomendacao.getId_filme() + " | " + recomendacao.getId_emocao() + " | " + recomendacao.getData_recomendacao());
+                recomendacaoDao.createRecomendacao(recomendacao);
+            }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Erro ao processar a requisição", e);
         }
-
-        //Remover
-        recomendacao.setId_recomendacao(Integer.parseInt(request.getParameter("id_recomendacao_delete")));
-        new RecomendacaoDao().deleteRecomendacaoById(recomendacao.getId_recomendacao());
 
         response.sendRedirect("/recomendacao");
     }
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

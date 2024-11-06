@@ -2,6 +2,7 @@ package br.com.project.cineMood.controller;
 
 import br.com.project.cineMood.dao.EmocaoDao;
 import br.com.project.cineMood.model.Emocao;
+import br.com.project.cineMood.model.Favorito;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,30 +19,32 @@ public class EmocaoController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        Emocao emocao = new Emocao();
-
-        emocao.setNome(request.getParameter("nome"));
-        emocao.setDescricao(request.getParameter("descricao"));
+        String idEmocaoDelete = request.getParameter("id_emocao_delete");
 
         try {
-            System.out.println(emocao.getNome()+" | "+ emocao.getDescricao());
-            new EmocaoDao().createEmocao(emocao);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+            EmocaoDao emocaoDao = new EmocaoDao();
+            if (idEmocaoDelete != null && !idEmocaoDelete.isEmpty()) {
+                int idRemover = Integer.parseInt(idEmocaoDelete);
+                emocaoDao.deleteEmocaoById(idRemover);
+            } else {
+                String nome = request.getParameter("nome");
+                String descricao = request.getParameter("descricao");
 
-        //Remover
-        int id_remover = Integer.parseInt(request.getParameter("id_emocao_delete"));
-        new EmocaoDao().deleteEmocaoById(id_remover);
+                Emocao emocao = new Emocao(nome, descricao);
+                emocaoDao.createEmocao(emocao);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao processar a requisição", e);
+        }
 
         response.sendRedirect("/emocao");
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Emocao> emocaoList = new EmocaoDao().findAllEmocao();
-        req.setAttribute("emocaoList",emocaoList);
-        req.getRequestDispatcher("resources/JSP/emocao.jsp").forward(req,resp);
+        List<Emocao> emocoes = new EmocaoDao().findAllEmocao();
+        req.setAttribute("emocoes",emocoes);
+        req.getRequestDispatcher("resources/emocaoTeste/emocao.jsp").forward(req,resp);
     }
 
 }
