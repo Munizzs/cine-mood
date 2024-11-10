@@ -64,6 +64,6 @@ public class UsuarioController extends HttpServlet {
         //Listar Todos
         List<Usuario> usuarios = new UsuarioDao().findAllUsuario();
         req.setAttribute("usuarios",usuarios);
-        req.getRequestDispatcher("/resources/usuarioTeste/index.jsp").forward(req,resp);
+        req.getRequestDispatcher("/resources/teste/usuarioTeste/index.jsp").forward(req,resp);
     }
 }

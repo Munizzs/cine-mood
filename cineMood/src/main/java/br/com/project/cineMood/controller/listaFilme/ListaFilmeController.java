@@ -60,6 +60,6 @@ public class ListaFilmeController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<ListaFilme> listaFilmes = new ListaFilmeDao().findAlllista_filmes();
         req.setAttribute("lista_filmes",listaFilmes);
-        req.getRequestDispatcher("/resources/listaFilmeTeste/index.jsp").forward(req,resp);
+        req.getRequestDispatcher("/resources/teste/listaFilmeTeste/index.jsp").forward(req,resp);
     }
 }

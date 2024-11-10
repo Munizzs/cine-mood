@@ -61,6 +61,6 @@ public class RecomendacaoController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Recomendacao> recomendacoes= new RecomendacaoDao().findAllRecomendacao();
         req.setAttribute("recomendacoes",recomendacoes);
-        req.getRequestDispatcher("/resources/recomendacaoTeste/index.jsp").forward(req,resp);
+        req.getRequestDispatcher("/resources/teste/recomendacaoTeste/index.jsp").forward(req,resp);
     }
 }

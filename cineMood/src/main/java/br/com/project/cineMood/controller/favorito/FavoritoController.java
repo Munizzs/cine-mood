@@ -57,7 +57,7 @@ public class FavoritoController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Favorito> favoritos = new FavoritoDao().findAllFavorito();
         req.setAttribute("favoritos",favoritos);
-        req.getRequestDispatcher("resources/favoritoTeste/index.jsp").forward(req,resp);
+        req.getRequestDispatcher("resources/teste/favoritoTeste/index.jsp").forward(req,resp);
     }
     }
 

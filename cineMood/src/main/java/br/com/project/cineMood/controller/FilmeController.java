@@ -42,7 +42,7 @@ public class FilmeController extends HttpServlet {
         //Listar Todos
         List<Filme> films = new FilmeDao().findAllFilm();
         req.setAttribute("films",films);
-        req.getRequestDispatcher("/resources/filmeTeste/index.jsp").forward(req,resp);
+        req.getRequestDispatcher("/resources/teste/filmeTeste/index.jsp").forward(req,resp);
     }
 
 }

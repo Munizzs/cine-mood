@@ -58,7 +58,7 @@ public class EmocaoController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Emocao> emocoes = new EmocaoDao().findAllEmocao();
         req.setAttribute("emocoes",emocoes);
-        req.getRequestDispatcher("resources/emocaoTeste/emocao.jsp").forward(req,resp);
+        req.getRequestDispatcher("resources/teste/emocaoTeste/emocao.jsp").forward(req,resp);
     }
 
 }
