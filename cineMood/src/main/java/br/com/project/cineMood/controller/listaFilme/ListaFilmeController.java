@@ -41,7 +41,7 @@ public class ListaFilmeController extends HttpServlet {
         try {
             System.out.println(id + "|" + idUsuario + " | " + IdFilme+ " | " + status+ " | " + avalicao+ " | " + data);
 
-            if (id == 0) { // ID 0 indica que é um novo usuário
+            if (id == 0) {
                 listaFilmeDao.createListaFilme(listaFilme);
                 System.out.println("Criado com sucesso.");
             } else {

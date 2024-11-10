@@ -52,11 +52,11 @@
                 <td>${lista_filme.avaliacao}</td>
                 <td>${lista_filme.data_adicao}</td>
                 <td>
-                    <form action="/lista_filme" method="post">
+                    <form action="/delete-listaFilme" method="post">
                         <input type="hidden" id="id_lista_filme_delete" name="id_lista_filme_delete" value="${lista_filme.id_lista}">
                         <button type="submit">Delete</button>
                         <span> | </span>
-                        <a href="/lista_filme?id_lista=${emocao.id_lista}&usuario=${lista_filme.usuario}&filme=${lista_filme.filme}&status=${lista_filme.status}&avaliacao=${lista_filme.avaliacao}&data_adicao=${lista_filme.data_adicao}">Update</a>
+                        <a href="/lista_filme?id_lista=${lista_filme.id_lista}&usuario=${lista_filme.id_usuario}&filme=${lista_filme.id_filme}&status=${lista_filme.status}&avaliacao=${lista_filme.avaliacao}&data_adicao=${lista_filme.data_adicao}">Update</a>
                     </form>
                 </td>
             </tr>

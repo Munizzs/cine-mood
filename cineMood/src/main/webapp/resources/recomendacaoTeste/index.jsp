@@ -48,11 +48,11 @@
                 <td>${recomendacao.id_emocao}</td>
                 <td>${recomendacao.data_recomendacao}</td>
                 <td>
-                    <form action="/recomendacao" method="post">
-                        <input type="hidden" id="id_recomendacao_delete" name="id_recomendacao_delete" value="${recomendacao.id_recomendacao}">
+                    <form action="/delete-recomendacao" method="post">
+                        <input id="id_recomendacao_delete" name="id_recomendacao_delete" value="${recomendacao.id_recomendacao}">
                         <button type="submit">Delete</button>
                         <span> | </span>
-                        <a href="/recomendacao?id_recomendacao=${recomendacao.id_recomendacao}&usuario=${recomendacao.usuario}&filme=${recomendacao.filme}&emocao=${recomendacao.emocao}&data_adicao=${recomendacao.data_recomendacao}">Update</a>
+                        <a href="/recomendacao?id_recomendacao=${recomendacao.id_recomendacao}&usuario=${recomendacao.id_usuario}&filme=${recomendacao.id_filme}&emocao=${recomendacao.id_emocao}&data_adicao=${recomendacao.data_recomendacao}">Update</a>
                     </form>
                 </td>
             </tr>
