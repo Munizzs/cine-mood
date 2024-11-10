@@ -1,11 +1,11 @@
 package br.com.project.cineMood.model;
 
 public class Emocao {
-    private String id_emocao;
+    private int id_emocao;
     private String nome;
     private String descricao;
 
-    public Emocao(String id_emocao,String nome, String descricao) {
+    public Emocao(int id_emocao,String nome, String descricao) {
         this.id_emocao = id_emocao;
         this.nome = nome;
         this.descricao = descricao;
@@ -18,9 +18,9 @@ public class Emocao {
 
     public Emocao(){}
 
-    public String getId_emocao() {return id_emocao;}
+    public int getId_emocao() {return id_emocao;}
 
-    public void setId_emocao(String id_emocao) {this.id_emocao = id_emocao;}
+    public void setId_emocao(int id_emocao) {this.id_emocao = id_emocao;}
 
     public String getNome() {return nome;}
 

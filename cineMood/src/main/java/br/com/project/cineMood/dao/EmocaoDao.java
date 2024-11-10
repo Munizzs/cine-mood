@@ -49,7 +49,7 @@ public class EmocaoDao {
             List<Emocao> emocaoList = new ArrayList<>();
 
             while(resultSet.next()) {
-                String id = resultSet.getString("id_emocao");
+                int id = resultSet.getInt("id_emocao");
                 String nome = resultSet.getString("nome");
                 String descricao = resultSet.getString("descricao");
 
@@ -87,7 +87,7 @@ public class EmocaoDao {
     }
 
     public void updateEmocao(Emocao emocao) {
-        String SQL = "UPDATE emocoes SET nome = ?, descricao = ? WHERE ID = ?";
+        String SQL = "UPDATE emocoes SET nome = ?, descricao = ? WHERE id_emocao = ?";
 
         try {
 
@@ -98,6 +98,7 @@ public class EmocaoDao {
             PreparedStatement preparedStatement = conn.prepareStatement(SQL);
             preparedStatement.setString(1, emocao.getNome());
             preparedStatement.setString(2, emocao.getDescricao());
+            preparedStatement.setInt(3, emocao.getId_emocao());
             preparedStatement.execute();
 
             System.out.println("Atualizado com sucesso");

@@ -94,7 +94,7 @@ public class  ListaFilmeDao {
     }
 
     public void updateListaFilme(ListaFilme lista) {
-        String SQL = "UPDATE lista_filmes SET id_usuario = ?, id_filme = ?, status = ?, avaliacao = ?, data_adicao = ? WHERE ID = ?";
+        String SQL = "UPDATE lista_filmes SET id_usuario = ?, id_filme = ?, status = ?, avaliacao = ?, data_adicao = ? WHERE id_lista = ?";
 
         try {
 
@@ -108,6 +108,7 @@ public class  ListaFilmeDao {
             preparedStatement.setString(3, lista.getStatus());
             preparedStatement.setInt(4, lista.getAvaliacao());
             preparedStatement.setString(5, lista.getData_adicao());
+            preparedStatement.setInt(6, lista.getId_lista());
             preparedStatement.execute();
 
             System.out.println("Atualizado com sucesso");

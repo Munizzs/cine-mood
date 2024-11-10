@@ -1,4 +1,4 @@
-package br.com.project.cineMood.controller;
+package br.com.project.cineMood.controller.listaFilme;
 
 import br.com.project.cineMood.dao.ListaFilmeDao;
 import br.com.project.cineMood.model.ListaFilme;
@@ -16,30 +16,37 @@ import java.util.List;
 public class ListaFilmeController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String idListaFilmeDelete = request.getParameter("id_lista_filme_delete");
+        ListaFilmeDao listaFilmeDao = new ListaFilmeDao();
+
+        String idListaFilmeStr = request.getParameter("id_lista");
+        int id = 0;
+        if (idListaFilmeStr != null && !idListaFilmeStr.isEmpty()) {
+            try {
+                id = Integer.parseInt(idListaFilmeStr);
+            } catch (NumberFormatException e) {
+                System.out.println("Erro: ID inválido para criação/atualização. Valor recebido: " + idListaFilmeStr);
+                response.sendRedirect("/errorPage.jsp"); //Fazer essa requisição para pag erro
+                return;
+            }
+        }
+
+        int idUsuario = Integer.parseInt(request.getParameter("usuario"));
+        int IdFilme = Integer.parseInt(request.getParameter("filme"));
+        String status = request.getParameter("status");
+        int avalicao = Integer.parseInt(request.getParameter("avaliacao"));
+        String data = request.getParameter("data_adicao");
+
+        ListaFilme listaFilme = new ListaFilme(id, idUsuario, IdFilme, status, avalicao, data);
 
         try {
-            ListaFilmeDao listaFilmeDao = new ListaFilmeDao();
-            if (idListaFilmeDelete != null && !idListaFilmeDelete.isEmpty()) {
-                int idRemover = Integer.parseInt(idListaFilmeDelete);
-                listaFilmeDao.deleteListaFilmeById(idRemover);
-            } else {
-                ListaFilme listaFilme = new ListaFilme();
-                listaFilme.setId_lista(Integer.parseInt(request.getParameter("lista")));
-                listaFilme.setId_usuario(Integer.parseInt(request.getParameter("usuario")));
-                listaFilme.setId_filme(Integer.parseInt(request.getParameter("filme")));
-                listaFilme.setStatus(request.getParameter("status"));
-                listaFilme.setAvaliacao(Integer.parseInt(request.getParameter("avaliacao")));
-                listaFilme.setData_adicao(request.getParameter("data_adicao"));
+            System.out.println(id + "|" + idUsuario + " | " + IdFilme+ " | " + status+ " | " + avalicao+ " | " + data);
 
-                System.out.println(listaFilme.getId_usuario() + " | " + listaFilme.getId_filme() + " | " + listaFilme.getStatus() + " | " + listaFilme.getAvaliacao() + " | " + listaFilme.getData_adicao());
+            if (id == 0) { // ID 0 indica que é um novo usuário
                 listaFilmeDao.createListaFilme(listaFilme);
-
-                if (listaFilme.getId_lista() == 0) {
-                    listaFilmeDao.createListaFilme(listaFilme);
-                }else {
-                    listaFilmeDao.updateListaFilme(listaFilme);
-                }
+                System.out.println("Criado com sucesso.");
+            } else {
+                listaFilmeDao.updateListaFilme(listaFilme);
+                System.out.println("Atualizado com sucesso: ID " + id);
             }
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao processar a requisição", e);

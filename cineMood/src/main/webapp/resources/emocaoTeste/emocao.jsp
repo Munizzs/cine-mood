@@ -14,11 +14,12 @@
 <form action="/emocao" method="post">
     <div>
         <label>Nome da emoção</label>
-        <input type="text" name="nome" id="nome">
+        <input type="text" name="nome" id="nome" value="${param.name}">
+        <input  id="id_emocao" name="id_emocao" value="${param.id_emocao}">
         <label>Descrição da emoção</label>
-        <input type="text" name="descricao" id="descricao">
+        <input type="text" name="descricao" id="descricao" value="${param.descricao}">
 
-        <button type="submit">Cadastrar</button>
+        <button type="submit">Salvar</button>
     </div>
 </form>
 
@@ -39,9 +40,11 @@
                 <td>${emocao.descricao}</td>
             </tr>
             <td>
-                <form action="/emocao" method="post">
-                    <input type="hidden" id="id_emocao_delete" name="id_emocao_delete" value="${emocao.id_emocao}">
+                <form action="/delete-emocao" method="post">
+                    <input id="id_emocao_delete" name="id_emocao_delete" value="${emocao.id_emocao}">
                     <button type="submit">Delete</button>
+                    <span> | </span>
+                    <a href="/emocao?id_emocao=${emocao.id_emocao}&name=${emocao.nome}&descricao=${emocao.descricao}">Update</a>
                 </form>
             </td>
         </c:forEach>

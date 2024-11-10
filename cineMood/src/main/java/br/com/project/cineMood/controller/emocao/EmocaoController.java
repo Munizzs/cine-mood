@@ -1,8 +1,7 @@
-package br.com.project.cineMood.controller;
+package br.com.project.cineMood.controller.emocao;
 
 import br.com.project.cineMood.dao.EmocaoDao;
 import br.com.project.cineMood.model.Emocao;
-import br.com.project.cineMood.model.Usuario;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,16 +35,16 @@ public class EmocaoController extends HttpServlet {
         String nome = request.getParameter("nome");
         String descricao = request.getParameter("descricao");
 
-        Usuario usuario = new Usuario(id, nome, descricao, senha, data_nascimento);
+        Emocao emocao = new Emocao(id, nome, descricao);
 
         try {
-            System.out.println(id + "|" + nome + " | " + descricao + " | " + senha + " | " + data_nascimento);
+            System.out.println(id + "|" + nome + " | " + descricao);
 
             if (id == 0) { // ID 0 indica que é um novo usuário
-                usuarioDao.createUsuario(usuario);
+                emocaoDao.createEmocao(emocao);
                 System.out.println("Usuário criado com sucesso.");
             } else {
-                usuarioDao.updateUsuario(usuario);
+                emocaoDao.updateEmocao(emocao);
                 System.out.println("Usuário atualizado com sucesso: ID " + id);
             }
         } catch (SQLException e) {

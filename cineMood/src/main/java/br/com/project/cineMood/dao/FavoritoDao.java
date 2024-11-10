@@ -91,7 +91,7 @@ import java.util.List;
         }
 
         public void updateFavorito(Favorito favorito) {
-            String SQL = "UPDATE favorito SET id_usuario = ?, id_filme= ?, data_favoritado = ? WHERE ID = ?";
+            String SQL = "UPDATE favorito SET id_usuario = ?, id_filme= ?, data_favoritado = ? WHERE id_favorito = ?";
 
             try {
 
@@ -103,6 +103,7 @@ import java.util.List;
                 preparedStatement.setInt(1, favorito.getId_usuario());
                 preparedStatement.setInt(2, favorito.getId_filme());
                 preparedStatement.setString(3, favorito.getData_favoritado());
+                preparedStatement.setInt(4, favorito.getId_favorito());
                 preparedStatement.execute();
 
                 System.out.println("Atualizado com sucesso");

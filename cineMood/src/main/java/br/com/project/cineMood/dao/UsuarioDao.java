@@ -19,7 +19,7 @@ public class UsuarioDao {
 
             InitDao conex = new InitDao();
             Connection conn = conex.getConnection();
-            System.out.println("success in database connection(createFilme)");
+            System.out.println("success in database connection");
 
             PreparedStatement preparedStatement = conn.prepareStatement(SQL);
             preparedStatement.setString(1, usuario.getNome());
@@ -52,7 +52,7 @@ public class UsuarioDao {
 
             List<Usuario> usuarios = new ArrayList<>();
             while(resultSet.next()) {
-                String id = resultSet.getString("id_usuario");
+                int id = resultSet.getInt("id_usuario"); // se ele for o fdp
                 String nome = resultSet.getString("nome");
                 String email = resultSet.getString("email");
                 String senha = resultSet.getString("senha");
@@ -104,10 +104,10 @@ public class UsuarioDao {
             preparedStatement.setString(2, usuario.getEmail());
             preparedStatement.setString(3, usuario.getSenha());
             preparedStatement.setString(4, usuario.getData_nascimento());
-            preparedStatement.setString(5, usuario.getId_usuario());
+            preparedStatement.setInt(5, usuario.getId_usuario());
             preparedStatement.execute();
 
-            System.out.println("Atualizado com sucesso");
+            System.out.println("Atualizado com sucesso id - "+usuario.getId_usuario());
 
             conn.close();
 

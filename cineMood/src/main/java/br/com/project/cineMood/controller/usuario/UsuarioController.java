@@ -1,4 +1,4 @@
-package br.com.project.cineMood.controller2;
+package br.com.project.cineMood.controller.usuario;
 
 import br.com.project.cineMood.dao.UsuarioDao;
 import br.com.project.cineMood.model.Usuario;

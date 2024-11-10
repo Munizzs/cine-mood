@@ -1,4 +1,4 @@
-package br.com.project.cineMood.controller2;
+package br.com.project.cineMood.controller;
 
 import br.com.project.cineMood.dao.FilmeDao;
 import br.com.project.cineMood.model.Filme;

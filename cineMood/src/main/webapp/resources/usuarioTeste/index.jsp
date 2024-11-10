@@ -10,13 +10,13 @@
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
-<h2>Adicionar Usuario aminha lista</h2>
+<h2>Adicionar Usuario a minha lista</h2>
 
 <form action="/usuario" method="post">
     <div>
         <label>Nome</label>
         <input type="text" name="nome" id="nome" value="${param.name}">
-        <input type="hidden" id="id_usuario" name="id_usuario" value="${param.id_usuario}">
+        <input  id="id_usuario" name="id_usuario" value="${param.id_usuario}">
         <label>Email</label>
         <input type="text" name="email" id="email" value="${param.email}">
         <label>senha</label>
@@ -49,11 +49,11 @@
                 <td>${usuario.senha}</td>
                 <td>${usuario.data_nascimento}</td>
                 <td>
-                    <form action="/usuario" method="post">
-                        <input type="hidden" id="id_usuario_delete" name="id_usuario_delete" value="${usuario.id_usuario}">
+                    <form action="/delete-usuario" method="post">
+                        <input  id="id_usuario_delete" name="id_usuario_delete" value="${usuario.id_usuario}">
                         <button type="submit">Delete</button>
                         <span> | </span>
-                        <a href="/usuario?id=${usuario.id_usuario}&name=${usuario.nome}&email=${usuario.email}&senha=${usuario.senha}&data_nascimento=${usuario.data_nascimento}">Update</a>
+                        <a href="/usuario?id_usuario=${usuario.id_usuario}&name=${usuario.nome}&email=${usuario.email}&senha=${usuario.senha}&data_nascimento=${usuario.data_nascimento}">Update</a>
                     </form>
                 </td>
             </tr>

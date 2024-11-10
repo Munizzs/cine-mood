@@ -15,17 +15,18 @@
 <form action="/lista_filme" method="post">
     <div>
         <label>Usuário</label>
-        <input type="number" name="usuario" id="usuario">
+        <input type="number" name="usuario" id="usuario" value="${param.usuario}">
+        <input  id="id_lista" name="id_lista" value="${param.id_lista}">
         <label>Filme</label>
-        <input type="number" name="filme" id="filme">
+        <input type="number" name="filme" id="filme" value="${param.filme}">
         <label>Status</label>
-        <input type="text" name="status" id="status">
+        <input type="text" name="status" id="status" value="${param.status}">
         <label>Avaliação</label>
-        <input type="number" name="avaliacao" id="avaliacao">
+        <input type="number" name="avaliacao" id="avaliacao" value="${param.avaliacao}">
         <label>Data de adição</label>
-        <input type="text" name="data_adicao" id="data_adicao">
+        <input type="text" name="data_adicao" id="data_adicao" value="${param.data_adicao}">
 
-        <button type="submit">Register</button>
+        <button type="submit">Salvar</button>
     </div>
 </form>
 
@@ -54,6 +55,8 @@
                     <form action="/lista_filme" method="post">
                         <input type="hidden" id="id_lista_filme_delete" name="id_lista_filme_delete" value="${lista_filme.id_lista}">
                         <button type="submit">Delete</button>
+                        <span> | </span>
+                        <a href="/lista_filme?id_lista=${emocao.id_lista}&usuario=${lista_filme.usuario}&filme=${lista_filme.filme}&status=${lista_filme.status}&avaliacao=${lista_filme.avaliacao}&data_adicao=${lista_filme.data_adicao}">Update</a>
                     </form>
                 </td>
             </tr>

@@ -1,5 +1,6 @@
-package br.com.project.cineMood.controller;
+package br.com.project.cineMood.controller.favorito;
 import br.com.project.cineMood.dao.FavoritoDao;
+import br.com.project.cineMood.model.Emocao;
 import br.com.project.cineMood.model.Favorito;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,27 +16,35 @@ public class FavoritoController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String idFavoritoDelete = request.getParameter("id_favorito_delete");
+        FavoritoDao favoritoDao = new FavoritoDao();
+
+        String idFavoritoStr = request.getParameter("id_favorito");
+        int id = 0;
+        if (idFavoritoStr != null && !idFavoritoStr.isEmpty()) {
+            try {
+                id = Integer.parseInt(idFavoritoStr);
+            } catch (NumberFormatException e) {
+                System.out.println("Erro: ID inválido para criação/atualização. Valor recebido: " + idFavoritoStr);
+                response.sendRedirect("/errorPage.jsp"); //Fazer essa requisição para pag erro
+                return;
+            }
+        }
+
+        int id_usuario = Integer.parseInt(request.getParameter("usuario"));
+        int id_filme = Integer.parseInt(request.getParameter("filme"));
+        String data_favoritado = request.getParameter("data_favoritado");
+
+        Favorito favorito = new Favorito(id,id_usuario, id_filme, data_favoritado);
 
         try {
-            FavoritoDao favoritoDao = new FavoritoDao();
-            if (idFavoritoDelete != null && !idFavoritoDelete.isEmpty()) {
-                int idRemover = Integer.parseInt(idFavoritoDelete);
-                favoritoDao.deleteFavoritoById(idRemover);
-            } else {
-                int idFavorito = Integer.parseInt(request.getParameter("favorito"));
-                int id_usuario = Integer.parseInt(request.getParameter("usuario"));
-                int id_filme = Integer.parseInt(request.getParameter("filme"));
-                String data_favoritado = request.getParameter("data_favoritado");
+            System.out.println(id + "|" + id_usuario + " | " + id_filme+ " | " + data_favoritado);
 
-                Favorito favorito = new Favorito(id_usuario, id_filme, data_favoritado);
+            if (id == 0) { // ID 0 indica que é um novo usuário
                 favoritoDao.createFavorito(favorito);
-
-                if (idFavorito == 0) {
-                    favoritoDao.createFavorito(favorito);
-                }else {
-                    favoritoDao.updateFavorito(favorito);
-                }
+                System.out.println("Favorito criado com sucesso.");
+            } else {
+                favoritoDao.updateFavorito(favorito);
+                System.out.println("Favorito atualizado com sucesso: ID " + id);
             }
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao processar a requisição", e);

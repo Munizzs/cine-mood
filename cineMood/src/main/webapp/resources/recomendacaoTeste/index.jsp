@@ -15,15 +15,16 @@
 <form action="/recomendacao" method="post">
     <div>
         <label>Usuário</label>
-        <input type="number" name="usuario" id="usuario">
+        <input type="number" name="usuario" id="usuario" value="${param.usuario}">
+        <input  id="id_recomendacao" name="id_recomendacao" value="${param.id_recomendacao}">
         <label>Filme</label>
-        <input type="number" name="filme" id="filme">
+        <input type="number" name="filme" id="filme" value="${param.filme}">
         <label>Emoção</label>
-        <input type="number" name="emocao" id="emocao">
+        <input type="number" name="emocao" id="emocao" value="${param.emocao}">
         <label>Data de recomendação</label>
-        <input type="text" name="data_recomendacao" id="data_recomendacao">
+        <input type="text" name="data_recomendacao" id="data_recomendacao" value="${param.data_recomendacao}">
 
-        <button type="submit">Register</button>
+        <button type="submit">Salvar</button>
     </div>
 </form>
 
@@ -50,6 +51,8 @@
                     <form action="/recomendacao" method="post">
                         <input type="hidden" id="id_recomendacao_delete" name="id_recomendacao_delete" value="${recomendacao.id_recomendacao}">
                         <button type="submit">Delete</button>
+                        <span> | </span>
+                        <a href="/recomendacao?id_recomendacao=${recomendacao.id_recomendacao}&usuario=${recomendacao.usuario}&filme=${recomendacao.filme}&emocao=${recomendacao.emocao}&data_adicao=${recomendacao.data_recomendacao}">Update</a>
                     </form>
                 </td>
             </tr>

@@ -15,13 +15,14 @@
 <form action="/favorito" method="post">
     <div>
         <label>Usuário</label>
-        <input type="number" name="usuario" id="usuario">
+        <input type="number" name="usuario" id="usuario" value="${param.usuario}">
+        <input  id="id_favorito" name="id_favorito" value="${param.id_favorito}">
         <label>Filme</label>
-        <input type="number" name="filme" id="filme">
+        <input type="number" name="filme" id="filme" value="${param.filme}">
         <label>Data Favoritado</label>
-        <input type="text" name="data_favoritado" id="data_favoritado">
+        <input type="text" name="data_favoritado" id="data_favoritado" value="${param.data_favoritado}">
 
-        <button type="submit">Register</button>
+        <button type="submit">Salvar</button>
     </div>
 </form>
 
@@ -43,9 +44,11 @@
                 <td>${favorito.id_filme}</td>
                 <td>${favorito.data_favoritado}</td>
                 <td>
-                    <form action="/favorito" method="post">
+                    <form action="/delete-favorito" method="post">
                         <input type="hidden" id="id_favorito_delete" name="id_favorito_delete" value="${favorito.id_favorito}">
                         <button type="submit">Delete</button>
+                        <span> | </span>
+                        <a href="/favorito?id_favorito=${favorito.id_favorito}&usuario=${favorito.id_usuario}&filme=${favorito.id_filme}&data_favoritado=${favorito.data_favoritado}">Update</a>
                     </form>
                 </td>
             </tr>
