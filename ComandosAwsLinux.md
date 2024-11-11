@@ -115,7 +115,107 @@ escutar todos os endereços de ip
 ### Configurando o chmod para tornar o script execuavel
     * chmod +x mvnw
 ### Execute o serviço server tumcat7
-    * ./mvnw tomcat7:run
+    * ./mvnw tomcat7:run-war
+### Configurando Tomcat
+## Crie o Usuário Tomcat
+	* sudo groupadd tomcat
+	* sudo useradd -s /bin/false -g tomcat -d /opt/tomcat tomcat
+
+## Baixar tomcat na /opt
+	* cd /opt 
+
+	#Baixar Documentação do tomcat 
+	* wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.97/bin/apache-tomcat-9.0.97-fulldocs.tar.gz
+	#Baixar binário do tomcat
+	* wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.97/bin/apache-tomcat-9.0.97.tar.gz
+
+	#descompactar binário do tomcat 
+	* tar -zvxf apache-tomcat-9.0.97.tar.gz
+	* tar -zvxf apache-tomcat-9.0.97-fulldocs.tar.gz
+
+## Adicionar permissão de execução para startup.sh e shutdown.sh
+	* cd apache-tomcat-9.0.97
+
+	* cd bin 
+
+	* sudo chmod +x bin/startup.sh
+	* sudo chmod +x bin/shutdown.sh
+
+## Para iniciar o Tomcat
+	* sudo ./bin/startup.sh
+
+## Alterar configurações para gerenciar o Tomcat
+	* cd apache-tomcat-9.0.97 
+
+	* find -name context.xml 
+
+	* sudo ./conf/context.xml 
+	* sudo ./webapps/examples/META-INF/context.xml 
+	* sudo ./webapps/host-manager/META-INF/context.xml 
+	* sudo ./webapps/manager/META-INF/context.xml 
+
+	#comment value tag seções abaixo de todos os arquivos 
+	* vi ./webapps/examples/META-INF/context.xml 
+	* vi ./webapps/host-manager/META-INF/context.xml  
+	* vi ./webapps/manager/META-INF/context.xml
+
+## Atualizar informações do usuário em tomcat-users.xml
+	* cd conf 
+
+	vi tomcat-users.xml 
+
+	#Adicione as linhas abaixo entre a tag <tomcat-users> 
+
+	<role rolename="manager-gui"/> 
+	<role rolename="manager-script"/> 
+	<role rolename="manager-jmx"/> 
+	<role rolename="manager-status"/>    
+	<usuário nome de usuário="godness" senha="adaoeva11" funções="manager-gui,manager-script,manager-jmx,manager-status"/> 
+	<usuário nome de usuário="deployer" senha="testingtomcat" funções="manager-script"/> 
+	<usuário nome de usuário="tomcat7" senha="cinemood" funções="manager-gui"/>
+
+## Criando serviço
+	* sudo nano /etc/systemd/system/tomcat.service
+	* 
+## Configurando o serviço
+	* [Unit]
+	Description=Apache Tomcat Web Application Container
+	After=network.target
+
+	[Service]
+	Type=forking
+
+	# Caminho para o script de inicialização do Tomcat
+	Environment=JAVA_HOME=/usr/lib/jvm/java-22-openjdk
+	Environment=CATALINA_PID=/opt/apache-tomcat-9.0.97/temp/tomcat.pid
+	Environment=CATALINA_HOME=/opt/apache-tomcat-9.0.97
+	Environment=CATALINA_BASE=/opt/apache-tomcat-9.0.97
+	Environment='CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC'
+	Environment='JAVA_OPTS=-Djava.awt.headless=true -	Djava.security.egd=file:/dev/./urandom'
+	
+	ExecStart=/opt/apache-tomcat-9.0.97/bin/startup.sh
+	ExecStop=/opt/apache-tomcat-9.0.97/bin/shutdown.sh
+
+	User=tomcat
+	Group=tomcat
+	UMask=0007
+	RestartSec=10
+	Restart=always
+
+	[Install]
+	WantedBy=multi-user.target
+
+## Confirmar Permissões nos Scripts de Inicialização
+	* sudo chown -R tomcat:tomcat /opt/apache-tomcat-9.0.97/
+
+## Recarregar o systemd e Reiniciar o Serviço
+	* sudo systemctl daemon-reload
+	* sudo systemctl start tomcat
+
+## Copiar arquivo .war
+	cp /path/to/your/project/target/your-application.war /opt/tomcat/webapps/
+
+
 
     
     
