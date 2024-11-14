@@ -29,7 +29,7 @@ public class InitDao {
         }
     }
 
-    public void  criarBases() {
+    public void  criarBases() {// Fazer uma condição onde se existir o banco de dados e suas tabela não faz nada, mas caso não exista criar com o comando sql
         try {
             this.sql = "CREATE database Car;";
             pst = conex.prepareStatement(this.sql);
