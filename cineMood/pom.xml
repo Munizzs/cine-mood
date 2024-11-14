@@ -33,6 +33,13 @@
       <artifactId>postgresql</artifactId>
       <version>42.7.4</version>
     </dependency>
+    <!-- Json -->
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>20210307</version>
+    </dependency>
+
   </dependencies>
   <build>
     <finalName>cineMood</finalName>
