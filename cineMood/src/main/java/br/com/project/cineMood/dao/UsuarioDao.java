@@ -11,6 +11,34 @@ import java.util.Collections;
 import java.util.List;
 
 public class UsuarioDao {
+
+    public boolean verificarCredencial(Usuario usuario){
+        String SQL = "SELECT * FROM usuario WHERE NOME = ?";
+
+        try {
+            InitDao conex = new InitDao();
+            Connection conn = conex.getConnection();
+
+            PreparedStatement preparedStatement = conn.prepareStatement(SQL);
+            preparedStatement.setString(1, usuario.getNome());
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                String senha = resultSet.getString("senha");
+
+                if(senha.equals(usuario.getSenha())){
+                    return true;
+                }
+            }
+            conn.close();
+
+            return false;
+        }catch (Exception e){
+            System.out.println("Erro: "+e.getMessage());
+            return true;
+        }
+    }
+
     public void createUsuario(Usuario usuario)throws SQLException {
 
         String SQL = "INSERT INTO usuario (nome,email, senha, data_nascimento) VALUES (?,?,?,?)";
@@ -94,7 +122,6 @@ public class UsuarioDao {
         String SQL = "UPDATE usuario SET nome = ?,email = ?, senha = ?, data_nascimento = ? WHERE id_usuario = ?";
 
         try {
-
             InitDao conex = new InitDao();
             Connection conn = conex.getConnection();
             System.out.println("Sucesso em conectar com o banco de dados");
