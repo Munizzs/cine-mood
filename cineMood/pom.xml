@@ -42,7 +42,7 @@
 
   </dependencies>
   <build>
-    <finalName>cineMood</finalName>
+    <finalName>ROOT</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.tomcat.maven</groupId>

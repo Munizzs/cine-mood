@@ -176,7 +176,6 @@ escutar todos os endereços de ip
 
 ## Criando serviço
 	* sudo nano /etc/systemd/system/tomcat.service
-	* 
 ## Configurando o serviço
 	* [Unit]
 	Description=Apache Tomcat Web Application Container
@@ -207,15 +206,22 @@ escutar todos os endereços de ip
 
 ## Confirmar Permissões nos Scripts de Inicialização
 	* sudo chown -R tomcat:tomcat /opt/apache-tomcat-9.0.97/
-
+## Permissão para os diretório de trabalho
+	* sudo chown -R tomcat:tomcat /opt/apache-tomcat-9.0.97/work
+	* sudo chmod -R 755 /opt/apache-tomcat-9.0.97/work
+	* sudo chown -R tomcat:tomcat /opt/apache-tomcat-9.0.97/temp
+	* sudo chmod -R 755 /opt/apache-tomcat-9.0.97/temp
+## Instalando drive PostgreSQL no tomcat externo
+	* cd /opt/apache-tomcat-9.0.97/lib
+	* sudo wget link-download
+## Criar .war 
+    * cd /home/ec2-user/cine-mood/cineMood
+    * mvn clean package
+## Copiar arquivo .war
+	* cp /path/to/your/project/target/your-application.war /opt/tomcat/webapps/
 ## Recarregar o systemd e Reiniciar o Serviço
 	* sudo systemctl daemon-reload
 	* sudo systemctl start tomcat
-
-## Copiar arquivo .war
-	cp /path/to/your/project/target/your-application.war /opt/tomcat/webapps/
-
-
 
     
     
