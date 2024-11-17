@@ -15,7 +15,7 @@ public class LogarController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/resources/teste/login.jsp").forward(req,resp);
+        req.getRequestDispatcher("/resources/front-end/login/index.jsp").forward(req,resp);
     }
 
     @Override
@@ -28,12 +28,12 @@ public class LogarController extends HttpServlet {
         boolean ehUsuarioValido = new UsuarioDao().verificarCredencial(usuario);
 
         if(ehUsuarioValido){
-            req.getSession().setAttribute("loggedUser",usuario);
+            req.getSession().setAttribute("loggedUser",nome);
 
-            req.getRequestDispatcher("/searchMovie");
+            resp.sendRedirect("/admin/searchMovie");
         }else{
             req.setAttribute("mensagem","Credencial Invalida");
-            req.getRequestDispatcher("/resources/teste/login.jsp").forward(req,resp);
+            req.getRequestDispatcher("/resources/front-end/login/index.jsp").forward(req,resp);
         }
     }
 }

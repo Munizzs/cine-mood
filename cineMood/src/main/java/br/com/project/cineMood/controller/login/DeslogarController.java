@@ -14,6 +14,6 @@ public class DeslogarController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getSession().invalidate();
         req.setAttribute("mensagem","Deslogado com sucesso!");
-        req.getRequestDispatcher("/resources/teste/login.jsp").forward(req,resp);
+        req.getRequestDispatcher("/resources/front-end/login/index.jsp").forward(req,resp);
     }
 }

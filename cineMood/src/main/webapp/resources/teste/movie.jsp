@@ -12,7 +12,10 @@
 <body>
 <div class="container mt-5">
     <h1 class="text-center mb-4">Movie Dashboard</h1>
-
+    <c:if test="${sessionScope.loggedUser != null}">
+            <span>${sessionScope.loggedUser}</span>
+            <a href="/deslogar">Logout</a>
+    </c:if>
     <form action="searchMovie" method="get" class="mb-4">
         <div class="input-group">
             <input type="text" name="title" class="form-control" placeholder="Enter movie title" required>
