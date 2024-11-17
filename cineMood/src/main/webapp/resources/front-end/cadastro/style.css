@@ -32,7 +32,17 @@ p, label{
     font-size: 38px;
 }
 
+.titulo1{
+    font-weight: bold;
+    font-size: 38px;
+    position: relative;
+    top: 10px;
+}
+
 .formulario_login{
+    position: relative;
+    bottom: 30px;
+    
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -63,11 +73,12 @@ p, label{
     height: 40px;
     margin: 10px;
     border-radius: 20px;
+    position: relative;
+    top: 10px;
     border: 2px solid rgb(255, 255, 255);
     padding-left: 10px;
     color: white;
     background: linear-gradient(90deg, #cf85ff, #ae49eb, #a24dd4b4);
-    margin-top: 30px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -80,7 +91,7 @@ p, label{
 .texto_link{
     color: white;
     font-size: 10px;
-    margin-top: 10px;
+    margin-bottom: 70px;
     text-decoration: underline;
     cursor: pointer;
 }
@@ -128,11 +139,12 @@ p span {
 }
 
 .status{
-    color: white;
+    color: rgb(255, 0, 0);
     font-size: 1.2em;
     font-family: Arimo, sans-serif, Arial;
     font-size: 16px;
+    font-weight: bold;
     position: relative;
-    top: 65px;
+    top: 50px;
 }
   

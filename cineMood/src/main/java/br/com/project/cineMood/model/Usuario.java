@@ -20,7 +20,14 @@ public class Usuario {
         this.data_nascimento = data_nascimento;
     }
 
-    public Usuario(String nome,String senha) {
+    public Usuario(String nome, String email, String senha, String data_nascimento) {
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.data_nascimento = data_nascimento;
+    }
+
+    public Usuario(String nome, String senha) {
         this.nome = nome;
         this.senha = senha;
     }
