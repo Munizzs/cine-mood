@@ -1,0 +1,139 @@
+body{
+    height: 100vh; 
+    background: linear-gradient(-45deg, #7e2fc6, #55108f, #20003b);
+    padding: 0;
+    margin: 0; 
+}
+
+p, label{
+    color: white;
+    font-size: 1.2em;
+    font-family: Arimo, sans-serif, Arial;
+    font-size: 16px;
+}
+
+#login{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+}
+
+.left_login{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 99,9vh;
+    width: 50%;
+}
+
+.titulo{
+    font-weight: bold;
+    font-size: 38px;
+}
+
+.formulario_login{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.texto_input{
+   position: relative;
+   right: 100px;
+   top: 5px;
+   font-weight: bold;
+}
+
+.input{
+    width: 260px;
+    height: 40px;
+    margin: 10px;
+    border-radius: 20px;
+    border: 1px solid black;
+    padding-left: 10px;
+    color: white;
+    background: linear-gradient(90deg, #cf85ff, #ae49eb, #a24dd4b4);
+    box-shadow: 0px 5px 10px #030303a8;
+}
+
+.botao_entrar{
+    width: 200px;
+    height: 40px;
+    margin: 10px;
+    border-radius: 20px;
+    border: 2px solid rgb(255, 255, 255);
+    padding-left: 10px;
+    color: white;
+    background: linear-gradient(90deg, #cf85ff, #ae49eb, #a24dd4b4);
+    margin-top: 30px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.botao_entrar:hover{
+    box-shadow: 0px 5px 10px #030303a8;
+    cursor: pointer;
+    transform: translateY(-3px);
+}
+
+.texto_link{
+    color: white;
+    font-size: 10px;
+    margin-top: 10px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.right_login{
+    height: 99,9vh;
+    width: 50%;
+    overflow: hidden;
+}
+
+.circulo{
+    position: relative;
+    left: 90px;
+    border: 18px solid rgb(255, 255, 255);
+    width: 740px;
+    height: 740px;
+    background-color: transparent;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 2em;
+}
+
+.circulo img{
+    padding-left: 110px;
+    width: 40%;
+    height: 40%;
+    border-radius: 30%;
+    position: relative;
+    top: 50px;
+}
+
+.circulo p{
+    color: white;
+    width: auto;
+    margin-bottom: 180px;
+    position: relative;
+    bottom: 30px;
+    left: 140px;
+}
+
+p span {
+    display: flex;
+}
+
+.status{
+    color: white;
+    font-size: 1.2em;
+    font-family: Arimo, sans-serif, Arial;
+    font-size: 16px;
+    position: relative;
+    top: 50px;
+    left: 140px;
+}
+  
