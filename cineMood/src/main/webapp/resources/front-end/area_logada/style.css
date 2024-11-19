@@ -1,86 +1,142 @@
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-    display: block;
-}
-body {
-    line-height: 1;
-}
-ol, ul {
-    list-style: none;
-}
-blockquote, q {
-    quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-    content: '';
-    content: none;
-}
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
-*, 
-*:after,
-*:before {
+
+*{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    text-decoration: none;
 }
-body{
-    font-size: 100%;
+
+ul{
     list-style-type: none;
-    background: linear-gradient(90deg, #ba58f9, #8d2cc7, #7616ad);
 }
+
+p, label, h1, h2, h3, h4, h5, h6{
+    font-family: Arimo, sans-serif;
+}
+
+body{
+    background: linear-gradient(90deg, #ba58f9, #8d2cc7, #7616ad);
+    overflow-x: hidden; 
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    margin-top: 20px;
+}
+
+/* Barra superior */
 
 .nav{
     display: flex;
-    height: 100px;
+    height: 70px;
     width: 100%;
-    background-color: #50287c;
-    gap: 45px;
+    background-color: #50187c;
     justify-content: center;
-    align-items: center;
+    align-items: center;  
 }
 
-.nav .icone_emocao{
-    left: 100px;
-    position: relative;
+.logo{
+    width: 70px;
+    height: 70px;
+    
 }
 
-.nav li a{
+.nav li a {
     text-decoration: none;
     color: white;
     font-weight: bold;
-    font-size: 24px;
+    font-size: 20px;
+    
 }
 
 .opcoes_nav{
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 45px;
-    padding: 250px;
+    gap: 80px;
+    padding: 80px;
+    flex-direction: row;
+}
+
+/* Main */
+
+.container_filmes{
+    border: 1px solid #ff0000;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 80vw;
+    height: 80vh;   
+}
+
+.box_filmes{
+    border: 1px solid #ff0000;
+    display: flex;
+    flex-direction: column;
+}
+
+.titulo{
+    font-weight: bold;
+    font-size: 16px;
+    color: snow;
+}
+
+.filmes{
+    border: 1px solid #ff0000;
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    height: 160px;
+    
+}
+
+.filme{
+    border: 1px solid #ff0000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 140px;
+    height: 100%;
+    
+}
+
+.titulo_filme{
+    font-size: 14px;
+    color: rgb(39, 16, 16);
+    
+}
+
+#showButtons{    
+    background: none; 
+    border: none;     
+    padding: 0;      
+    color: inherit;   
+    font: inherit;   
+    outline: none; 
+
+}
+
+#botao1{
+    background: none; 
+    border: none;     
+    padding: 0;      
+    color: inherit;   
+    font: inherit;   
+    outline: none; 
+}
+#botao2{
+    background: none; 
+    border: none;     
+    padding: 0;      
+    color: inherit;   
+    font: inherit;   
+    outline: none; 
+}
+
+#buttons-container{
+    flex-direction: column;
 }
