@@ -1,5 +1,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fn" prefix="fn" %>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -35,7 +34,7 @@
                     <div class="filmes">
                         <c:forEach var="movie" items="${movies}">
                             <div class="filme">
-                                <img src="${movie.poster}" alt="${movie.title}" width="200" height="300">
+                                <img src="${movie.poster}" alt="${movie.title}" style="width: 150px; height: 200px; object-fit: cover;">
                                 <p class="titulo_filme">${movie.title}</p>
                             </div>
                         </c:forEach>
@@ -44,34 +43,12 @@
             <div class="box_filmes">
                 <p class="titulo">Recomendados</p>
                 <div class="filmes">
-                    <div class="filme">
-                        <img src="/image/laçamento1.jpg" alt="Filme 1">
-                        <p class="titulo_filme">Filme 1</p>
-                    </div>
-                    <div class="filme">
-                        <img src="/image/laçamento2.jpg" alt="Filme 2">
-                        <p class="titulo_filme">Filme 2</p>
-                    </div>
-                    <div class="filme">
-                        <img src="/image/laçamento3.jpg" alt="Filme 3">
-                        <p class="titulo_filme">Filme 3</p>
-                    </div>
-                    <div class="filme">
-                        <img src="/image/laçamento3.jpg" alt="Filme 4">
-                        <p class="titulo_filme">Filme 4</p>
-                    </div>
-                    <div class="filme">
-                        <img src="/image/laçamento5.jpg" alt="Filme 5">
-                        <p class="titulo_filme">Filme 5</p>
-                    </div>
-                    <div class="filme">
-                        <img src="/image/laçamento6.jpg" alt="Filme 6">
-                        <p class="titulo_filme">Filme 6</p>
-                    </div>
-                    <div class="filme">
-                        <img src="/image/laçamento7.jpg" alt="Filme 7">
-                        <p class="titulo_filme">Filme 7</p>
-                    </div>
+                    <c:forEach var="movie" items="${movies}">
+                        <div class="filme">
+                            <img src="${movie.poster}" alt="${movie.title}" style="width: 150px; height: 200px; object-fit: cover;">
+                            <p class="titulo_filme">${movie.title}</p>
+                        </div>
+                    </c:forEach>
                 </div>
             </div>
         </section>
