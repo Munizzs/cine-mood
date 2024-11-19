@@ -30,7 +30,7 @@ public class LogarController extends HttpServlet {
         if(ehUsuarioValido){
             req.getSession().setAttribute("loggedUser",nome);
 
-            resp.sendRedirect("/admin/searchMovie");
+            resp.sendRedirect("/admin/inicio");
         }else{
             req.setAttribute("mensagem","Credencial Invalida");
             req.getRequestDispatcher("/resources/front-end/login/index.jsp").forward(req,resp);
