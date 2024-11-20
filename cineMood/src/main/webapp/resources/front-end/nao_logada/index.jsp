@@ -43,7 +43,7 @@
             <div class="box_filmes">
                 <p class="titulo">Recomendados</p>
                 <div class="filmes">
-                    <c:forEach var="movie" items="${movies}">
+                    <c:forEach var="movie" items="${recommendedMovies}">
                         <div class="filme">
                             <img src="${movie.poster}" alt="${movie.title}" style="width: 150px; height: 200px; object-fit: cover;">
                             <p class="titulo_filme">${movie.title}</p>

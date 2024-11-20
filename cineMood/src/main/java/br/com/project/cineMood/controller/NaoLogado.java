@@ -2,7 +2,6 @@ package br.com.project.cineMood.controller;
 
 import br.com.project.cineMood.config.Config;
 import br.com.project.cineMood.model.Movie;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.servlet.ServletException;
@@ -12,14 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @WebServlet("/a")
 public class NaoLogado extends HttpServlet {
@@ -33,9 +29,31 @@ public class NaoLogado extends HttpServlet {
             return;
         }
 
-        String[] movieTitles = {"Inception", "Interstellar", "The Dark Knight", "Joker", "Deadpool 2", "Inside out 2"};
-        List<Movie> movies = new ArrayList<>();
+        String[] lancamentoTitulo = {"Barbie", "Oppenheimer", "Deadpool 2", "Alien: Romulus", "Inside out 2", "Five Nights at Freddy's"};
+        List<Movie> movies = fetchMoviesFromApi(lancamentoTitulo, apiKey);
 
+        String[] recommendedTitles = {"Inception", "Interstellar", "The Dark Knight", "Joker", "Deadpool 2", "Inside out 2"};
+        List<Movie> recommendedMovies = fetchMoviesFromApi(recommendedTitles, apiKey);
+
+        // Debug para verificar as listas
+        System.out.println("Lançamentos: " + movies.size());
+        for (Movie movie : movies) {
+            System.out.println("Filme: " + movie.getTitle() + ", Poster: " + movie.getPoster());
+        }
+
+        System.out.println("Recomendados: " + recommendedMovies.size());
+        for (Movie movie : recommendedMovies) {
+            System.out.println("Filme: " + movie.getTitle() + ", Poster: " + movie.getPoster());
+        }
+
+        // Envia as listas de filmes para o JSP
+        req.setAttribute("movies", movies);
+        req.setAttribute("recommendedMovies", recommendedMovies);
+        req.getRequestDispatcher("/resources/front-end/nao_logada/index.jsp").forward(req, resp);
+    }
+
+    private List<Movie> fetchMoviesFromApi(String[] movieTitles, String apiKey) {
+        List<Movie> movies = new ArrayList<>();
         for (String title : movieTitles) {
             String apiUrl = "http://www.omdbapi.com/?t=" + title.replace(" ", "%20") + "&apikey=" + apiKey;
             try {
@@ -65,14 +83,6 @@ public class NaoLogado extends HttpServlet {
                 e.printStackTrace();
             }
         }
-
-        System.out.println("Lista de filmes: " + movies.size());
-        for (Movie movie : movies) {
-            System.out.println("Filme: " + movie.getTitle() + ", Poster: " + movie.getPoster());
-        }
-
-        // Envia a lista de filmes para o JSP
-        req.setAttribute("movies", movies);
-        req.getRequestDispatcher("/resources/front-end/nao_logada/index.jsp").forward(req, resp);
+        return movies;
     }
 }
