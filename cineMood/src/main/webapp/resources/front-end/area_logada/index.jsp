@@ -18,26 +18,39 @@
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
-          <a class="navbar-brand" href="/inicio">
-             <img src="/resources/front-end/nao_logada/image/logoFeliz.png" alt="Logo do site" style="height: 40px;">
-            <!-- <img src="image/logoFeliz.png" alt="Logo do site" style="height: 40px;"> -->
+          <a class="navbar-brand" href="/admin/inicio">
+            <img src="/resources/front-end/nao_logada/image/logoFeliz.png" alt="Logo do site" style="height: 40px;">
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mx-auto">
-              <li class="nav-item"><a class="nav-link" href="/inicio">Início</a></li>
-              <li class="nav-item"><a class="nav-link" href="/filme-emocao">Emoção</a></li>
-              <li class="nav-item"><a class="nav-link" href="/favorito-filme">Filmes Salvos</a></li>
-              <li class="nav-item"><a class="nav-link" href="/historico-filme">Historico de Filme</a></li>
+              <li class="nav-item"><a class="nav-link" href="/admin/inicio">Início</a></li>
+              <li class="nav-item"><a class="nav-link" href="/admin/filme-emocao">Emoção</a></li>
+              <li class="nav-item"><a class="nav-link" href="/admin/favorito-filme">Filmes Salvos</a></li>
+              <li class="nav-item"><a class="nav-link" href="/admin/historico-filme">Historico de Filme</a></li>
             </ul>
-             <a class="nav-link" href="#"><img src="/resources/front-end/nao_logada/image/lupa.png" alt="Ícone de lupa" style="height: 25px;"></a>
-            <!-- <a class="nav-link" href="#"><img src="image/lupa.png" alt="Ícone de lupa" style="height: 25px;"></a> -->
+            <a class="nav-link" href="/admin/pesquisa">
+              <img src="/resources/front-end/nao_logada/image/lupa.png" alt="Ícone de lupa" style="height: 25px;" class="me-2">
+            </a>
+
+            <c:if test="${sessionScope.loggedUser != null}">
+              <div class="dropdown">
+                <button class="btn btn-link nav-link dropdown-toggle" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                  ${sessionScope.loggedUser}
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <li><a class="dropdown-item" href="/perfil">Ir para o perfil</a></li>
+                  <li><a class="dropdown-item" href="/deslogar">Deslogar</a></li>
+                </ul>
+              </div>
+            </c:if>
           </div>
         </div>
       </nav>
     </header>
+
     <main>
         <section class="container my-4">
             <!-- Lançamento -->

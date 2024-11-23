@@ -15,8 +15,8 @@
             <div class="left_login">
                 <p class="titulo">Faça seu login</p>
                 <form class="formulario_login" action="/login" method="post">
-                    <label class="texto_input" for="nome">Nome:</label>
-                    <input class="input" type="text" id="nome" name="nome">
+                    <label class="texto_input" for="email">Nome:</label>
+                    <input class="input" type="text" id="email" name="email">
                     <label class="texto_input" for="senha">Senha:</label>
                     <input class="input" type="password" id="senha" name="senha">
                     <button class="botao_entrar" type="submit">Entrar</button>

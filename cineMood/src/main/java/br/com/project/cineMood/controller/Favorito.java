@@ -17,8 +17,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/admin/historico-filme")
-public class Historico extends HttpServlet {
+@WebServlet("/admin/favorito-filme")
+public class Favorito extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String apiKey = Config.getApiKey();
@@ -29,79 +29,25 @@ public class Historico extends HttpServlet {
         }
 
         // Listas de títulos para buscar na API
-        String[] historicoTitulo = {"Barbie", "Oppenheimer", "Deadpool 2", "Alien: Romulus", "Inside out 2", "Five Nights at Freddy's", "Transformers One", "Avatar"};
-        List<Movie> movies = fetchMoviesFromApi(historicoTitulo, apiKey);
+        String[] lancamentoTitulo = {"Barbie", "Oppenheimer", "Deadpool 2", "Alien: Romulus", "Inside out 2", "Five Nights at Freddy's", "Transformers One", "Avatar"};
+        List<Movie> movies = fetchMoviesFromApi(lancamentoTitulo, apiKey);
 
-        // Calcular as emoções dos filmes
-        JSONObject emotionCounts = calculateEmotionCounts(movies);
+        String[] recommendedTitles = {"Inception", "Interstellar", "The Dark Knight", "Joker", "Deadpool 2", "Inside out 2"};
+        List<Movie> recommendedMovies = fetchMoviesFromApi(recommendedTitles, apiKey);
 
         // Dividindo os filmes em chunks de 4
         List<List<Movie>> moviesChunks = partitionMovies(movies, 4);
+        List<List<Movie>> recommendedMoviesChunks = partitionMovies(recommendedMovies, 4);
 
         // Debug para verificar as listas e os chunks
         System.out.println("Lançamentos: " + movies.size() + " filmes divididos em " + moviesChunks.size() + " chunks.");
+        System.out.println("Recomendados: " + recommendedMovies.size() + " filmes divididos em " + recommendedMoviesChunks.size() + " chunks.");
 
         // Envia os chunks de filmes para o JSP
         req.setAttribute("moviesChunks", moviesChunks);
-        req.setAttribute("emotionCounts", emotionCounts);
-        req.getRequestDispatcher("/resources/front-end/historico/index.jsp").forward(req, resp);
+        req.setAttribute("recommendedMoviesChunks", recommendedMoviesChunks);
+        req.getRequestDispatcher("/resources/front-end/favorito/index.jsp").forward(req, resp);
     }
-
-    // Método para calcular as quantidades de filmes por emoção
-    private JSONObject calculateEmotionCounts(List<Movie> movies) {
-        JSONObject emotionCounts = new JSONObject();
-        int tristeza = 0, raiva = 0, alegria = 0, curiosidade = 0, amor = 0;
-
-        for (Movie movie : movies) {
-            String emotion = movie.getEmotion();
-
-            switch (emotion) {
-                case "tristeza":
-                    tristeza++;
-                    break;
-                case "raiva":
-                    raiva++;
-                    break;
-                case "alegria":
-                    alegria++;
-                    break;
-                case "curiosidade":
-                    curiosidade++;
-                    break;
-                case "amor":
-                    amor++;
-                    break;
-            }
-        }
-
-        // Adicionando as contagens ao JSON
-        emotionCounts.put("tristeza", tristeza);
-        emotionCounts.put("raiva", raiva);
-        emotionCounts.put("alegria", alegria);
-        emotionCounts.put("curiosidade", curiosidade);
-        emotionCounts.put("amor", amor);
-
-        return emotionCounts;
-    }
-
-
-    private String determineEmotion(Movie movie) {
-        String genre = movie.getGenre().toLowerCase();
-        String plot = movie.getPlot().toLowerCase();
-
-        if (genre.contains("drama") || plot.contains("triste")) {
-            return "tristeza";
-        } else if (genre.contains("action") || plot.contains("raiva")) {
-            return "raiva";
-        } else if (genre.contains("comedy") || plot.contains("alegria")) {
-            return "alegria";
-        } else if (genre.contains("mystery") || plot.contains("curiosity")) {
-            return "curiosidade";
-        } else {
-            return "amor";  // Assumindo amor por padrão
-        }
-    }
-
 
     // Método para buscar detalhes dos filmes da API OMDb.
 
@@ -128,9 +74,7 @@ public class Historico extends HttpServlet {
                 if (jsonResponse.getString("Response").equals("True")) {
                     Movie movie = new Movie(
                             jsonResponse.getString("Title"),
-                            jsonResponse.getString("Poster"),
-                            jsonResponse.getString("Genre"),
-                            jsonResponse.getString("Plot")
+                            jsonResponse.getString("Poster")
                     );
                     movies.add(movie);
                 }

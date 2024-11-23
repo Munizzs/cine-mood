@@ -20,15 +20,15 @@ public class LogarController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String nome = req.getParameter("nome");
+        String email = req.getParameter("email");
         String senha = req.getParameter("senha");
 
-        Usuario usuario = new Usuario(nome, senha);
+        Usuario usuario = new Usuario(email, senha);
 
         boolean ehUsuarioValido = new UsuarioDao().verificarCredencial(usuario);
 
         if(ehUsuarioValido){
-            req.getSession().setAttribute("loggedUser",nome);
+            req.getSession().setAttribute("loggedUser",email);
 
             resp.sendRedirect("/admin/inicio");
         }else{

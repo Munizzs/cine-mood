@@ -13,14 +13,14 @@ import java.util.List;
 public class UsuarioDao {
 
     public boolean verificarCredencial(Usuario usuario){
-        String SQL = "SELECT * FROM usuario WHERE NOME = ?";
+        String SQL = "SELECT * FROM usuario WHERE email = ?";
 
         try {
             InitDao conex = new InitDao();
             Connection conn = conex.getConnection();
 
             PreparedStatement preparedStatement = conn.prepareStatement(SQL);
-            preparedStatement.setString(1, usuario.getNome());
+            preparedStatement.setString(1, usuario.getEmail());
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
