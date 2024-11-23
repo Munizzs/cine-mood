@@ -21,7 +21,6 @@ import java.util.List;
 public class InicioController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         String apiKey = Config.getApiKey();
         if (apiKey == null) {
             System.out.println("Erro: A chave da API não foi encontrada.");
@@ -29,9 +28,31 @@ public class InicioController extends HttpServlet {
             return;
         }
 
-        String[] movieTitles = {"Inception", "Interstellar", "The Dark Knight", "Joker", "Deadpool 2", "Inside out 2"};
-        List<Movie> movies = new ArrayList<>();
+        // Listas de títulos para buscar na API
+        String[] lancamentoTitulo = {"Barbie", "Oppenheimer", "Deadpool 2", "Alien: Romulus", "Inside out 2", "Five Nights at Freddy's", "Transformers One", "Avatar"};
+        List<Movie> movies = fetchMoviesFromApi(lancamentoTitulo, apiKey);
 
+        String[] recommendedTitles = {"Inception", "Interstellar", "The Dark Knight", "Joker", "Deadpool 2", "Inside out 2"};
+        List<Movie> recommendedMovies = fetchMoviesFromApi(recommendedTitles, apiKey);
+
+        // Dividindo os filmes em chunks de 4
+        List<List<Movie>> moviesChunks = partitionMovies(movies, 4);
+        List<List<Movie>> recommendedMoviesChunks = partitionMovies(recommendedMovies, 4);
+
+        // Debug para verificar as listas e os chunks
+        System.out.println("Lançamentos: " + movies.size() + " filmes divididos em " + moviesChunks.size() + " chunks.");
+        System.out.println("Recomendados: " + recommendedMovies.size() + " filmes divididos em " + recommendedMoviesChunks.size() + " chunks.");
+
+        // Envia os chunks de filmes para o JSP
+        req.setAttribute("moviesChunks", moviesChunks);
+        req.setAttribute("recommendedMoviesChunks", recommendedMoviesChunks);
+        req.getRequestDispatcher("/resources/front-end/area_logada/index.jsp").forward(req, resp);
+    }
+
+    // Método para buscar detalhes dos filmes da API OMDb.
+
+    private List<Movie> fetchMoviesFromApi(String[] movieTitles, String apiKey) {
+        List<Movie> movies = new ArrayList<>();
         for (String title : movieTitles) {
             String apiUrl = "http://www.omdbapi.com/?t=" + title.replace(" ", "%20") + "&apikey=" + apiKey;
             try {
@@ -61,14 +82,17 @@ public class InicioController extends HttpServlet {
                 e.printStackTrace();
             }
         }
+        return movies;
+    }
 
-        System.out.println("Lista de filmes: " + movies.size());
-        for (Movie movie : movies) {
-            System.out.println("Filme: " + movie.getTitle() + ", Poster: " + movie.getPoster());
+
+    // Método para dividir a lista de filmes em chunks menores.
+
+    private List<List<Movie>> partitionMovies(List<Movie> movies, int chunkSize) {
+        List<List<Movie>> chunks = new ArrayList<>();
+        for (int i = 0; i < movies.size(); i += chunkSize) {
+            chunks.add(movies.subList(i, Math.min(i + chunkSize, movies.size())));
         }
-
-        // Envia a lista de filmes para o JSP
-        req.setAttribute("movies", movies);
-        req.getRequestDispatcher("/resources/front-end/area_logada/index.jsp").forward(req, resp);
+        return chunks;
     }
 }

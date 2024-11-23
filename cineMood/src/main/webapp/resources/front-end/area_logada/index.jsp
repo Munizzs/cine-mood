@@ -1,4 +1,5 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!-- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> -->
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -6,81 +7,110 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CineMood</title>
-    <link rel="stylesheet" href="/resources/front-end/nao_logada/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/resources/front-end/nao_logada/style.css?v=1.0">
+   <!--  <link rel="stylesheet" href="style.css">-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Inter:wght@500&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header id="header">
-        <ul class="nav">
-                        
-            <div class="opcoes_nav">
-                <a  href="/inicio"><img class="logo" src="/resources/front-end/area_logada/image/logoFeliz.png" alt="Logo do site"></a>
-                <li><a href="/inicio">Inicio</a></li>
-                <li><a href="/filme-emocao">Emoções</a></li>
-                <li><a href="/filmes_salvos">Filmes Salvos</a></li>
-                <li><a href="/historico_filme">Histórico de filmes</a></li>
-                <a class="icon_lupa" href="#"><img src="/resources/front-end/area_logada/image/lupa.png" alt="Icone de lupa"></a>
-                <li><a href="/perfil"></a>
-                    <button id="showButtons">perfil</button>
-                    <style>
-                        #buttons-container {
-                            display: none;
-                            margin-top: 10px;
-                        }
-                    </style>
-                
-                
-                   
-                
-                    <div id="buttons-container">
-
-                        <button id = "botao1">Botão 1</button>
-                        <button id = "botao2">Botão 2</button>
-                    </div>
-                
-                    <script>
-                        // Obtém o botão e o contêiner dos botões adicionais
-                        const showButtons = document.getElementById('showButtons');
-                        const buttonsContainer = document.getElementById('buttons-container');
-                
-                        
-                        showButtons.addEventListener('click', () => {
-                            
-                            buttonsContainer.style.display = buttonsContainer.style.display === 'none' ? 'block' : 'none';
-                        });
-                    </script>
-                    </li>
-            </div>    
-        </ul>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/inicio">
+             <img src="/resources/front-end/nao_logada/image/logoFeliz.png" alt="Logo do site" style="height: 40px;">
+            <!-- <img src="image/logoFeliz.png" alt="Logo do site" style="height: 40px;"> -->
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+              <li class="nav-item"><a class="nav-link" href="/inicio">Início</a></li>
+              <li class="nav-item"><a class="nav-link" href="/filme-emocao">Emoção</a></li>
+              <li class="nav-item"><a class="nav-link" href="/favorito-filme">Filmes Salvos</a></li>
+              <li class="nav-item"><a class="nav-link" href="/historico-filme">Historico de Filme</a></li>
+            </ul>
+             <a class="nav-link" href="#"><img src="/resources/front-end/nao_logada/image/lupa.png" alt="Ícone de lupa" style="height: 25px;"></a>
+            <!-- <a class="nav-link" href="#"><img src="image/lupa.png" alt="Ícone de lupa" style="height: 25px;"></a> -->
+          </div>
+        </div>
+      </nav>
     </header>
     <main>
-        <section class="container_filmes">
-            <div class="box_filmes">
-                <p class="titulo">Lançamento</p>
-                <div class="filmes">
-                    <c:forEach var="movie" items="${movies}">
-                        <div class="filme">
-                            <img src="${movie.poster}" alt="${movie.title}" style="width: 150px; height: 200px; object-fit: cover;">
-                            <p class="titulo_filme">${movie.title}</p>
-                        </div>
-                    </c:forEach>
+        <section class="container my-4">
+            <!-- Lançamento -->
+            <div class="mb-5">
+                <p class="fs-4 fw-bold text-white mb-3">Lançamento</p>
+                <div id="carouselLancamentos" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <c:forEach var="movieChunk" items="${moviesChunks}" varStatus="status">
+                            <div class="carousel-item ${status.first ? 'active' : ''}">
+                                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+                                    <c:forEach var="movie" items="${movieChunk}">
+                                        <div class="col">
+                                            <div class="card bg-dark text-white w-100 h-100" onclick="showLoginAlert()">
+                                                <img src="${movie.poster}" class="card-img-top" alt="${movie.title}" style="height: 350px;">
+                                                <div class="card-body">
+                                                    <p class="card-title text-center fw-bold">${movie.title}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselLancamentos" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselLancamentos" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
             </div>
-            <div class="box_filmes">
-                <p class="titulo">Recomendados</p>
-                <div class="filmes">
-                    <c:forEach var="movie" items="${movies}">
-                        <div class="filme">
-                            <img src="${movie.poster}" alt="${movie.title}" style="width: 150px; height: 200px; object-fit: cover;">
-                            <p class="titulo_filme">${movie.title}</p>
-                        </div>
-                    </c:forEach>
+
+            <!-- Recomendados -->
+            <div>
+                <p class="fs-4 fw-bold text-white mb-3">Recomendados</p>
+                <div id="carouselRecomendados" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <c:forEach var="movieChunk" items="${recommendedMoviesChunks}" varStatus="status">
+                            <div class="carousel-item ${status.first ? 'active' : ''}">
+                                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+                                    <c:forEach var="movie" items="${movieChunk}">
+                                        <div class="col">
+                                            <div class="card bg-dark text-white w-100 h-100" onclick="showLoginAlert()">
+                                                <img src="${movie.poster}" class="card-img-top" alt="${movie.title}" style="height: 350px;">
+                                                <div class="card-body">
+                                                    <p class="card-title text-center fw-bold">${movie.title}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselRecomendados" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselRecomendados" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
             </div>
         </section>
     </main>
-    <footer></footer>
+
+    <footer class="footer text-white text-center py-3">
+            <p class="mb-0">© 2024 CineMood. Todos os direitos reservados.</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

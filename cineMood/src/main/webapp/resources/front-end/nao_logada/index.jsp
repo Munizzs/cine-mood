@@ -33,8 +33,7 @@
               <li class="nav-item"><a class="nav-link" href="/contato">Contato</a></li>
               <li class="nav-item"><a class="nav-link" href="/login">Entrar</a></li>
             </ul>
-             <a class="nav-link" href="#"><img src="/resources/front-end/nao_logada/image/lupa.png" alt="Ícone de lupa" style="height: 25px;"></a>
-            <!-- <a class="nav-link" href="#"><img src="image/lupa.png" alt="Ícone de lupa" style="height: 25px;"></a> -->
+            <p class="fs-5 fw-bold text-white mb-3">CineMood</p>
           </div>
         </div>
       </nav>
