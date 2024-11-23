@@ -40,31 +40,102 @@
       </nav>
     </header>
     <main>
-        <section class="container_filmes">
-            <div class="box_filmes">
-                    <p class="titulo">Lançamento</p>
-                    <div class="filmes">
-                        <c:forEach var="movie" items="${movies}">
-                            <div class="filme">
-                                <img src="${movie.poster}" alt="${movie.title}" style="width: 150px; height: 200px; object-fit: cover;">
-                                <p class="titulo_filme">${movie.title}</p>
+        <section class="container my-4">
+            <!-- Lançamento -->
+            <div class="mb-5">
+                <p class="fs-4 fw-bold text-white mb-3">Lançamento</p>
+                <div id="carouselLancamentos" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <c:forEach var="movieChunk" items="${moviesChunks}" varStatus="status">
+                            <div class="carousel-item ${status.first ? 'active' : ''}">
+                                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+                                    <c:forEach var="movie" items="${movieChunk}">
+                                        <div class="col">
+                                            <div class="card bg-dark text-white w-100 h-100" onclick="showLoginAlert()">
+                                                <img src="${movie.poster}" class="card-img-top" alt="${movie.title}" style="height: 350px;">
+                                                <div class="card-body">
+                                                    <p class="card-title text-center fw-bold">${movie.title}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+                                </div>
                             </div>
                         </c:forEach>
                     </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselLancamentos" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselLancamentos" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
             </div>
-            <div class="box_filmes">
-                <p class="titulo">Recomendados</p>
-                <div class="filmes">
-                    <c:forEach var="movie" items="${recommendedMovies}">
-                        <div class="filme">
-                            <img src="${movie.poster}" alt="${movie.title}" style="width: 150px; height: 200px; object-fit: cover;">
-                            <p class="titulo_filme">${movie.title}</p>
-                        </div>
-                    </c:forEach>
+
+            <!-- Recomendados -->
+            <div>
+                <p class="fs-4 fw-bold text-white mb-3">Recomendados</p>
+                <div id="carouselRecomendados" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <c:forEach var="movieChunk" items="${recommendedMoviesChunks}" varStatus="status">
+                            <div class="carousel-item ${status.first ? 'active' : ''}">
+                                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+                                    <c:forEach var="movie" items="${movieChunk}">
+                                        <div class="col">
+                                            <div class="card bg-dark text-white w-100 h-100" onclick="showLoginAlert()">
+                                                <img src="${movie.poster}" class="card-img-top" alt="${movie.title}" style="height: 350px;">
+                                                <div class="card-body">
+                                                    <p class="card-title text-center fw-bold">${movie.title}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselRecomendados" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselRecomendados" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
             </div>
         </section>
     </main>
-    <footer></footer>
+
+    <!-- Modal de Aviso -->
+    <div class="modal fade" id="loginAlertModal" tabindex="-1" aria-labelledby="loginAlertModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginAlertModalLabel">Aviso</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Para ver o filme, você precisa estar logado. Por favor, faça login para continuar.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer text-white text-center py-3">
+            <p class="mb-0">© 2024 CineMood. Todos os direitos reservados.</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function showLoginAlert() {
+            var myModal = new bootstrap.Modal(document.getElementById('loginAlertModal'));
+            myModal.show();
+        }
+    </script>
 </body>
 </html>

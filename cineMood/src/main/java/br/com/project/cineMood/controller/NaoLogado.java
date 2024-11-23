@@ -21,7 +21,6 @@ import java.util.List;
 public class NaoLogado extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         String apiKey = Config.getApiKey();
         if (apiKey == null) {
             System.out.println("Erro: A chave da API não foi encontrada.");
@@ -29,28 +28,28 @@ public class NaoLogado extends HttpServlet {
             return;
         }
 
-        String[] lancamentoTitulo = {"Barbie", "Oppenheimer", "Deadpool 2", "Alien: Romulus", "Inside out 2", "Five Nights at Freddy's"};
+        // Listas de títulos para buscar na API
+        String[] lancamentoTitulo = {"Barbie", "Oppenheimer", "Deadpool 2", "Alien: Romulus", "Inside out 2", "Five Nights at Freddy's", "Transformers One", "Avatar"};
         List<Movie> movies = fetchMoviesFromApi(lancamentoTitulo, apiKey);
 
         String[] recommendedTitles = {"Inception", "Interstellar", "The Dark Knight", "Joker", "Deadpool 2", "Inside out 2"};
         List<Movie> recommendedMovies = fetchMoviesFromApi(recommendedTitles, apiKey);
 
-        // Debug para verificar as listas
-        System.out.println("Lançamentos: " + movies.size());
-        for (Movie movie : movies) {
-            System.out.println("Filme: " + movie.getTitle() + ", Poster: " + movie.getPoster());
-        }
+        // Dividindo os filmes em chunks de 4
+        List<List<Movie>> moviesChunks = partitionMovies(movies, 4);
+        List<List<Movie>> recommendedMoviesChunks = partitionMovies(recommendedMovies, 4);
 
-        System.out.println("Recomendados: " + recommendedMovies.size());
-        for (Movie movie : recommendedMovies) {
-            System.out.println("Filme: " + movie.getTitle() + ", Poster: " + movie.getPoster());
-        }
+        // Debug para verificar as listas e os chunks
+        System.out.println("Lançamentos: " + movies.size() + " filmes divididos em " + moviesChunks.size() + " chunks.");
+        System.out.println("Recomendados: " + recommendedMovies.size() + " filmes divididos em " + recommendedMoviesChunks.size() + " chunks.");
 
-        // Envia as listas de filmes para o JSP
-        req.setAttribute("movies", movies);
-        req.setAttribute("recommendedMovies", recommendedMovies);
+        // Envia os chunks de filmes para o JSP
+        req.setAttribute("moviesChunks", moviesChunks);
+        req.setAttribute("recommendedMoviesChunks", recommendedMoviesChunks);
         req.getRequestDispatcher("/resources/front-end/nao_logada/index.jsp").forward(req, resp);
     }
+
+    // Método para buscar detalhes dos filmes da API OMDb.
 
     private List<Movie> fetchMoviesFromApi(String[] movieTitles, String apiKey) {
         List<Movie> movies = new ArrayList<>();
@@ -84,5 +83,16 @@ public class NaoLogado extends HttpServlet {
             }
         }
         return movies;
+    }
+
+
+     // Método para dividir a lista de filmes em chunks menores.
+
+    private List<List<Movie>> partitionMovies(List<Movie> movies, int chunkSize) {
+        List<List<Movie>> chunks = new ArrayList<>();
+        for (int i = 0; i < movies.size(); i += chunkSize) {
+            chunks.add(movies.subList(i, Math.min(i + chunkSize, movies.size())));
+        }
+        return chunks;
     }
 }
