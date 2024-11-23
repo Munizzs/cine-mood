@@ -19,6 +19,9 @@ public class Config {
     }
 
     public static String getApiKey() {
-        return properties.getProperty("OMDB_API_KEY");
+        if (properties.getProperty("OMDB_API_KEY")!=null) {
+            return properties.getProperty("OMDB_API_KEY");
+        }
+            return "60350e13";
     }
 }
