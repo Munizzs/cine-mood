@@ -38,4 +38,4 @@ build/
 .DS_Store
 
 ### Configurações Privadas ###
-config.properties
+src/main/webapp/resources/config.properties
