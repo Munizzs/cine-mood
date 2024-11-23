@@ -1,0 +1,74 @@
+/* Reset CSS */
+
+/* Remove padding, margin, and border for all elements */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Set a consistent line-height and font size for text elements */
+html {
+  font-size: 100%; /* 16px as default */
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%; /* Prevent font scaling in Safari */
+}
+
+/* Remove the default styling of blockquotes, lists, and headings */
+body {
+  margin: 0;
+  font-family: sans-serif; /* Change to your preferred font */
+  background-color: #fff; /* Optional background color */
+  color: #000; /* Default text color */
+}
+
+/* Remove bullets from unordered lists and numbers from ordered lists */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Reset images, videos, and other media */
+img,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Remove default button styles */
+button,
+input,
+select,
+textarea {
+  font: inherit; /* Inherit font styling */
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Remove anchor tag decoration */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Reset table styling */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+}
+
+td,
+th {
+  padding: 0;
+}
+
+/* Reset heading and paragraph styles */
+h1, h2, h3, h4, h5, h6,
+p {
+  margin: 0;
+  font-weight: normal;
+}
