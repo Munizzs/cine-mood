@@ -1,11 +1,11 @@
 package br.com.project.cineMood.model;
 
-public class Emocoes {
+public class Emocao {
     private int idEmocao;
     private String nome;
     private String descricao;
 
-    public Emocoes(int idEmocao, String nome, String descricao) {
+    public Emocao(int idEmocao, String nome, String descricao) {
         this.idEmocao = idEmocao;
         this.nome = nome;
         this.descricao = descricao;
