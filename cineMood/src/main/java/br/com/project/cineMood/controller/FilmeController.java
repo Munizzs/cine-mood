@@ -1,7 +1,5 @@
 package br.com.project.cineMood.controller;
 
-import br.com.project.cineMood.dao.FilmeDao;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

@@ -1,6 +1,5 @@
 package br.com.project.cineMood.dao;
 
-import br.com.project.cineMood.model.Emocao;
 import br.com.project.cineMood.model.Favorito;
 
 import java.sql.Connection;
@@ -11,112 +10,108 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+public class FavoritoDao {
 
-    public class FavoritoDao {
-        public void createFavorito(Favorito favorito)throws SQLException {
+    public void createFavorito(Favorito favorito) throws SQLException {
+        String SQL = "INSERT INTO favorito (id_usuario, id_filme, status, avaliacao, genero) VALUES (?,?,?,?,?)";
 
-            String SQL = "INSERT INTO favorito (id_usuario, id_filme, data_favoritado) VALUES (?,?,?)";
+        try {
+            InitDao conex = new InitDao();
+            Connection conn = conex.getConnection();
+            System.out.println("Success in database connection(createFavorito)");
 
-            try {
+            PreparedStatement preparedStatement = conn.prepareStatement(SQL);
+            preparedStatement.setInt(1, favorito.getIdUsuario());
+            preparedStatement.setString(2, favorito.getIdFilme());  // Assuming id_filme is a String
+            preparedStatement.setString(3, favorito.getStatus().name());  // Using enum's name
+            preparedStatement.setInt(4, favorito.getAvaliacao());
+            preparedStatement.setString(5, favorito.getGenero());
 
-                InitDao conex = new InitDao();
-                Connection conn = conex.getConnection();
-                System.out.println("success in database connection(createFilme)");
+            preparedStatement.execute();
+            System.out.println("Success in insert favorito");
 
-                PreparedStatement preparedStatement = conn.prepareStatement(SQL);
-                preparedStatement.setInt(1, favorito.getId_usuario());
-                preparedStatement.setInt(2, favorito.getId_filme());
-                preparedStatement.setString(3, favorito.getData_favoritado());
-
-                preparedStatement.execute();
-                System.out.println("success in insert favorito");
-
-                conn.close();
-
-            } catch (Exception e) {
-
-                System.out.println("fail in database connection"+e.getMessage());
-
-            }
-        }
-        public List<Favorito> findAllFavorito() {
-            String SQL = "SELECT * FROM favorito";
-            try {
-
-                InitDao conex = new InitDao();
-                Connection conn = conex.getConnection();
-                System.out.println("success in database connection (to list)");
-
-                PreparedStatement preparedStatement = conn.prepareStatement(SQL);
-                ResultSet resultSet = preparedStatement.executeQuery();
-
-                List<Favorito> favoritos = new ArrayList<>();
-                while(resultSet.next()) {
-                    int id_favorito = resultSet.getInt("id_favorito");
-                    int id_usuario = resultSet.getInt("id_usuario");
-                    int id_filme = resultSet.getInt("id_filme");
-                    String data_favoritado = resultSet.getString("data_favoritado");
-
-                    Favorito favorito= new Favorito(id_favorito,id_usuario,id_filme,data_favoritado);
-                    favoritos.add(favorito);
-                }
-
-                System.out.println("Success in select * Favorito");
-                conn.close();
-
-                return favoritos;
-            }catch (Exception e) {
-                System.out.println("fail in database connection"+e.getMessage());
-                return Collections.emptyList();
-            }
-        }
-
-        public void deleteFavoritoById(int id) {
-            String SQL = "DELETE FROM favorito WHERE id_favorito = ?";
-            try{
-                InitDao conex = new InitDao();
-                Connection conn = conex.getConnection();
-                System.out.println("Sucesso na conexão (Deletar Favorito)");
-
-                PreparedStatement preparedStatement = conn.prepareStatement(SQL);
-                preparedStatement.setInt(1, id);
-                preparedStatement.execute();
-
-                System.out.println("Sucesso em remover o id: "+id);
-                conn.close();
-
-            }catch (Exception e) {
-                System.out.println("Erro ao remover: "+e.getMessage());
-            }
-        }
-
-        public void updateFavorito(Favorito favorito) {
-            String SQL = "UPDATE favorito SET id_usuario = ?, id_filme= ?, data_favoritado = ? WHERE id_favorito = ?";
-
-            try {
-
-                InitDao conex = new InitDao();
-                Connection conn = conex.getConnection();
-                System.out.println("Sucesso em conectar com o banco de dados");
-
-                PreparedStatement preparedStatement = conn.prepareStatement(SQL);
-                preparedStatement.setInt(1, favorito.getId_usuario());
-                preparedStatement.setInt(2, favorito.getId_filme());
-                preparedStatement.setString(3, favorito.getData_favoritado());
-                preparedStatement.setInt(4, favorito.getId_favorito());
-                preparedStatement.execute();
-
-                System.out.println("Atualizado com sucesso");
-
-                conn.close();
-
-            } catch (Exception e) {
-
-                System.out.println("Falha na conexão da database");
-                System.out.println("Erro: " + e.getMessage());
-
-            }
+            conn.close();
+        } catch (Exception e) {
+            System.out.println("Fail in database connection: " + e.getMessage());
         }
     }
 
+    public List<Favorito> findAllFavorito() {
+        String SQL = "SELECT * FROM favorito";
+        try {
+            InitDao conex = new InitDao();
+            Connection conn = conex.getConnection();
+            System.out.println("Success in database connection (to list)");
 
+            PreparedStatement preparedStatement = conn.prepareStatement(SQL);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            List<Favorito> favoritos = new ArrayList<>();
+            while (resultSet.next()) {
+                int id_favorito = resultSet.getInt("id_favorito");
+                int id_usuario = resultSet.getInt("id_usuario");
+                String id_filme = resultSet.getString("id_filme");
+                String statusStr = resultSet.getString("status");
+                int avaliacao = resultSet.getInt("avaliacao");
+                String genero = resultSet.getString("genero");
+
+                Favorito.Status status = Favorito.Status.valueOf(statusStr);
+
+                Favorito favorito = new Favorito(id_favorito, id_usuario, status, avaliacao, id_filme, genero);
+                favoritos.add(favorito);
+            }
+
+            System.out.println("Success in select * Favorito");
+            conn.close();
+
+            return favoritos;
+        } catch (Exception e) {
+            System.out.println("Fail in database connection: " + e.getMessage());
+            return Collections.emptyList();
+        }
+    }
+
+    public void deleteFavoritoById(int id) {
+        String SQL = "DELETE FROM favorito WHERE id_favorito = ?";
+        try {
+            InitDao conex = new InitDao();
+            Connection conn = conex.getConnection();
+            System.out.println("Success in connection (Delete Favorito)");
+
+            PreparedStatement preparedStatement = conn.prepareStatement(SQL);
+            preparedStatement.setInt(1, id);
+            preparedStatement.execute();
+
+            System.out.println("Success in removing the id: " + id);
+            conn.close();
+        } catch (Exception e) {
+            System.out.println("Error removing: " + e.getMessage());
+        }
+    }
+
+    public void updateFavorito(Favorito favorito) {
+        String SQL = "UPDATE favorito SET id_usuario = ?, id_filme = ?, status = ?, avaliacao = ?, genero = ? WHERE id_favorito = ?";
+
+        try {
+            InitDao conex = new InitDao();
+            Connection conn = conex.getConnection();
+            System.out.println("Success in connecting to the database");
+
+            PreparedStatement preparedStatement = conn.prepareStatement(SQL);
+            preparedStatement.setInt(1, favorito.getIdUsuario());
+            preparedStatement.setString(2, favorito.getIdFilme());
+            preparedStatement.setString(3, favorito.getStatus().name());
+            preparedStatement.setInt(4, favorito.getAvaliacao());
+            preparedStatement.setString(5, favorito.getGenero());
+            preparedStatement.setInt(6, favorito.getIdFavorito());
+            preparedStatement.execute();
+
+            System.out.println("Successfully updated favorito");
+
+            conn.close();
+        } catch (Exception e) {
+            System.out.println("Error in database connection");
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+}

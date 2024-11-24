@@ -1,7 +1,5 @@
 package br.com.project.cineMood.controller.recomendacao;
 
-import br.com.project.cineMood.dao.RecomendacaoDao;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

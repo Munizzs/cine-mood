@@ -2,17 +2,14 @@ package br.com.project.cineMood.dao;
 
 import br.com.project.cineMood.model.Usuario;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class UsuarioDao {
 
-    public boolean verificarCredencial(Usuario usuario){
+    public boolean verificarCredencial(Usuario usuario) {
         String SQL = "SELECT * FROM usuario WHERE email = ?";
 
         try {
@@ -23,28 +20,24 @@ public class UsuarioDao {
             preparedStatement.setString(1, usuario.getEmail());
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 String senha = resultSet.getString("senha");
-
-                if(senha.equals(usuario.getSenha())){
+                if (senha.equals(usuario.getSenha())) {
                     return true;
                 }
             }
             conn.close();
-
             return false;
-        }catch (Exception e){
-            System.out.println("Erro: "+e.getMessage());
-            return true;
+        } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
+            return false;
         }
     }
 
-    public void createUsuario(Usuario usuario)throws SQLException {
-
-        String SQL = "INSERT INTO usuario (nome,email, senha, data_nascimento) VALUES (?,?,?,?)";
+    public void createUsuario(Usuario usuario) throws SQLException {
+        String SQL = "INSERT INTO usuario (nome, email, senha) VALUES (?, ?, ?)";
 
         try {
-
             InitDao conex = new InitDao();
             Connection conn = conex.getConnection();
             System.out.println("success in database connection");
@@ -53,24 +46,19 @@ public class UsuarioDao {
             preparedStatement.setString(1, usuario.getNome());
             preparedStatement.setString(2, usuario.getEmail());
             preparedStatement.setString(3, usuario.getSenha());
-            preparedStatement.setString(4, usuario.getData_nascimento());
 
             preparedStatement.execute();
             System.out.println("success in insert usuario");
 
             conn.close();
-
         } catch (Exception e) {
-
-            System.out.println("fail in database connection"+e.getMessage());
-
+            System.out.println("fail in database connection: " + e.getMessage());
         }
     }
 
     public List<Usuario> findAllUsuario() {
         String SQL = "SELECT * FROM usuario";
         try {
-
             InitDao conex = new InitDao();
             Connection conn = conex.getConnection();
             System.out.println("success in database connection (to list)");
@@ -79,29 +67,28 @@ public class UsuarioDao {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             List<Usuario> usuarios = new ArrayList<>();
-            while(resultSet.next()) {
-                int id = resultSet.getInt("id_usuario"); // se ele for o fdp
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id_usuario");
                 String nome = resultSet.getString("nome");
                 String email = resultSet.getString("email");
                 String senha = resultSet.getString("senha");
-                String data_nascimento = resultSet.getString("data_nascimento");
-                Usuario usuario= new Usuario(id,nome,email,senha,data_nascimento);
+                boolean ativo = resultSet.getBoolean("ativo");
+                Usuario usuario = new Usuario(id, nome, email, senha, ativo);
                 usuarios.add(usuario);
             }
 
             System.out.println("Success in select * Usuario");
             conn.close();
-
             return usuarios;
-        }catch (Exception e) {
-            System.out.println("fail in database connection"+e.getMessage());
+        } catch (Exception e) {
+            System.out.println("fail in database connection: " + e.getMessage());
             return Collections.emptyList();
         }
     }
 
     public void deleteUsuarioById(int id) {
         String SQL = "DELETE FROM usuario WHERE id_usuario = ?";
-        try{
+        try {
             InitDao conex = new InitDao();
             Connection conn = conex.getConnection();
             System.out.println("Sucesso na conexão (Deletar Usuario)");
@@ -110,16 +97,15 @@ public class UsuarioDao {
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
 
-            System.out.println("Sucesso em remover o id: "+id);
+            System.out.println("Sucesso em remover o id: " + id);
             conn.close();
-
-        }catch (Exception e) {
-            System.out.println("Erro ao remover: "+e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Erro ao remover: " + e.getMessage());
         }
     }
 
     public void updateUsuario(Usuario usuario) {
-        String SQL = "UPDATE usuario SET nome = ?,email = ?, senha = ?, data_nascimento = ? WHERE id_usuario = ?";
+        String SQL = "UPDATE usuario SET nome = ?, email = ?, senha = ?, ativo = ? WHERE id_usuario = ?";
 
         try {
             InitDao conex = new InitDao();
@@ -130,19 +116,16 @@ public class UsuarioDao {
             preparedStatement.setString(1, usuario.getNome());
             preparedStatement.setString(2, usuario.getEmail());
             preparedStatement.setString(3, usuario.getSenha());
-            preparedStatement.setString(4, usuario.getData_nascimento());
-            preparedStatement.setInt(5, usuario.getId_usuario());
+            preparedStatement.setBoolean(4, usuario.isAtivo());
+            preparedStatement.setInt(5, usuario.getIdUsuario());
+
             preparedStatement.execute();
 
-            System.out.println("Atualizado com sucesso id - "+usuario.getId_usuario());
-
+            System.out.println("Atualizado com sucesso id - " + usuario.getIdUsuario());
             conn.close();
-
         } catch (Exception e) {
-
             System.out.println("Falha na conexão da database");
             System.out.println("Erro: " + e.getMessage());
-
         }
     }
 }

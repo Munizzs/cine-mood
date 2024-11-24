@@ -1,8 +1,5 @@
 package br.com.project.cineMood.controller.recomendacao;
 
-import br.com.project.cineMood.dao.ListaFilmeDao;
-import br.com.project.cineMood.dao.RecomendacaoDao;
-
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
