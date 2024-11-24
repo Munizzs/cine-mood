@@ -1,66 +1,81 @@
 package br.com.project.cineMood.model;
 
 public class Favorito {
+    private int idFavorito;
+    private int idUsuario;
+    private Status status;
+    private int avaliacao;
+    private String idFilme;
+    private String genero;
 
-    private int id_favorito;
-    private int id_usuario;
-    private int id_filme;
-    private String data_favoritado;
-
-    public Favorito(int id_favorito, int id_usuario, int id_filme, String data_favoritado) {
-        this.id_favorito = id_favorito;
-        this.id_usuario = id_usuario;
-        this.id_filme = id_filme;
-        this.data_favoritado = data_favoritado;
-    }
-
-    public Favorito(int id_usuario, int id_filme, String data_favoritado) {
-        this.id_usuario = id_usuario;
-        this.id_filme = id_filme;
-        this.data_favoritado = data_favoritado;
+    public Favorito(int idFavorito, int idUsuario, Status status, int avaliacao, String idFilme, String genero) {
+        this.idFavorito = idFavorito;
+        this.idUsuario = idUsuario;
+        this.status = status;
+        this.avaliacao = avaliacao;
+        this.idFilme = idFilme;
+        this.genero = genero;
     }
 
     public Favorito() {
     }
 
-    public int getId_favorito() {
-        return id_favorito;
+
+    public int getIdFavorito() {
+        return idFavorito;
     }
 
-    public void setId_favorito(int id_favorito) {
-        this.id_favorito = id_favorito;
+    public void setIdFavorito(int idFavorito) {
+        this.idFavorito = idFavorito;
     }
 
-    public int getId_usuario() {
-        return id_usuario;
+    public int getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setId_usuario(int id_usuario) {
-        this.id_usuario = id_usuario;
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
-    public int getId_filme() {
-        return id_filme;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setId_filme(int id_filme) {
-        this.id_filme = id_filme;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
-    public String getData_favoritado() {
-        return data_favoritado;
+    public int getAvaliacao() {
+        return avaliacao;
     }
 
-    public void setData_favoritado(String data_favoritado) {
-        this.data_favoritado = data_favoritado;
+    public void setAvaliacao(int avaliacao) {
+        if (avaliacao < 0 || avaliacao > 5) {
+            throw new IllegalArgumentException("A avaliação deve estar entre 0 e 5.");
+        }
+        this.avaliacao = avaliacao;
     }
 
-    @Override
-    public String toString() {
-        return "Favorito [id_favorito=" + id_favorito + ", id_usuario=" + id_usuario + ", id_filme=" + id_filme
-                + ", data_favoritado=" + data_favoritado + "]";
+    public String getIdFilme() {
+        return idFilme;
     }
-    
-    
 
+    public void setIdFilme(String idFilme) {
+        this.idFilme = idFilme;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    // Enum para o status
+    public enum Status {
+        ASSISTIDO,
+        ASSISTINDO,
+        QUERO_ASSISTIR
+    }
 }

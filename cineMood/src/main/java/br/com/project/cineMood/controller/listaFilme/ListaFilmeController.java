@@ -1,7 +1,6 @@
 package br.com.project.cineMood.controller.listaFilme;
 
 import br.com.project.cineMood.dao.ListaFilmeDao;
-import br.com.project.cineMood.model.ListaFilme;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

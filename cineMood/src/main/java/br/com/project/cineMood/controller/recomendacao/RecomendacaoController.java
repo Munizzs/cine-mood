@@ -1,8 +1,6 @@
 package br.com.project.cineMood.controller.recomendacao;
 
 import br.com.project.cineMood.dao.RecomendacaoDao;
-import br.com.project.cineMood.model.Favorito;
-import br.com.project.cineMood.model.Recomendacao;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

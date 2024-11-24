@@ -1,7 +1,5 @@
 package br.com.project.cineMood.dao;
 
-import br.com.project.cineMood.model.ListaFilme;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
