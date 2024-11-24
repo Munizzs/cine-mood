@@ -27,11 +27,10 @@ public class RegistrarController extends HttpServlet {
         String nome = req.getParameter("nome");
         String email = req.getParameter("email");
         String senha = req.getParameter("senha");
-        String data_nascimento = req.getParameter("data");
 
-        Usuario usuario = new Usuario(nome, email, senha, data_nascimento);
+        Usuario usuario = new Usuario(nome, email, senha);
 
-        System.out.println(nome + " | " + email + " | " + senha + " | " + data_nascimento);
+        System.out.println(nome + " | " + email + " | " + senha);
 
         try {
             usuarioDao.createUsuario(usuario);

@@ -30,14 +30,16 @@ public class FavoritoController extends HttpServlet {
             }
         }
 
-        int id_usuario = Integer.parseInt(request.getParameter("usuario"));
-        int id_filme = Integer.parseInt(request.getParameter("filme"));
-        String data_favoritado = request.getParameter("data_favoritado");
+        int idUsuario = Integer.parseInt(request.getParameter("usuario"));
+        String idFilme = request.getParameter("filme");
+        Favorito.Status status = Favorito.Status.valueOf(request.getParameter("status"));
+        int avaliacao = Integer.parseInt(request.getParameter("avaliacao"));
+        String genero = request.getParameter("genero");
 
-        Favorito favorito = new Favorito(id,id_usuario, id_filme, data_favoritado);
+        Favorito favorito = new Favorito(id,idUsuario, status, avaliacao, idFilme, genero);
 
         try {
-            System.out.println(id + "|" + id_usuario + " | " + id_filme+ " | " + data_favoritado);
+            System.out.println(id + "|" + idUsuario + " | " + status+ " | " + avaliacao+ " | " + idFilme+ " | " + genero);
 
             if (id == 0) { // ID 0 indica que é um novo usuário
                 favoritoDao.createFavorito(favorito);

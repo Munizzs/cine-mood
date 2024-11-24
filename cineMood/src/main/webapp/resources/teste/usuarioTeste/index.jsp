@@ -16,13 +16,13 @@
     <div>
         <label>Nome</label>
         <input type="text" name="nome" id="nome" value="${param.name}">
-        <input  id="id_usuario" name="id_usuario" value="${param.id_usuario}">
+        <input  id="id_usuario" name="id_usuario" value="${param.idUsuario}">
         <label>Email</label>
         <input type="text" name="email" id="email" value="${param.email}">
         <label>senha</label>
         <input type="text" name="senha" id="senha" value="${param.senha}">
-        <label>Data de Nascimento</label>
-        <input type="text" name="data_nascimento" id="data_nascimento" value="${param.data_nascimento}">
+        <label>Ativo</label>
+        <input type="text" name="ativo" id="ativo" value="${param.ativo}">
 
         <button type="submit">Salvar</button>
 
@@ -37,23 +37,23 @@
             <th>Nome</th>
             <th>Email</th>
             <th>Senha</th>
-            <th>Data de Nascimento</th>
+            <th>Ativo</th>
         </tr>
         </thead>
         <tbody>
         <c:forEach var="usuario" items="${usuarios}">
             <tr>
-                <td>${usuario.id_usuario}</td>
+                <td>${usuario.idUsuario}</td>
                 <td>${usuario.nome}</td>
                 <td>${usuario.email}</td>
                 <td>${usuario.senha}</td>
-                <td>${usuario.data_nascimento}</td>
+                <td>${usuario.ativo}</td>
                 <td>
                     <form action="/delete-usuario" method="post">
-                        <input  id="id_usuario_delete" name="id_usuario_delete" value="${usuario.id_usuario}">
+                        <input  id="idUsuario_delete" name="idUsuario_delete" value="${usuario.idUsuario}">
                         <button type="submit">Delete</button>
                         <span> | </span>
-                        <a href="/usuario?id_usuario=${usuario.id_usuario}&name=${usuario.nome}&email=${usuario.email}&senha=${usuario.senha}&data_nascimento=${usuario.data_nascimento}">Update</a>
+                        <a href="/usuario?idUsuario=${usuario.idUsuario}&name=${usuario.nome}&email=${usuario.email}&senha=${usuario.senha}&ativo=${usuario.ativo}">Update</a>
                     </form>
                 </td>
             </tr>

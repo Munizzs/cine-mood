@@ -18,7 +18,6 @@ public class UsuarioController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UsuarioDao usuarioDao = new UsuarioDao();
 
-        // Checa se o parâmetro "id_usuario" está presente e é um número
         String idUsuarioStr = request.getParameter("id_usuario");
         int id = 0;
         if (idUsuarioStr != null && !idUsuarioStr.isEmpty()) {
@@ -36,12 +35,15 @@ public class UsuarioController extends HttpServlet {
         String nome = request.getParameter("nome");
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
-        String data_nascimento = request.getParameter("data_nascimento");
 
-        Usuario usuario = new Usuario(id, nome, email, senha, data_nascimento);
+        // A model Usuário não possui data_nascimento, então podemos assumir que o campo "ativo" será enviado do frontend
+        String ativoStr = request.getParameter("ativo");
+        boolean ativo = "on".equalsIgnoreCase(ativoStr); // "on" indica que o checkbox está marcado
+
+        Usuario usuario = new Usuario(id, nome, email, senha, ativo);
 
         try {
-            System.out.println(id + "|" + nome + " | " + email + " | " + senha + " | " + data_nascimento);
+            System.out.println(id + "|" + nome + " | " + email + " | " + senha + " | " + ativo);
 
             if (id == 0) { // ID 0 indica que é um novo usuário
                 usuarioDao.createUsuario(usuario);
@@ -58,12 +60,11 @@ public class UsuarioController extends HttpServlet {
         response.sendRedirect("/usuario");
     }
 
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //Listar Todos
+        // Listar todos os usuários
         List<Usuario> usuarios = new UsuarioDao().findAllUsuario();
-        req.setAttribute("usuarios",usuarios);
-        req.getRequestDispatcher("/resources/teste/usuarioTeste/index.jsp").forward(req,resp);
+        req.setAttribute("usuarios", usuarios);
+        req.getRequestDispatcher("/resources/teste/usuarioTeste/index.jsp").forward(req, resp);
     }
 }
