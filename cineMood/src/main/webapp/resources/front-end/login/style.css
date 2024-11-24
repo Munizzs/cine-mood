@@ -2,7 +2,7 @@ body{
     height: 100vh; 
     background: linear-gradient(-45deg, #7e2fc6, #55108f, #20003b);
     padding: 0;
-    margin: 0; 
+    margin: 0;
 }
 
 p, label{
@@ -85,43 +85,46 @@ p, label{
     cursor: pointer;
 }
 
-.right_login{
-    height: 99,9vh;
+.right_login {
+    height: 100vh;
     width: 50%;
-    overflow: hidden;
+    position: relative; /* Permite o posicionamento absoluto do círculo */
+    overflow: hidden; /* Garante que não haja scroll */
 }
 
-.circulo{
-    position: relative;
-    left: 90px;
+.circulo {
+    width: 100vh; /* Aumenta o tamanho do círculo */
+    height: 100vh;
     border: 18px solid rgb(255, 255, 255);
-    width: 740px;
-    height: 740px;
     background-color: transparent;
     border-radius: 50%;
+    position: absolute; /* Permite deslocar o círculo */
+    top: 50%; /* Centraliza verticalmente */
+    left: 30%; /* Desloca para a direita */
+    transform: translate(-15%, -50%); /* Ajusta a posição para ultrapassar a tela */
     display: flex;
     flex-direction: column;
     justify-content: center;
-    font-size: 2em;
 }
 
-.circulo img{
-    padding-left: 110px;
-    width: 40%;
-    height: 40%;
-    border-radius: 30%;
-    position: relative;
-    top: 50px;
+.circulo img {
+    width: 40%; /* Mantém o tamanho da imagem */
+    height: auto; /* Evita deformação */
+    border-radius: 30%; /* Bordas arredondadas */
+    position: relative; /* Mantém o posicionamento atual */
+    top: 30px;
+
 }
 
-.circulo p{
+.circulo p {
     color: white;
-    width: auto;
     margin-bottom: 180px;
     position: relative;
     bottom: 30px;
-    left: 140px;
+
+    text-align: left; /* Mantém o texto alinhado à esquerda */
 }
+
 
 p span {
     display: flex;
