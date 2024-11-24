@@ -1,7 +1,7 @@
 package br.com.project.cineMood.controller;
 
 import br.com.project.cineMood.config.Config;
-import br.com.project.cineMood.model.Movie;
+import br.com.project.cineMood.model.Filme;
 import org.json.JSONObject;
 
 import javax.servlet.ServletException;
@@ -30,16 +30,16 @@ public class Historico extends HttpServlet {
 
         // Listas de títulos para buscar na API
         String[] historicoTitulo = {"Barbie", "Oppenheimer", "Deadpool 2", "Alien: Romulus", "Inside out 2", "Five Nights at Freddy's", "Transformers One", "Avatar"};
-        List<Movie> movies = fetchMoviesFromApi(historicoTitulo, apiKey);
+        List<Filme> filmes = fetchMoviesFromApi(historicoTitulo, apiKey);
 
         // Calcular as emoções dos filmes
-        JSONObject emotionCounts = calculateEmotionCounts(movies);
+        JSONObject emotionCounts = calculateEmotionCounts(filmes);
 
         // Dividindo os filmes em chunks de 4
-        List<List<Movie>> moviesChunks = partitionMovies(movies, 4);
+        List<List<Filme>> moviesChunks = partitionMovies(filmes, 4);
 
         // Debug para verificar as listas e os chunks
-        System.out.println("Lançamentos: " + movies.size() + " filmes divididos em " + moviesChunks.size() + " chunks.");
+        System.out.println("Lançamentos: " + filmes.size() + " filmes divididos em " + moviesChunks.size() + " chunks.");
 
         // Envia os chunks de filmes para o JSP
         req.setAttribute("moviesChunks", moviesChunks);
@@ -48,12 +48,12 @@ public class Historico extends HttpServlet {
     }
 
     // Método para calcular as quantidades de filmes por emoção
-    private JSONObject calculateEmotionCounts(List<Movie> movies) {
+    private JSONObject calculateEmotionCounts(List<Filme> filmes) {
         JSONObject emotionCounts = new JSONObject();
         int tristeza = 0, raiva = 0, alegria = 0, curiosidade = 0, amor = 0;
 
-        for (Movie movie : movies) {
-            String emotion = movie.getEmotion();
+        for (Filme filme : filmes) {
+            String emotion = filme.getEmotion();
 
             switch (emotion) {
                 case "tristeza":
@@ -85,9 +85,9 @@ public class Historico extends HttpServlet {
     }
 
 
-    private String determineEmotion(Movie movie) {
-        String genre = movie.getGenre().toLowerCase();
-        String plot = movie.getPlot().toLowerCase();
+    private String determineEmotion(Filme filme) {
+        String genre = filme.getGenre().toLowerCase();
+        String plot = filme.getPlot().toLowerCase();
 
         if (genre.contains("drama") || plot.contains("triste")) {
             return "tristeza";
@@ -105,8 +105,8 @@ public class Historico extends HttpServlet {
 
     // Método para buscar detalhes dos filmes da API OMDb.
 
-    private List<Movie> fetchMoviesFromApi(String[] movieTitles, String apiKey) {
-        List<Movie> movies = new ArrayList<>();
+    private List<Filme> fetchMoviesFromApi(String[] movieTitles, String apiKey) {
+        List<Filme> filmes = new ArrayList<>();
         for (String title : movieTitles) {
             String apiUrl = "http://www.omdbapi.com/?t=" + title.replace(" ", "%20") + "&apikey=" + apiKey;
             try {
@@ -126,28 +126,28 @@ public class Historico extends HttpServlet {
                 // Parse da resposta JSON usando org.json
                 JSONObject jsonResponse = new JSONObject(jsonOutput.toString());
                 if (jsonResponse.getString("Response").equals("True")) {
-                    Movie movie = new Movie(
+                    Filme filme = new Filme(
                             jsonResponse.getString("Title"),
                             jsonResponse.getString("Poster"),
                             jsonResponse.getString("Genre"),
                             jsonResponse.getString("Plot")
                     );
-                    movies.add(movie);
+                    filmes.add(filme);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        return movies;
+        return filmes;
     }
 
 
     // Método para dividir a lista de filmes em chunks menores.
 
-    private List<List<Movie>> partitionMovies(List<Movie> movies, int chunkSize) {
-        List<List<Movie>> chunks = new ArrayList<>();
-        for (int i = 0; i < movies.size(); i += chunkSize) {
-            chunks.add(movies.subList(i, Math.min(i + chunkSize, movies.size())));
+    private List<List<Filme>> partitionMovies(List<Filme> filmes, int chunkSize) {
+        List<List<Filme>> chunks = new ArrayList<>();
+        for (int i = 0; i < filmes.size(); i += chunkSize) {
+            chunks.add(filmes.subList(i, Math.min(i + chunkSize, filmes.size())));
         }
         return chunks;
     }

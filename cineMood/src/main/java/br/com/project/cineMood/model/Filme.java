@@ -1,18 +1,18 @@
 package br.com.project.cineMood.model;
 
-public class Movie {
+public class Filme {
     private String title;
     private String poster;
     private String genre;
     private String plot;
     private String emotion;
 
-    public Movie(String title, String poster) {
+    public Filme(String title, String poster) {
         this.title = title;
         this.poster = poster;
     }
 
-    public Movie(String title, String poster, String genre, String plot) {
+    public Filme(String title, String poster, String genre, String plot) {
         this.title = title;
         this.poster = poster;
         this.genre = genre;
