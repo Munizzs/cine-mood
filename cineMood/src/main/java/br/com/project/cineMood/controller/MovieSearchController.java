@@ -14,7 +14,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-@WebServlet("/admin/searchMovie")
+@WebServlet("/user/searchMovie")
 public class MovieSearchController extends HttpServlet {
 
     @Override

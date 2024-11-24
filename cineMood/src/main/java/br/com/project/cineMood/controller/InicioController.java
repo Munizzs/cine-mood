@@ -17,7 +17,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/admin/inicio")
+@WebServlet("/user/inicio")
 public class InicioController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

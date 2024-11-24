@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/pesquisa")
+@WebServlet("/user/pesquisa")
 public class PerquisaController extends HttpServlet {
     private static List<Filme> filmes;
 

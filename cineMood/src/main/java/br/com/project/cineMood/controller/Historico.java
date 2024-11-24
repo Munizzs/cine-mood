@@ -17,7 +17,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/admin/historico-filme")
+@WebServlet("/user/historico-filme")
 public class Historico extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

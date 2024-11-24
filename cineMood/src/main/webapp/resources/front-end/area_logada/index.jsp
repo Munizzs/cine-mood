@@ -18,7 +18,7 @@
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
-          <a class="navbar-brand" href="/admin/inicio">
+          <a class="navbar-brand" href="/user/inicio">
             <img src="/resources/front-end/nao_logada/image/logoFeliz.png" alt="Logo do site" style="height: 40px;">
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,12 +26,12 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mx-auto">
-              <li class="nav-item"><a class="nav-link" href="/admin/inicio">Início</a></li>
-              <li class="nav-item"><a class="nav-link" href="/admin/filme-emocao">Emoção</a></li>
-              <li class="nav-item"><a class="nav-link" href="/admin/favorito-filme">Filmes Salvos</a></li>
-              <li class="nav-item"><a class="nav-link" href="/admin/historico-filme">Historico de Filme</a></li>
+              <li class="nav-item"><a class="nav-link" href="/user/inicio">Início</a></li>
+              <li class="nav-item"><a class="nav-link" href="/user/filme-emocao">Emoção</a></li>
+              <li class="nav-item"><a class="nav-link" href="/user/favorito-filme">Filmes Salvos</a></li>
+              <li class="nav-item"><a class="nav-link" href="/user/historico-filme">Historico de Filme</a></li>
             </ul>
-            <a class="nav-link" href="/admin/pesquisa">
+            <a class="nav-link" href="/user/pesquisa">
               <img src="/resources/front-end/nao_logada/image/lupa.png" alt="Ícone de lupa" style="height: 25px;" class="me-2">
             </a>
 

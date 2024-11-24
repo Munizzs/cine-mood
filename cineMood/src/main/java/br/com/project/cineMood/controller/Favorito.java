@@ -17,7 +17,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/admin/favorito-filme")
+@WebServlet("/user/favorito-filme")
 public class Favorito extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
