@@ -24,9 +24,9 @@ public class MovieSearchController extends HttpServlet {
 
         String movieTitle = request.getParameter("title");
 
-
+        if(movieTitle != null ){
         movieTitle = movieTitle.replace(" ", "&");
-
+        }
 
         System.out.println("Título do filme: " + movieTitle);
 
