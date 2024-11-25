@@ -10,7 +10,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 
 import org.json.JSONObject;
 
-public class TmdbApiClient {
+public class TmdbApiClient implements AutoCloseable {
 
     private static final String API_KEY = "fc6e4d8ec00cfd0e100b0fcf72cae641";
     private static final String ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmYzZlNGQ4ZWMwMGNmZDBlMTAwYjBmY2Y3MmNhZTY0MSIsIm5iZiI6MTczMTk4MzY1OC41Mjk5MTM3LCJzdWIiOiI2NmU0YTkwZjYwNzM1ZTk5MGQzYWM4ZTkiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.JWyu34eS57aqk_8YSsoLoUAEg1dkzk4w4LDv6dXedG0";
@@ -58,11 +58,10 @@ public class TmdbApiClient {
             result.append(linha);
         }
 
-        JSONObject json = new JSONObject(result.toString());
-
-        return json;
+        return new JSONObject(result.toString());
     }
 
+    @Override
     public void close() throws Exception {
         httpClient.close();
     }
