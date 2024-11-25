@@ -3,6 +3,7 @@ package br.com.project.cineMood.controller;
 import br.com.project.cineMood.config.Config;
 import br.com.project.cineMood.config.TmdbApiClient;
 import br.com.project.cineMood.model.Filme;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,28 +22,11 @@ import java.util.List;
 
 @WebServlet("/a")
 public class NaoLogado extends HttpServlet {
-    public static void main(String[] args) {
-        TmdbApiClient client = new TmdbApiClient();
-        try {
-            Map<String, String> params = new HashMap<>();
-            // Adicione quaisquer parâmetros adicionais aqui
-            JSONObject response = client.get("/movie/500", params); // Obtém detalhes do filme com ID 550
 
-            System.out.println(response.toString(2));
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                client.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Filme> filmes = fetchMoviesFromApi();
-        List<Filme> recommendedFilmes = fetchMoviesFromApi();
+        List<Filme> filmes = fetchMoviesFromApi("/movie/popular");
+        List<Filme> recommendedFilmes = fetchMoviesFromApi("/movie/top_rated");
 
         // Dividindo os filmes em chunks de 4
         List<List<Filme>> moviesChunks = partitionMovies(filmes, 4);
@@ -60,37 +44,41 @@ public class NaoLogado extends HttpServlet {
 
     // Método para buscar detalhes dos filmes da API OMDb.
 
-    private List<Filme> fetchMoviesFromApi() {
+    private List<Filme> fetchMoviesFromApi(String endpoint) {
         List<Filme> filmes = new ArrayList<>();
-        TmdbApiClient client = new TmdbApiClient();
-        Map<String, String> params = new HashMap<>();
-        try {
-            // Adicione quaisquer parâmetros adicionais aqui
-            // Conexão com a API
-            JSONObject response = client.get("movie/popular", params); // Obtém lista de filmes
+        String baseImageUrl = "https://image.tmdb.org/t/p/w500";
+        try (TmdbApiClient client = new TmdbApiClient()){
 
-            if (response.getString("results").equals("True")) {
-                Filme filme = new Filme(
-                        response.getString("Title"),
-                        response.getString("Poster")
-                );
-                filmes.add(filme);
+            // Configurando os parâmetros para a busca
+            Map<String, String> params = new HashMap<>();
+            params.put("api_key", "SUA_CHAVE_API");
+            params.put("language", "pt-BR");
+            // Obtém lista de filmes
+            JSONObject response = client.get(endpoint, params);
+            System.out.println("Resposta da API: " + response.toString(2));
+            if (response.has("results") && response.getJSONArray("results").length() > 0) {
+                JSONArray results = response.getJSONArray("results");
+                for (int i = 0; i < results.length(); i++) {
+                    JSONObject movieJson = results.getJSONObject(i);
+                    Filme filme = new Filme(
+                            movieJson.getString("title"),
+                            baseImageUrl+movieJson.getString("poster_path")
+                    );
+                    filmes.add(filme);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                client.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
+            // Remova o bloco 'finally' vazio
         return filmes;
     }
-
     // Método para dividir a lista de filmes em chunks menores.
 
     private List<List<Filme>> partitionMovies(List<Filme> filmes, int chunkSize) {
+        if (chunkSize <= 0) {
+            throw new IllegalArgumentException("O tamanho do chunk deve ser maior que zero.");
+        }
         List<List<Filme>> chunks = new ArrayList<>();
         for (int i = 0; i < filmes.size(); i += chunkSize) {
             chunks.add(filmes.subList(i, Math.min(i + chunkSize, filmes.size())));
