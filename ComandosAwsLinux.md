@@ -222,6 +222,78 @@ escutar todos os endereços de ip
 ## Recarregar o systemd e Reiniciar o Serviço
 	* sudo systemctl daemon-reload
 	* sudo systemctl start tomcat
-
-    
+# Criação de um script automatizado para AWS
+## Criar arquivo para escrita  
+    * cd /home/ec2-user
+    * sudo nano auto_deploy.sh
+## Script para executar deploy e atulizar projeto
+    * Base:
+      rm -rf cine-mood/
+      sudo rm -rf /opt/apache-tomcat-9.0.97/webapps/ROOT.war
+      git clone https://github.com/Munizzs/cine-mood.git
+      cd cine-mood/cineMood/
+      mvn clean package
+      cd target/
+      sudo cp ROOT.war /opt/apache-tomcat-9.0.97/webapps/
+      sudo systemctl daemon-reload
+      sudo systemctl restart tomcat
+      cd /opt/apache-tomcat-9.0.97/logs/
+      sudo tail -f catalina.out
+    * Refinado:
+      # Remover diretório cine-mood se existir
+      if [ -d "cine-mood" ]; then
+      rm -rf cine-mood
+      fi
+      
+      # Remover arquivo ROOT.war do Tomcat
+      sudo rm -rf /opt/apache-tomcat-9.0.97/webapps/ROOT.war
+      
+      # Clonar repositório
+      git clone https://github.com/Munizzs/cine-mood.git || { echo "Erro ao clonar o repositório."; exit 1; }
+      
+      # Navegar para o diretório do projeto
+      if [ -d "cine-mood/cineMood" ]; then
+      cd cine-mood/cineMood/
+      else
+      echo "Erro: Diretório cine-mood/cineMood não encontrado!"
+      exit 1
+      fi
+      
+      # Verificar se Maven está instalado
+      if ! command -v mvn &> /dev/null; then
+      echo "Erro: Maven não está instalado."
+      exit 1
+      fi
+      
+      # Construir o projeto
+      mvn clean package || { echo "Erro ao construir o projeto."; exit 1; }
+      
+      # Navegar para o diretório target e copiar o arquivo ROOT.war
+      cd target/
+      if [ -f "ROOT.war" ]; then
+      sudo cp ROOT.war /opt/apache-tomcat-9.0.97/webapps/
+      else
+      echo "Erro: ROOT.war não encontrado!"
+      exit 1
+      fi
+      
+      # Reiniciar o serviço do Tomcat
+      sudo systemctl daemon-reload
+      sudo systemctl restart tomcat || { echo "Erro ao reiniciar o Tomcat."; exit 1; }
+      
+      # Navegar para o diretório de logs
+      if [ -d "/opt/apache-tomcat-9.0.97/logs/" ]; then
+      cd /opt/apache-tomcat-9.0.97/logs/
+      else
+      echo "Erro: Diretório de logs do Tomcat não encontrado!"
+      exit 1
+      fi
+      
+      # Mostrar logs do Tomcat
+      sudo tail -f catalina.out
+      
+## Dar permissão para o exceutavel
+    sudo chmod +x auto_deply.sh
+## Executar 
+    sudo ./auto_deploy.sh
     
