@@ -53,7 +53,7 @@ public class Historico extends HttpServlet {
         int tristeza = 0, raiva = 0, alegria = 0, curiosidade = 0, amor = 0;
 
         for (Filme filme : filmes) {
-            String emotion = filme.getEmotion();
+            String emotion = filme.getEmocao();
 
             switch (emotion) {
                 case "tristeza":
@@ -86,8 +86,8 @@ public class Historico extends HttpServlet {
 
 
     private String determineEmotion(Filme filme) {
-        String genre = filme.getGenre().toLowerCase();
-        String plot = filme.getPlot().toLowerCase();
+        String genre = filme.getGenero().toLowerCase();
+        String plot = filme.getOverview().toLowerCase();
 
         if (genre.contains("drama") || plot.contains("triste")) {
             return "tristeza";
