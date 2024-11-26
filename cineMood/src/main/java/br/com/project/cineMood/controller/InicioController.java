@@ -39,7 +39,7 @@ public class InicioController extends HttpServlet {
         // Envia os chunks de filmes para o JSP
         req.setAttribute("moviesChunks", moviesChunks);
         req.setAttribute("recommendedMoviesChunks", recommendedMoviesChunks);
-        req.getRequestDispatcher("/resources/front-end/nao_logada/index.jsp").forward(req, resp);
+        req.getRequestDispatcher("/resources/front-end/area_logada/index.jsp").forward(req, resp);
     }
 
     // Método para buscar detalhes dos filmes da API OMDb.

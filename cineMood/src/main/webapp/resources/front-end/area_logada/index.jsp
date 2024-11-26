@@ -51,7 +51,6 @@
         </div>
       </nav>
     </header>
-
     <main>
         <section class="container my-4">
             <!-- Lançamento -->
@@ -64,8 +63,8 @@
                                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
                                     <c:forEach var="movie" items="${movieChunk}">
                                         <div class="col">
-                                            <div class="card bg-dark text-white w-100 h-100" onclick="showLoginAlert()">
-                                                <img src="${movie.poster_path}" class="card-img-top" alt="${movie.title}" style="height: 350px;">
+                                            <div class="card bg-dark text-white w-100 h-100">
+                                                <img src="${movie.poster}" class="card-img-top" alt="${movie.title}" style="height: 350px;">
                                                 <div class="card-body">
                                                     <p class="card-title text-center fw-bold">${movie.title}</p>
                                                 </div>
@@ -97,7 +96,7 @@
                                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
                                     <c:forEach var="movie" items="${movieChunk}">
                                         <div class="col">
-                                            <div class="card bg-dark text-white w-100 h-100" onclick="showLoginAlert()">
+                                            <div class="card bg-dark text-white w-100 h-100">
                                                 <img src="${movie.poster}" class="card-img-top" alt="${movie.title}" style="height: 350px;">
                                                 <div class="card-body">
                                                     <p class="card-title text-center fw-bold">${movie.title}</p>
@@ -121,7 +120,6 @@
             </div>
         </section>
     </main>
-
     <footer class="footer text-white text-center py-3">
             <p class="mb-0">© 2024 CineMood. Todos os direitos reservados.</p>
     </footer>
