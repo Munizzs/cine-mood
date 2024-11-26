@@ -1,7 +1,9 @@
 package br.com.project.cineMood.controller;
 
 import br.com.project.cineMood.config.Config;
+import br.com.project.cineMood.config.TmdbApiClient;
 import br.com.project.cineMood.model.Filme;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.servlet.ServletException;
@@ -15,25 +17,16 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet("/user/inicio")
 public class InicioController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String apiKey = Config.getApiKey();
-        if (apiKey == null) {
-            System.out.println("Erro: A chave da API não foi encontrada.");
-            resp.getWriter().write("Erro: A chave da API não foi encontrada.");
-            return;
-        }
-
-        // Listas de títulos para buscar na API
-        String[] lancamentoTitulo = {"Barbie", "Oppenheimer", "Deadpool 2", "Alien: Romulus", "Inside out 2", "Five Nights at Freddy's", "Transformers One", "Avatar"};
-        List<Filme> filmes = fetchMoviesFromApi(lancamentoTitulo, apiKey);
-
-        String[] recommendedTitles = {"Inception", "Interstellar", "The Dark Knight", "Joker", "Deadpool 2", "Inside out 2"};
-        List<Filme> recommendedFilmes = fetchMoviesFromApi(recommendedTitles, apiKey);
+        List<Filme> filmes = fetchMoviesFromApi("/movie/popular");
+        List<Filme> recommendedFilmes = fetchMoviesFromApi("/movie/top_rated");
 
         // Dividindo os filmes em chunks de 4
         List<List<Filme>> moviesChunks = partitionMovies(filmes, 4);
@@ -46,49 +39,46 @@ public class InicioController extends HttpServlet {
         // Envia os chunks de filmes para o JSP
         req.setAttribute("moviesChunks", moviesChunks);
         req.setAttribute("recommendedMoviesChunks", recommendedMoviesChunks);
-        req.getRequestDispatcher("/resources/front-end/area_logada/index.jsp").forward(req, resp);
+        req.getRequestDispatcher("/resources/front-end/nao_logada/index.jsp").forward(req, resp);
     }
 
     // Método para buscar detalhes dos filmes da API OMDb.
 
-    private List<Filme> fetchMoviesFromApi(String[] movieTitles, String apiKey) {
+    private List<Filme> fetchMoviesFromApi(String endpoint) {
         List<Filme> filmes = new ArrayList<>();
-        for (String title : movieTitles) {
-            String apiUrl = "http://www.omdbapi.com/?t=" + title.replace(" ", "%20") + "&apikey=" + apiKey;
-            try {
-                // Conexão com a API
-                URL url = new URL(apiUrl);
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("GET");
+        String baseImageUrl = "https://image.tmdb.org/t/p/w500";
+        try (TmdbApiClient client = new TmdbApiClient()){
 
-                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                StringBuilder jsonOutput = new StringBuilder();
-                String line;
-                while ((line = br.readLine()) != null) {
-                    jsonOutput.append(line);
-                }
-                br.close();
-
-                // Parse da resposta JSON usando org.json
-                JSONObject jsonResponse = new JSONObject(jsonOutput.toString());
-                if (jsonResponse.getString("Response").equals("True")) {
+            // Configurando os parâmetros para a busca
+            Map<String, String> params = new HashMap<>();
+            params.put("api_key", "SUA_CHAVE_API");
+            params.put("language", "pt-BR");
+            // Obtém lista de filmes
+            JSONObject response = client.get(endpoint, params);
+            System.out.println("Resposta da API: " + response.toString(2));
+            if (response.has("results") && response.getJSONArray("results").length() > 0) {
+                JSONArray results = response.getJSONArray("results");
+                for (int i = 0; i < results.length(); i++) {
+                    JSONObject movieJson = results.getJSONObject(i);
                     Filme filme = new Filme(
-                            jsonResponse.getString("Title"),
-                            jsonResponse.getString("Poster")
+                            movieJson.getString("title"),
+                            baseImageUrl+movieJson.getString("poster_path")
                     );
                     filmes.add(filme);
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        // Remova o bloco 'finally' vazio
         return filmes;
     }
-
-
     // Método para dividir a lista de filmes em chunks menores.
 
     private List<List<Filme>> partitionMovies(List<Filme> filmes, int chunkSize) {
+        if (chunkSize <= 0) {
+            throw new IllegalArgumentException("O tamanho do chunk deve ser maior que zero.");
+        }
         List<List<Filme>> chunks = new ArrayList<>();
         for (int i = 0; i < filmes.size(); i += chunkSize) {
             chunks.add(filmes.subList(i, Math.min(i + chunkSize, filmes.size())));

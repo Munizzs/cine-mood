@@ -1,0 +1,40 @@
+body {
+    background: linear-gradient(90deg, #ba58f9, #8d2cc7, #7616ad);
+    color: #f8f9fa;
+    min-height: 100vh;
+}
+.card {
+    background-color: rgba(0, 0, 0, 0.8);
+    border: none;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+.btn-primary {
+    background: #ff5c5c;
+    border: none;
+}
+.btn-primary:hover {
+    background: #ff4040;
+}
+.custom-header {
+    color: #fff;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+.movie-info img {
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.movie-info h3 {
+    color: #fff;
+}
+.alert-warning {
+    background-color: rgba(255, 193, 7, 0.2);
+    border: 1px solid rgba(255, 193, 7, 0.5);
+    color: #ffc107;
+}
+/* Estilo para separar os filmes da barra de pesquisa */
+.movies-section {
+    margin-top: 50px; /* Adiciona espaço entre a barra de pesquisa e a lista de filmes */
+}
