@@ -31,10 +31,11 @@
                     <c:forEach var="movie" items="${movies}">
                         <div class="col-md-3 col-sm-6 mb-3">
                             <div class="card">
-                                <img src="${movie.poster}" class="card-img-top" alt="${movie.title}">
+                                <a href="/user/detalhes?id=${movie.id}">
+                                    <img src="${movie.poster}" class="card-img-top" alt="${movie.title}">
+                                </a>
                                 <div class="card-body">
-                                    <h5 class="card-title">${movie.title}</h5>
-                                    <a href="movieDetails?id=${movie.id}" class="btn btn-primary">View Details</a>
+                                    <h5 class="card-title text-center">${movie.title}</h5>
                                 </div>
                             </div>
                         </div>

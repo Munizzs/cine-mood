@@ -1,12 +1,13 @@
 package br.com.project.cineMood.model;
 
 public class Filme {
-    private String title;       // Título do filme
+    private String title;
     private String poster;
     private String genero;
     private String overview;
-    private String emocao;
+    private double voteAverage;
     private  String id;
+    private String emocao;
 
     public Filme(String title, String poster) {
         this.title = title;
@@ -17,6 +18,12 @@ public class Filme {
         this.title = title;
         this.poster = poster;
         this.genero = genero;
+        this.overview = overview;
+    }
+
+    public Filme(String title, String poster, String overview) {
+        this.title = title;
+        this.poster = poster;
         this.overview = overview;
     }
 
@@ -52,7 +59,7 @@ public class Filme {
         this.overview = overview;
     }
 
-    public String getEmocao() {
+     public String getEmocao() {
         return emocao;
     }
 
@@ -66,5 +73,13 @@ public class Filme {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public double getVoteAverage() {
+        return voteAverage;
+    }
+
+    public void setVoteAverage(double voteAverage) {
+        this.voteAverage = voteAverage;
     }
 }
