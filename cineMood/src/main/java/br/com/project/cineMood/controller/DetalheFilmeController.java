@@ -2,6 +2,7 @@ package br.com.project.cineMood.controller;
 
 import br.com.project.cineMood.config.TmdbApiClient;
 import br.com.project.cineMood.model.Filme;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.servlet.ServletException;
@@ -12,42 +13,65 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @WebServlet("/user/detalhes")
 public class DetalheFilmeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String movieId = "220848";//request.getParameter("id"); // Não esta pegando o id
-
-        System.out.println(movieId);
-
-        if (movieId == null || movieId.isEmpty()) {
-            response.sendRedirect("/user/pesquisa");
+        // Captura o parâmetro 'id' da URL
+        String movieIdParam = request.getParameter("id");
+        if (movieIdParam == null || movieIdParam.isEmpty()) {
+            request.setAttribute("error", "ID do filme não fornecido.");
+            request.getRequestDispatcher("/resources/front-end/detalhe/index.jsp").forward(request, response);
             return;
         }
 
-        try (TmdbApiClient client = new TmdbApiClient()) {
-            String endpoint = "/movie/" + movieId;
-            Map<String, String> params = new HashMap<>();
-            params.put("language", "pt-BR");
+        try {
+            int movieId = Integer.parseInt(movieIdParam);
 
-            JSONObject responseJson = client.get(endpoint, params);
+            // Cliente da API TMDB
+            try (TmdbApiClient client = new TmdbApiClient()) {
+                String endpoint = "/movie/" + movieId;
+                Map<String, String> params = new HashMap<>();
+                params.put("language", "pt-BR");
 
-            if (responseJson != null) {
-                Filme filme = new Filme(
-                        responseJson.getString("title"),
-                        "https://image.tmdb.org/t/p/w500" + responseJson.optString("poster_path"),
-                        //responseJson.getString("genres"),
-                        responseJson.getString("overview")
-                );
+                JSONObject responseJson = client.get(endpoint, params);
 
-                filme.setVoteAverage(responseJson.optDouble("vote_average"));
+                if (responseJson != null) {
+                    // Mapeia os dados do JSON para o modelo Filme
+                    Filme filme = new Filme(
+                            responseJson.getString("title"),
+                            "https://image.tmdb.org/t/p/w500" + responseJson.optString("poster_path"),
+                            responseJson.getString("overview")
+                    );
 
-                request.setAttribute("filme", filme);
-            } else {
-                request.setAttribute("error", "Não foi possível obter os detalhes do filme.");
+                    filme.setBackdrop_path("https://image.tmdb.org/t/p/original" + responseJson.optString("backdrop_path"));
+                    filme.setOriginalTitle(responseJson.optString("original_title"));
+                    filme.setVoteAverage(responseJson.optDouble("vote_average"));
+                    filme.setReleaseDate(responseJson.optString("release_date"));
+                    filme.setId(responseJson.optInt("id"));
+
+                    // Processa os gêneros
+                    JSONArray genresArray = responseJson.optJSONArray("genres");
+                    if (genresArray != null) {
+                        String genres = IntStream.range(0, genresArray.length())
+                                .mapToObj(i -> genresArray.getJSONObject(i).optString("name"))
+                                .collect(Collectors.joining(", "));
+                        filme.setGenres(genres);
+                    }
+
+                    request.setAttribute("filme", filme);
+                } else {
+                    request.setAttribute("error", "Não foi possível obter os detalhes do filme.");
+                }
+
+                // Encaminha para a página JSP
+                request.getRequestDispatcher("/resources/front-end/detalhe/index.jsp").forward(request, response);
             }
-
+        } catch (NumberFormatException e) {
+            request.setAttribute("error", "ID do filme inválido.");
             request.getRequestDispatcher("/resources/front-end/detalhe/index.jsp").forward(request, response);
         } catch (Exception e) {
             throw new RuntimeException(e);

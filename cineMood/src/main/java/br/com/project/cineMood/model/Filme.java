@@ -1,32 +1,37 @@
 package br.com.project.cineMood.model;
 
 public class Filme {
-    private String title;
-    private String poster;
-    private String genero;
-    private String overview;
-    private double voteAverage;
-    private  String id;
-    private String emocao;
+    private String title;            // Título do filme
+    private String originalTitle;    // Título original do filme
+    private String poster_path;           // URL do poster_path
+    private String backdrop_path;         // URL do backdrop
+    private String genres;           // Gêneros do filme
+    private String overview;         // Sinopse
+    private double voteAverage;      // Nota média
+    private String releaseDate;      // Data de lançamento
+    private int id;                  // ID do filme
+    private String emocao;           // Emoção associada
 
-    public Filme(String title, String poster) {
+    // Construtores
+    public Filme(String title, String poster_path) {
         this.title = title;
-        this.poster = poster;
+        this.poster_path = poster_path;
     }
 
-    public Filme(String title, String poster, String genero, String overview) {
+    public Filme(String title, String poster_path, String overview) {
         this.title = title;
-        this.poster = poster;
-        this.genero = genero;
+        this.poster_path = poster_path;
         this.overview = overview;
     }
 
-    public Filme(String title, String poster, String overview) {
+    public Filme(String title, String poster_path, String overview, String genres) {
         this.title = title;
-        this.poster = poster;
+        this.poster_path = poster_path;
         this.overview = overview;
+        this.genres = genres;
     }
 
+    // Getters e Setters
     public String getTitle() {
         return title;
     }
@@ -35,20 +40,36 @@ public class Filme {
         this.title = title;
     }
 
-    public String getPoster() {
-        return poster;
+    public String getOriginalTitle() {
+        return originalTitle;
     }
 
-    public void setPoster(String poster) {
-        this.poster = poster;
+    public void setOriginalTitle(String originalTitle) {
+        this.originalTitle = originalTitle;
     }
 
-    public String getGenero() {
-        return genero;
+    public String getPoster_path() {
+        return poster_path;
     }
 
-    public void setGenero(String genero) {
-        this.genero = genero;
+    public void setPoster_path(String poster_path) {
+        this.poster_path = poster_path;
+    }
+
+    public String getBackdrop_path() {
+        return backdrop_path;
+    }
+
+    public void setBackdrop_path(String backdrop_path) {
+        this.backdrop_path = backdrop_path;
+    }
+
+    public String getGenres() {
+        return genres;
+    }
+
+    public void setGenres(String genres) {
+        this.genres = genres;
     }
 
     public String getOverview() {
@@ -59,27 +80,35 @@ public class Filme {
         this.overview = overview;
     }
 
-     public String getEmocao() {
-        return emocao;
-    }
-
-    public void setEmocao(String emocao) {
-        this.emocao = emocao;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public double getVoteAverage() {
         return voteAverage;
     }
 
     public void setVoteAverage(double voteAverage) {
         this.voteAverage = voteAverage;
+    }
+
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getEmocao() {
+        return emocao;
+    }
+
+    public void setEmocao(String emocao) {
+        this.emocao = emocao;
     }
 }

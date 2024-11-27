@@ -85,7 +85,7 @@ public class Historico extends HttpServlet {
     }
 
 
-    private String determineEmotion(Filme filme) {
+    /*private String determineEmotion(Filme filme) {
         String genre = filme.getGenero().toLowerCase();
         String plot = filme.getOverview().toLowerCase();
 
@@ -100,7 +100,7 @@ public class Historico extends HttpServlet {
         } else {
             return "amor";  // Assumindo amor por padrão
         }
-    }
+    }*/
 
 
     // Método para buscar detalhes dos filmes da API OMDb.

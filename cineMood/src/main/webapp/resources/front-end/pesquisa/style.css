@@ -34,7 +34,7 @@ body {
     border: 1px solid rgba(255, 193, 7, 0.5);
     color: #ffc107;
 }
-/* Estilo para separar os filmes da barra de pesquisa */
-.movies-section {
-    margin-top: 50px; /* Adiciona espaço entre a barra de pesquisa e a lista de filmes */
+
+.botoes {
+    margin-top: 30px;
 }

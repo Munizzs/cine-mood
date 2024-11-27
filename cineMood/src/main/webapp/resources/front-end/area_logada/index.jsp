@@ -64,7 +64,9 @@
                                     <c:forEach var="movie" items="${movieChunk}">
                                         <div class="col">
                                             <div class="card bg-dark text-white w-100 h-100">
-                                                <img src="${movie.poster}" class="card-img-top" alt="${movie.title}" style="height: 350px;">
+                                                <a href="/user/detalhes?id=${movie.id}">
+                                                    <img src="${movie.poster_path}" class="card-img-top" alt="${movie.title}" style="height: 350px;">
+                                                </a>
                                                 <div class="card-body">
                                                     <p class="card-title text-center fw-bold">${movie.title}</p>
                                                 </div>
@@ -97,7 +99,9 @@
                                     <c:forEach var="movie" items="${movieChunk}">
                                         <div class="col">
                                             <div class="card bg-dark text-white w-100 h-100">
-                                                <img src="${movie.poster}" class="card-img-top" alt="${movie.title}" style="height: 350px;">
+                                                <a href="/user/detalhes?id=${movie.id}">
+                                                    <img src="${movie.poster_path}" class="card-img-top" alt="${movie.title}" style="height: 350px;">
+                                                </a>
                                                 <div class="card-body">
                                                     <p class="card-title text-center fw-bold">${movie.title}</p>
                                                 </div>
