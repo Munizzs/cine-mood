@@ -78,4 +78,6 @@ public class Favorito {
         ASSISTINDO,
         QUERO_ASSISTIR
     }
+
+
 }

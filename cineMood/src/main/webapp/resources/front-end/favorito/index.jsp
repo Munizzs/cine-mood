@@ -1,228 +1,65 @@
-<!-- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> -->
-<%@ page contentType="text/html; charset=UTF-8" %>
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CineMood</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/resources/front-end/nao_logada/style.css?v=1.0">
-   <!--  <link rel="stylesheet" href="style.css">-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Inter:wght@500&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
+    <title>Favoritos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <header>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="/user/inicio">
-             <img src="/resources/front-end/nao_logada/image/logoFeliz.png" alt="Logo do site" style="height: 40px;">
-            <!-- <img src="image/logoFeliz.png" alt="Logo do site" style="height: 40px;"> -->
-          </a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mx-auto">
-              <li class="nav-item"><a class="nav-link" href="/user/inicio">Início</a></li>
-              <li class="nav-item"><a class="nav-link" href="/user/filme-emocao">Emoção</a></li>
-              <li class="nav-item"><a class="nav-link" href="/user/favorito-filme">Filmes Salvos</a></li>
-              <li class="nav-item"><a class="nav-link" href="/user/historico-filme">Historico de Filme</a></li>
-            </ul>
-            <a class="nav-link" href="/user/pesquisa">
-              <img src="/resources/front-end/nao_logada/image/lupa.png" alt="Ícone de lupa" style="height: 25px;" class="me-2">
-            </a>
+    <div class="container mt-5">
+        <h1 class="text-center">Seus Favoritos</h1>
 
-            <c:if test="${sessionScope.loggedUser != null}">
-              <div class="dropdown">
-                <button class="btn btn-link nav-link dropdown-toggle" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                  ${sessionScope.loggedUser}
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <li><a class="dropdown-item" href="/user/perfil">Ir para o perfil</a></li>
-                  <li><a class="dropdown-item" href="/deslogar">Deslogar</a></li>
-                </ul>
-              </div>
-            </c:if>
-            <!-- <a class="nav-link" href="#"><img src="image/lupa.png" alt="Ícone de lupa" style="height: 25px;"></a> -->
-          </div>
-        </div>
-      </nav>
-    </header>
-    <main>
-        <section class="container my-4">
-            <!-- Tristeza -->
-            <div class="mb-5">
-                <p class="fs-4 fw-bold text-white mb-3">Para sentir tristeza</p>
-                <div id="carouselLancamentos" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        <c:forEach var="movieChunk" items="${moviesChunks}" varStatus="status">
-                            <div class="carousel-item ${status.first ? 'active' : ''}">
-                                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-                                    <c:forEach var="movie" items="${movieChunk}">
-                                        <div class="col">
-                                            <div class="card bg-dark text-white w-100 h-100" onclick="showLoginAlert()">
-                                                <img src="${movie.poster}" class="card-img-top" alt="${movie.title}" style="height: 350px;">
-                                                <div class="card-body">
-                                                    <p class="card-title text-center fw-bold">${movie.title}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </c:forEach>
-                                </div>
-                            </div>
-                        </c:forEach>
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselLancamentos" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselLancamentos" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
-            </div>
+        <!-- Mensagem de erro -->
+        <c:if test="${not empty error}">
+            <div class="alert alert-danger">${error}</div>
+        </c:if>
 
-            <!-- Alegria -->
-            <div>
-                <p class="fs-4 fw-bold text-white mb-3">Para sentir alegria</p>
-                <div id="carouselRecomendados" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        <c:forEach var="movieChunk" items="${recommendedMoviesChunks}" varStatus="status">
-                            <div class="carousel-item ${status.first ? 'active' : ''}">
-                                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-                                    <c:forEach var="movie" items="${movieChunk}">
-                                        <div class="col">
-                                            <div class="card bg-dark text-white w-100 h-100" onclick="showLoginAlert()">
-                                                <img src="${movie.poster}" class="card-img-top" alt="${movie.title}" style="height: 350px;">
-                                                <div class="card-body">
-                                                    <p class="card-title text-center fw-bold">${movie.title}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </c:forEach>
-                                </div>
-                            </div>
-                        </c:forEach>
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselRecomendados" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselRecomendados" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
-            </div>
-            <!-- Raiva -->
-                <div class="mb-5">
-                    <p class="fs-4 fw-bold text-white mb-3">Para sentir raiva</p>
-                    <div id="carouselLancamentos" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            <c:forEach var="movieChunk" items="${moviesChunks}" varStatus="status">
-                                <div class="carousel-item ${status.first ? 'active' : ''}">
-                                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-                                        <c:forEach var="movie" items="${movieChunk}">
-                                            <div class="col">
-                                                <div class="card bg-dark text-white w-100 h-100" onclick="showLoginAlert()">
-                                                    <img src="${movie.poster}" class="card-img-top" alt="${movie.title}" style="height: 350px;">
-                                                    <div class="card-body">
-                                                        <p class="card-title text-center fw-bold">${movie.title}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </c:forEach>
-                                    </div>
-                                </div>
-                            </c:forEach>
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselLancamentos" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselLancamentos" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
-                </div>
+        <table class="table table-striped mt-4">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Filme</th>
+                    <th>Status</th>
+                    <th>Avaliação</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach var="favorito" items="${favoritos}">
+                    <tr>
+                        <td>${favorito.idFavorito}</td>
+                        <td>${favorito.idFilme}</td>
+                        <td>${favorito.status}</td>
+                        <td>${favorito.avaliacao}</td>
+                        <td>
+                            <!-- Formulário para editar -->
+                            <form action="favorito-filme" method="post" class="d-inline">
+                                <input type="hidden" name="action" value="edit">
+                                <input type="hidden" name="idFavorito" value="${favorito.idFavorito}">
+                                <select name="status" class="form-select form-select-sm" required>
+                                    <option value="ASSISTIDO">Assistido</option>
+                                    <option value="ASSISTINDO">Assistindo</option>
+                                    <option value="QUERO_ASSISTIR">Quero Assistir</option>
+                                </select>
+                                <input type="number" name="avaliacao" min="0" max="5" value="${favorito.avaliacao}" class="form-control form-control-sm d-inline-block w-50">
+                                <button type="submit" class="btn btn-warning btn-sm">Salvar</button>
+                            </form>
 
-                <!-- Amor -->
-                <div>
-                    <p class="fs-4 fw-bold text-white mb-3">Para sentir amor</p>
-                    <div id="carouselRecomendados" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            <c:forEach var="movieChunk" items="${recommendedMoviesChunks}" varStatus="status">
-                                <div class="carousel-item ${status.first ? 'active' : ''}">
-                                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-                                        <c:forEach var="movie" items="${movieChunk}">
-                                            <div class="col">
-                                                <div class="card bg-dark text-white w-100 h-100" onclick="showLoginAlert()">
-                                                    <img src="${movie.poster}" class="card-img-top" alt="${movie.title}" style="height: 350px;">
-                                                    <div class="card-body">
-                                                        <p class="card-title text-center fw-bold">${movie.title}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </c:forEach>
-                                    </div>
-                                </div>
-                            </c:forEach>
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselRecomendados" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselRecomendados" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
-                </div>
-                <!-- Curiosidade -->
-                <div>
-                    <p class="fs-4 fw-bold text-white mb-3">Para sentir curiosidade</p>
-                    <div id="carouselRecomendados" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            <c:forEach var="movieChunk" items="${recommendedMoviesChunks}" varStatus="status">
-                                <div class="carousel-item ${status.first ? 'active' : ''}">
-                                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-                                        <c:forEach var="movie" items="${movieChunk}">
-                                            <div class="col">
-                                                <div class="card bg-dark text-white w-100 h-100" onclick="showLoginAlert()">
-                                                    <img src="${movie.poster}" class="card-img-top" alt="${movie.title}" style="height: 350px;">
-                                                    <div class="card-body">
-                                                        <p class="card-title text-center fw-bold">${movie.title}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </c:forEach>
-                                    </div>
-                                </div>
-                            </c:forEach>
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselRecomendados" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselRecomendados" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
-                </div>
-        </section>
-    </main>
+                            <!-- Formulário para excluir -->
+                            <form action="favorito-filme" method="post" class="d-inline">
+                                <input type="hidden" name="action" value="delete">
+                                <input type="hidden" name="idFavorito" value="${favorito.idFavorito}">
+                                <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+                            </form>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    </div>
 
-    <footer class="footer text-white text-center py-3">
-            <p class="mb-0">© 2024 CineMood. Todos os direitos reservados.</p>
-    </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -114,4 +114,33 @@ public class FavoritoDao {
             System.out.println("Error: " + e.getMessage());
         }
     }
+
+    public Favorito getFavoritoById(int id) throws SQLException {
+        String SQL = "SELECT * FROM favoritos WHERE id = ?";
+        try {
+            InitDao conex = new InitDao();
+            Connection conn = conex.getConnection();
+
+            PreparedStatement preparedStatement = conn.prepareStatement(SQL);
+            preparedStatement.setInt(1, id);
+
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+                if (rs.next()) {
+                    Favorito favorito = new Favorito();
+                    favorito.setIdFavorito(rs.getInt("id"));
+                    favorito.setIdUsuario(rs.getInt("id_usuario"));
+                    favorito.setIdFilme(rs.getString("id_filme"));
+                    favorito.setStatus(Favorito.Status.valueOf(rs.getString("status").toUpperCase()));
+                    favorito.setAvaliacao(rs.getInt("avaliacao"));
+                    favorito.setGenero(rs.getString("genero"));
+                    return favorito;
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
 }
