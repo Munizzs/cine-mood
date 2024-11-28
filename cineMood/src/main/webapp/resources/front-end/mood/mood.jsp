@@ -51,7 +51,7 @@
                 <div class="col">
                     <div class="card h-100 p-3 shadow-sm bg-body rounded">
                         <a href="/mood/result?idEmocao=${emocao.idEmocao}" class="text-decoration-none">
-                            <img src="/resources/front-end/mood/image/${emocao.image}" alt="${emocao.nome}" class="card-img-top mx-auto" style="height: 120px; width: 120px; border-radius: 50%;">
+                            <img src="/resources/front-end/mood/image/${emocao.image}" alt="${emocao.nome}" class="card-img-top mx-3" style="height: 120px; width: 120px; border-radius: 50%;">
                             <div class="card-body">
                                 <h5 class="card-title text-dark">${emocao.nome}</h5>
                             </div>
