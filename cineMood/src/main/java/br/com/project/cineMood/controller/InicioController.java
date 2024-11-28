@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -25,6 +26,20 @@ import java.util.Map;
 public class InicioController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        HttpSession session = req.getSession(false); // Obtém a sessão sem criar uma nova
+        if (session != null) {
+            Object idUsuarioObj = session.getAttribute("idUsuario");
+            if (idUsuarioObj != null) {
+                int idUsuario = (int) idUsuarioObj; // Cast para o tipo correto
+                System.out.println("------------------------------------------------------------------- ID do usuário na sessão: " + idUsuario);
+            } else {
+                System.out.println("ID do usuário não encontrado na sessão.");
+            }
+        } else {
+            System.out.println("Nenhuma sessão ativa.");
+        }
+
         List<Filme> filmes = fetchMoviesFromApi("/movie/popular");
         List<Filme> recommendedFilmes = fetchMoviesFromApi("/movie/top_rated");
 

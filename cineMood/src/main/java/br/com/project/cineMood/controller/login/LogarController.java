@@ -25,9 +25,14 @@ public class LogarController extends HttpServlet {
 
         Usuario usuario = new Usuario(email, senha);
 
+        UsuarioDao usuarioDao = new UsuarioDao();
         boolean ehUsuarioValido = new UsuarioDao().verificarCredencial(usuario);
 
         if(ehUsuarioValido){
+
+            int idUsuario = usuarioDao.getIdUsuarioPorEmail(email);
+
+            req.getSession().setAttribute("idUsuario", idUsuario);
             req.getSession().setAttribute("loggedUser",email);
 
             resp.sendRedirect("/user/inicio");
