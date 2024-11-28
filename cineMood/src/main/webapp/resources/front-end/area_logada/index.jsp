@@ -28,7 +28,7 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mx-auto">
               <li class="nav-item"><a class="nav-link" href="/user/inicio">Início</a></li>
-              <li class="nav-item"><a class="nav-link" href="/user/filme-emocao">Emoção</a></li>
+              <li class="nav-item"><a class="nav-link" href="/mood">Emoção</a></li>
               <li class="nav-item"><a class="nav-link" href="/user/favorito-filme">Filmes Salvos</a></li>
               <li class="nav-item"><a class="nav-link" href="/user/historico-filme">Historico de Filme</a></li>
             </ul>

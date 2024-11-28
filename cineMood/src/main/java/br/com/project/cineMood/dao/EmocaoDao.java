@@ -18,7 +18,7 @@ public class EmocaoDao {
              PreparedStatement preparedStatement = conn.prepareStatement(SQL)) {
 
             preparedStatement.setString(1, emocao.getNome());
-            preparedStatement.setString(2, emocao.getDescricao());
+            preparedStatement.setString(2, emocao.getGenre());
 
             preparedStatement.execute();
             System.out.println("Criada emoção com sucesso!");
@@ -40,9 +40,9 @@ public class EmocaoDao {
             while (resultSet.next()) {
                 int id = resultSet.getInt("id_emocao");
                 String nome = resultSet.getString("nome");
-                String descricao = resultSet.getString("descricao");
-
-                Emocao emocao = new Emocao(id, nome, descricao);
+                String genre = resultSet.getString("genre");
+                String image = resultSet.getString("image");
+                Emocao emocao = new Emocao(id, nome, genre,image);
                 emocaoList.add(emocao);
             }
 
@@ -81,7 +81,7 @@ public class EmocaoDao {
              PreparedStatement preparedStatement = conn.prepareStatement(SQL)) {
 
             preparedStatement.setString(1, emocao.getNome());
-            preparedStatement.setString(2, emocao.getDescricao());
+            preparedStatement.setString(2, emocao.getGenre());
             preparedStatement.setInt(3, emocao.getIdEmocao());
             preparedStatement.execute();
 

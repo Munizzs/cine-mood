@@ -67,5 +67,6 @@
     CREATE TABLE Emocoes (
         id_emocao SERIAL PRIMARY KEY,
         nome VARCHAR(50) NOT NULL,
-        descricao TEXT
+        genre TEXT,
+        image TEXT
     );

@@ -33,7 +33,7 @@ public class EmocaoController extends HttpServlet {
         }
 
         String nome = request.getParameter("nome");
-        String descricao = request.getParameter("descricao");
+        String descricao = request.getParameter("genre");
 
         Emocao emocao = new Emocao(id, nome, descricao);
 

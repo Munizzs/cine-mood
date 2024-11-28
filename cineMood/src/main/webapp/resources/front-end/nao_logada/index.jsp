@@ -29,7 +29,7 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mx-auto">
               <li class="nav-item"><a class="nav-link" href="/a">Início</a></li>
-              <li class="nav-item"><a class="nav-link" href="/filme-emocao">Emoção</a></li>
+              <li class="nav-item"><a class="nav-link" href="/mood">Emoção</a></li>
               <li class="nav-item"><a class="nav-link" href="/sobre">Sobre</a></li>
               <li class="nav-item"><a class="nav-link" href="/contato">Contato</a></li>
               <li class="nav-item"><a class="nav-link" href="/login">Entrar</a></li>
