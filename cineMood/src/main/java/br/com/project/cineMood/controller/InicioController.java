@@ -64,6 +64,8 @@ public class InicioController extends HttpServlet {
                             movieJson.getString("title"),
                             baseImageUrl+movieJson.getString("poster_path")
                     );
+                    filme.setId(movieJson.optInt("id"));
+
                     filmes.add(filme);
                 }
             }

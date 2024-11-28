@@ -15,6 +15,10 @@
     <div class="card p-4 shadow-lg">
         <h1 class="text-center custom-header mb-4">🎬 Pesquisa de Filmes</h1>
 
+        <div class="botoes">
+            <a href="/user/inicio" class="btn btn-secondary">Inicio</a>
+        </div>
+
         <!-- Barra de Pesquisa -->
         <form action="/user/pesquisa" method="get" class="mb-5">
             <div class="input-group">
@@ -31,9 +35,9 @@
                     <c:forEach var="movie" items="${movies}">
                         <div class="col-md-3 col-sm-6 mb-3">
                             <div class="card">
-                                <a href="/user/detalhes?id=${movie.id}">
-                                    <img src="${movie.poster}" class="card-img-top" alt="${movie.title}">
-                                </a>
+                                    <a href="/user/detalhes?id=${movie.id}">
+                                        <img src="${movie.poster_path}" class="card-img-top" alt="${movie.title}">
+                                    </a>
                                 <div class="card-body">
                                     <h5 class="card-title text-center">${movie.title}</h5>
                                 </div>

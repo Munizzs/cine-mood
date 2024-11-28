@@ -57,6 +57,8 @@ public class PerquisaController extends HttpServlet {
                             movieObject.getString("title"),
                             "https://image.tmdb.org/t/p/w500" + movieObject.optString("poster_path") // Ajuste o caminho da imagem conforme necessário
                     );
+                    filme.setId(movieObject.optInt("id"));
+
                     movies.add(filme);
                 }
 
