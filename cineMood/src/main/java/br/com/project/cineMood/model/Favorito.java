@@ -71,13 +71,4 @@ public class Favorito {
     public void setGenero(String genero) {
         this.genero = genero;
     }
-
-    // Enum para o status
-    public enum Status {
-        ASSISTIDO,
-        ASSISTINDO,
-        QUERO_ASSISTIR
-    }
-
-
 }

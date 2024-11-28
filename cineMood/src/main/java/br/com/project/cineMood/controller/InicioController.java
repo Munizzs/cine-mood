@@ -70,7 +70,7 @@ public class InicioController extends HttpServlet {
             params.put("language", "pt-BR");
             // Obtém lista de filmes
             JSONObject response = client.get(endpoint, params);
-            System.out.println("Resposta da API: " + response.toString(2));
+            //System.out.println("Resposta da API: " + response.toString(2));
             if (response.has("results") && response.getJSONArray("results").length() > 0) {
                 JSONArray results = response.getJSONArray("results");
                 for (int i = 0; i < results.length(); i++) {

@@ -50,7 +50,7 @@
 
 ### Favorito:
 
-    CREATE TYPE status_favorito AS ENUM ('Assistido', 'Assistindo', 'Quero Assistir');
+    CREATE TYPE status_favorito AS ENUM ('Assistido', 'Assistindo', 'Quero_Assistir');
 
     CREATE TABLE Favorito (
         id_favorito SERIAL PRIMARY KEY,

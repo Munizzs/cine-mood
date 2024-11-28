@@ -77,7 +77,12 @@
                         <div class="botoes">
                             <a href="/user/inicio" class="btn btn-secondary">Inicio</a>
                             <a href="/user/pesquisa" class="btn btn-secondary">Pesquisar</a>
-                            <button class="btn btn-primary">Favoritar</button>
+                            <form action="/favoritar" method="post">
+                                <input type="hidden" name="idFilme" value="${filme.id}">
+                                <input type="hidden" name="genero" value="${filme.genres}">
+                                <button type="submit" class="btn btn-primary">Favoritar</button>
+                            </form>
+
                         </div>
                     </div>
                 </div>

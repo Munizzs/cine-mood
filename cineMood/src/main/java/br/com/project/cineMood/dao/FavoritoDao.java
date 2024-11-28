@@ -1,6 +1,7 @@
 package br.com.project.cineMood.dao;
 
 import br.com.project.cineMood.model.Favorito;
+import br.com.project.cineMood.model.Status;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,7 +24,7 @@ public class FavoritoDao {
             PreparedStatement preparedStatement = conn.prepareStatement(SQL);
             preparedStatement.setInt(1, favorito.getIdUsuario());
             preparedStatement.setString(2, favorito.getIdFilme());  // Assuming id_filme is a String
-            preparedStatement.setString(3, favorito.getStatus().name());  // Using enum's name
+            preparedStatement.setObject(3, favorito.getStatus().name(), java.sql.Types.OTHER);
             preparedStatement.setInt(4, favorito.getAvaliacao());
             preparedStatement.setString(5, favorito.getGenero());
 
@@ -32,7 +33,7 @@ public class FavoritoDao {
 
             conn.close();
         } catch (Exception e) {
-            System.out.println("Fail in database connection: " + e.getMessage());
+            System.out.println("Falha na criação: " + e.getMessage());
         }
     }
 
@@ -55,7 +56,7 @@ public class FavoritoDao {
                 int avaliacao = resultSet.getInt("avaliacao");
                 String genero = resultSet.getString("genero");
 
-                Favorito.Status status = Favorito.Status.valueOf(statusStr);
+                Status status = Status.valueOf(statusStr);
 
                 Favorito favorito = new Favorito(id_favorito, id_usuario, status, avaliacao, id_filme, genero);
                 favoritos.add(favorito);
@@ -130,7 +131,7 @@ public class FavoritoDao {
                     favorito.setIdFavorito(rs.getInt("id"));
                     favorito.setIdUsuario(rs.getInt("id_usuario"));
                     favorito.setIdFilme(rs.getString("id_filme"));
-                    favorito.setStatus(Favorito.Status.valueOf(rs.getString("status").toUpperCase()));
+                    favorito.setStatus(Status.valueOf(rs.getString("status").toUpperCase()));
                     favorito.setAvaliacao(rs.getInt("avaliacao"));
                     favorito.setGenero(rs.getString("genero"));
                     return favorito;
@@ -143,4 +144,42 @@ public class FavoritoDao {
         }
         return null;
     }
+
+    public List<Favorito> findFavoritosByUserId(int userId) {
+        String SQL = "SELECT * FROM favorito WHERE id_usuario = ?";
+        try {
+            InitDao conex = new InitDao();
+            Connection conn = conex.getConnection();
+
+            PreparedStatement preparedStatement = conn.prepareStatement(SQL);
+            preparedStatement.setInt(1, userId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            List<Favorito> favoritos = new ArrayList<>();
+            while (resultSet.next()) {
+                int idFavorito = resultSet.getInt("id_favorito");
+                String idFilme = resultSet.getString("id_filme");
+                String statusStr = resultSet.getString("status");
+                int avaliacao = resultSet.getInt("avaliacao");
+                String genero = resultSet.getString("genero");
+
+                Favorito favorito = new Favorito(
+                        idFavorito,
+                        userId,
+                        Status.valueOf(statusStr),
+                        avaliacao,
+                        idFilme,
+                        genero
+                );
+                favoritos.add(favorito);
+            }
+
+            conn.close();
+            return favoritos;
+        } catch (SQLException e) {
+            System.out.println("Error fetching favoritos by user: " + e.getMessage());
+            return Collections.emptyList();
+        }
+    }
+
 }

@@ -1,4 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.List" %>
+<%@ page import="br.com.project.cineMood.model.Favorito" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,58 +11,87 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container mt-5">
-        <h1 class="text-center">Seus Favoritos</h1>
+<div class="container mt-5">
+    <h1 class="mb-4">Filmes Favoritados</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Filme</th>
+            <th>Status</th>
+            <th>Avaliação</th>
+            <th>Gênero</th>
+        </tr>
+        </thead>
+        <tbody>
+        <%
+            List<Favorito> favoritos = (List<Favorito>) request.getAttribute("favoritos");
+            if (favoritos != null && !favoritos.isEmpty()) {
+                for (Favorito favorito : favoritos) {
+        %>
+        <tr>
+            <td><%= favorito.getIdFilme() %></td>
+            <td><%= favorito.getStatus() %></td>
+            <td><%= favorito.getAvaliacao() %>/10</td>
+            <td><%= favorito.getGenero() %></td>
+            <td>
+                <form method="post" action="/deleteFavorito">
+                    <input type="hidden" name="idFavorito" value="<%= favorito.getIdFavorito() %>">
+                    <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+                </form>
+                <button
+                    class="btn btn-warning btn-sm"
+                    data-bs-toggle="modal"
+                    data-bs-target="#editModal<%= favorito.getIdFavorito() %>">
+                    Editar
+                </button>
+            </td>
+        </tr>
 
-        <!-- Mensagem de erro -->
-        <c:if test="${not empty error}">
-            <div class="alert alert-danger">${error}</div>
-        </c:if>
-
-        <table class="table table-striped mt-4">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Filme</th>
-                    <th>Status</th>
-                    <th>Avaliação</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="favorito" items="${favoritos}">
-                    <tr>
-                        <td>${favorito.idFavorito}</td>
-                        <td>${favorito.idFilme}</td>
-                        <td>${favorito.status}</td>
-                        <td>${favorito.avaliacao}</td>
-                        <td>
-                            <!-- Formulário para editar -->
-                            <form action="favorito-filme" method="post" class="d-inline">
-                                <input type="hidden" name="action" value="edit">
-                                <input type="hidden" name="idFavorito" value="${favorito.idFavorito}">
-                                <select name="status" class="form-select form-select-sm" required>
-                                    <option value="ASSISTIDO">Assistido</option>
-                                    <option value="ASSISTINDO">Assistindo</option>
-                                    <option value="QUERO_ASSISTIR">Quero Assistir</option>
+        <!-- Modal para editar o favorito -->
+        <div class="modal fade" id="editModal<%= favorito.getIdFavorito() %>" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <form method="post" action="/updateFavorito">
+                    <input type="hidden" name="idFavorito" value="<%= favorito.getIdFavorito() %>">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editModalLabel">Editar Favorito</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="status" class="form-label">Status</label>
+                                <select class="form-select" name="status" required>
+                                    <option value="Assistido" <%= "Assistido".equals(favorito.getStatus().name()) ? "selected" : "" %>>Assistido</option>
+                                    <option value="Assistindo" <%= "Assistindo".equals(favorito.getStatus().name()) ? "selected" : "" %>>Assistindo</option>
+                                    <option value="Quero_Assistir" <%= "Quero_Assistir".equals(favorito.getStatus().name()) ? "selected" : "" %>>Quero Assistir</option>
                                 </select>
-                                <input type="number" name="avaliacao" min="0" max="5" value="${favorito.avaliacao}" class="form-control form-control-sm d-inline-block w-50">
-                                <button type="submit" class="btn btn-warning btn-sm">Salvar</button>
-                            </form>
+                            </div>
+                            <div class="mb-3">
+                                <label for="avaliacao" class="form-label">Avaliação</label>
+                                <input type="number" class="form-control" name="avaliacao" value="<%= favorito.getAvaliacao() %>" min="0" max="10" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
 
-                            <!-- Formulário para excluir -->
-                            <form action="favorito-filme" method="post" class="d-inline">
-                                <input type="hidden" name="action" value="delete">
-                                <input type="hidden" name="idFavorito" value="${favorito.idFavorito}">
-                                <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
-                            </form>
-                        </td>
-                    </tr>
-                </c:forEach>
-            </tbody>
-        </table>
-    </div>
+        <%
+                }
+            } else {
+        %>
+        <tr>
+            <td colspan="5" class="text-center">Nenhum favorito encontrado.</td>
+        </tr>
+        <% } %>
+        </tbody>
+    </table>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
