@@ -45,23 +45,26 @@
 </header>
 <main>
     <section class="container my-4">
-        <h2 class="text-center mb-4">Olá, o que você está sentindo hoje?</h2>
-        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4 text-center">
-            <c:forEach var="emocao" items="${emocoes}">
-                <div class="col">
-                    <div class="card h-100 p-3 shadow-sm bg-body rounded">
-                        <a href="/mood/result?idEmocao=${emocao.idEmocao}" class="text-decoration-none">
-                            <img src="/resources/front-end/mood/image/${emocao.image}" alt="${emocao.nome}" class="card-img-top mx-3" style="height: 120px; width: 120px; border-radius: 50%;">
-                            <div class="card-body">
-                                <h5 class="card-title text-dark">${emocao.nome}</h5>
-                            </div>
-                        </a>
+        <div class="container-fluid">
+            <h2 class="text-center mb-4" style="color: #ffffff;">Olá <c:out value="${usuario.nome}" />! O que você está sentindo hoje?</h2>
+            <div class="row row-cols-1 row-cols-md-3 row-cols-lg-3 g-3 text-center" style="border-radius: 2.5%;background-color: #6a1b9a; color: #ffffff;">
+                <c:forEach var="emocao" items="${emocoes}">
+                    <div class="col">
+                        <div class="card h-100 p-3 shadow-sm rounded" style="background-color: rgba(0, 0, 0, 0.0); color: rgba(0, 0, 0, 0.0);">
+                            <a href="/mood/result?idEmocao=${emocao.idEmocao}" class="text-decoration-none">
+                                <img src="/resources/front-end/mood/image/${emocao.image}" alt="${emocao.nome}" class="card-img-top mx-3" style="height: 120px; width: 120px; border-radius: 100%;">
+                                <div class="card-body" style="background-color: transparent;">
+                                    <h5 class="card-title" style="color: #ffffff;">${emocao.nome}</h5>
+                                </div>
+                            </a>
+                        </div>
                     </div>
-                </div>
-            </c:forEach>
+                </c:forEach>
+            </div>
         </div>
     </section>
 </main>
+
 <!-- Modal de Aviso -->
 <div class="modal fade" id="loginAlertModal" tabindex="-1" aria-labelledby="loginAlertModalLabel" aria-hidden="true">
     <div class="modal-dialog">
