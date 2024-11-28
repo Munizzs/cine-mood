@@ -1,0 +1,149 @@
+p, label, h1, h2, h3, h4, h5, h6{
+    font-family: Arimo, sans-serif;
+}
+
+body{
+    background: linear-gradient(90deg, #ba58f9, #8d2cc7, #7616ad);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+main {
+    flex: 1;
+}
+
+/* Navegação */
+
+.navbar {
+  background-color: #50187c !important; /* Sobrescreve as classes do Bootstrap */
+}
+
+.nav-item {
+  color: inherit;
+}
+
+.nav-link {
+  color: #fff;
+  font-weight: bold;
+  transition: color 0.3s ease; /* Transição suave */
+}
+
+.nav-link:hover {
+  color: #d1c4e9;
+}
+
+/* Main */
+
+
+
+/* Footer */
+
+.footer {
+    background-color: #030303a8;
+}
+
+
+.titulo1 h1 {
+    margin-right: 35px;
+    padding-top: 30px;
+   text-align: center;
+   margin-bottom: 12px;
+    color:#fff;
+    font-size: 24px;
+    margin-bottom: 12px;
+
+}
+
+.insta {
+    display:flex;
+    gap:10px;
+    margin-left: 30px;
+    padding-top: 50px;
+
+}
+
+#instamsg {
+    color: #fff;
+    margin:0;
+    padding-top: 5px;
+}
+
+
+
+
+
+.container img {
+    max-width: 300px;
+    height: auto;
+    margin-right: 16px;
+    border-radius: 8px;
+
+}
+
+.container {
+    display: flex;
+    align-items: flex-start;
+    padding: 16px;
+    max-width: 900px;
+    margin: 16px;
+}
+
+.zap{
+     display:flex;
+     gap:10px;
+     margin-left: 30px;
+     padding-top: 50px;
+}
+
+#zapmsg{
+      color: #fff;
+      margin:0;
+      padding-top: 5px;
+}
+
+.link{
+     display:flex;
+     gap:10px;
+     margin-left: 30px;
+     padding-top: 50px;
+}
+
+#linkmsg{
+      color: #fff;
+      margin:0;
+      padding-top: 5px;
+}
+
+.trampo h2{
+    margin-right: 35px;
+    align-itens:center;
+    color:#fff;
+    padding-top: 60px;
+    text-align: center;
+    font-size:25px;
+}
+
+#id1{
+
+    align-itens:center;
+    text-align:center;
+    font-size:13px;
+    margin-top: -40px;
+    color:#fff;
+}
+
+#id2{
+     align-itens:center;
+     text-align:center;
+     font-size:12px;
+     margin-top: -10px;
+     color:#fff;
+}
+
+.curiosidade{
+   margin-top: -400px;
+   margin-right: 150px;
+
+    }
