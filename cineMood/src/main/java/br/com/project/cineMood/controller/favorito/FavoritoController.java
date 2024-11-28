@@ -2,6 +2,8 @@ package br.com.project.cineMood.controller.favorito;
 import br.com.project.cineMood.dao.FavoritoDao;
 import br.com.project.cineMood.model.Emocao;
 import br.com.project.cineMood.model.Favorito;
+import br.com.project.cineMood.model.Status;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,7 +34,7 @@ public class FavoritoController extends HttpServlet {
 
         int idUsuario = Integer.parseInt(request.getParameter("usuario"));
         String idFilme = request.getParameter("filme");
-        Favorito.Status status = Favorito.Status.valueOf(request.getParameter("status"));
+        Status status = Status.valueOf(request.getParameter("status"));
         int avaliacao = Integer.parseInt(request.getParameter("avaliacao"));
         String genero = request.getParameter("genero");
 

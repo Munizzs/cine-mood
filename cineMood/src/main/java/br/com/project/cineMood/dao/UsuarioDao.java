@@ -128,4 +128,29 @@ public class UsuarioDao {
             System.out.println("Erro: " + e.getMessage());
         }
     }
+
+    public int getIdUsuarioPorEmail(String email) {
+        int idUsuario = -1;
+        String sql = "SELECT id_usuario FROM usuario WHERE email = ?";
+
+        try (Connection conn = new InitDao().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, email);
+            System.out.println("Executando SQL: " + sql + " com email: " + email);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    idUsuario = rs.getInt("id_usuario");
+                    System.out.println("ID encontrado: " + idUsuario);
+                } else {
+                    System.out.println("Nenhum usuário encontrado com o email: " + email);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return idUsuario;
+    }
+
 }
