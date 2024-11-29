@@ -17,7 +17,7 @@ public class UsuarioDeleteController extends HttpServlet {
 
         new UsuarioDao().deleteUsuarioById(id_remover);
 
-        response.sendRedirect("/usuario");
+        response.sendRedirect("/user/");
 
     }
 }

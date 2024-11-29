@@ -1,9 +1,12 @@
-p, label, h1, h2, h3, h4, h5, h6{
-    font-family: Arimo, sans-serif;
+/* Tipografia */
+p, label, h1, h2, h3, h4, h5, h6 {
+    font-family: 'Arimo', sans-serif;
 }
 
-body{
-    background: linear-gradient(90deg, #ba58f9, #8d2cc7, #7616ad);
+body {
+    font-family: 'Arimo', sans-serif;
+    background: linear-gradient(90deg, #ba58f9, #8d2cc7, #7616ad); /* Gradiente de fundo */
+    color: #333;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -15,26 +18,36 @@ main {
 }
 
 /* Navegação */
-
 .navbar {
-  background-color: #50187c !important; /* Sobrescreve as classes do Bootstrap */
+    background-color: #50187c !important; /* Sobrescreve classes do Bootstrap */
 }
 
-.nav-item {
-  color: inherit;
+.navbar-brand img {
+    border-radius: 50%;
 }
 
 .nav-link {
-  color: #fff;
-  font-weight: bold;
-  transition: color 0.3s ease; /* Transição suave */
+    color: #fff;
+    font-weight: bold;
+    transition: color 0.3s ease;
 }
 
 .nav-link:hover {
-  color: #d1c4e9;
+    color: #d1c4e9;
 }
 
-/* Main */
+/* Cards */
+.card {
+background: black;
+    border: none;
+    border-radius: 15px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
 
 .card-img-top {
     transition: transform 0.2s, box-shadow 0.2s;
@@ -42,9 +55,10 @@ main {
 
 .card-img-top:hover {
     transform: scale(1.05);
-    box-shadow: 0px 5px 10px #030303a8;
+    box-shadow: 0px 5px 10px rgba(3, 3, 3, 0.66);
 }
 
+/* Filmes */
 .movie-row {
     display: flex;
     justify-content: space-between;
@@ -67,33 +81,27 @@ main {
     font-weight: bold;
 }
 
-.carousel-control-prev,
-.carousel-control-next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 50px;
-    height: 50px;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 50%;
-    z-index: 10;
+/* Alerta */
+.alert {
+    background-color: #f7f9fc;
+    border: 1px solid #d3d9de;
 }
 
-.carousel-control-prev {
-    left: 10px;
+/* Títulos */
+h1 {
+    font-weight: bold;
+    color: #4a69bd;
 }
 
-.carousel-control-next {
-    right: 10px;
-}
+/* Rodapé */
+footer {
 
-.carousel-control-prev:hover,
-.carousel-control-next:hover {
-    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    bottom: 0;
+    width: 100%;
+    padding: 1rem 0;
 }
-
-/* Footer */
 
 .footer {
-    background-color: #030303a8;
+    background-color: rgba(3, 3, 3, 0.66);
 }

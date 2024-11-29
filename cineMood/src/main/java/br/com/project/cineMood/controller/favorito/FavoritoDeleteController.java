@@ -19,7 +19,7 @@ public class FavoritoDeleteController extends HttpServlet {
 
         new FavoritoDao().deleteFavoritoById(id_remover);
 
-        response.sendRedirect("/favorito");
+        response.sendRedirect("/user/favorito-filme");
 
     }
 }

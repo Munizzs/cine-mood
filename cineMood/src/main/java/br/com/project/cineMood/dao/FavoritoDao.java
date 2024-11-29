@@ -90,34 +90,26 @@ public class FavoritoDao {
         }
     }
 
-    public void updateFavorito(Favorito favorito) {
-        String SQL = "UPDATE favorito SET id_usuario = ?, id_filme = ?, status = ?, avaliacao = ?, genero = ? WHERE id_favorito = ?";
+    public void updateFavorito(Favorito favorito) throws SQLException {
+        String SQL = "UPDATE favorito SET status = ?, avaliacao = ? WHERE id_favorito = ?";
 
-        try {
-            InitDao conex = new InitDao();
-            Connection conn = conex.getConnection();
-            System.out.println("Success in connecting to the database");
+        try (Connection conn = new InitDao().getConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(SQL)) {
 
-            PreparedStatement preparedStatement = conn.prepareStatement(SQL);
-            preparedStatement.setInt(1, favorito.getIdUsuario());
-            preparedStatement.setString(2, favorito.getIdFilme());
-            preparedStatement.setString(3, favorito.getStatus().name());
-            preparedStatement.setInt(4, favorito.getAvaliacao());
-            preparedStatement.setString(5, favorito.getGenero());
-            preparedStatement.setInt(6, favorito.getIdFavorito());
-            preparedStatement.execute();
+            preparedStatement.setObject(1, favorito.getStatus().name(), java.sql.Types.OTHER);
+            preparedStatement.setInt(2, favorito.getAvaliacao());
+            preparedStatement.setInt(3, favorito.getIdFavorito());
 
-            System.out.println("Successfully updated favorito");
-
-            conn.close();
-        } catch (Exception e) {
-            System.out.println("Error in database connection");
-            System.out.println("Error: " + e.getMessage());
+            preparedStatement.executeUpdate();
+            System.out.println("Favorito atualizado com sucesso");
+        } catch (SQLException e) {
+            System.out.println("Erro ao atualizar favorito: " + e.getMessage());
+            throw e;
         }
     }
 
     public Favorito getFavoritoById(int id) throws SQLException {
-        String SQL = "SELECT * FROM favoritos WHERE id = ?";
+        String SQL = "SELECT * FROM favorito WHERE id_favorito = ?";
         try {
             InitDao conex = new InitDao();
             Connection conn = conex.getConnection();
@@ -128,10 +120,10 @@ public class FavoritoDao {
             try (ResultSet rs = preparedStatement.executeQuery()) {
                 if (rs.next()) {
                     Favorito favorito = new Favorito();
-                    favorito.setIdFavorito(rs.getInt("id"));
+                    favorito.setIdFavorito(rs.getInt("id_favorito"));
                     favorito.setIdUsuario(rs.getInt("id_usuario"));
                     favorito.setIdFilme(rs.getString("id_filme"));
-                    favorito.setStatus(Status.valueOf(rs.getString("status").toUpperCase()));
+                    favorito.setStatus(Status.valueOf(rs.getString("status")));
                     favorito.setAvaliacao(rs.getInt("avaliacao"));
                     favorito.setGenero(rs.getString("genero"));
                     return favorito;
@@ -180,6 +172,28 @@ public class FavoritoDao {
             System.out.println("Error fetching favoritos by user: " + e.getMessage());
             return Collections.emptyList();
         }
+    }
+
+    public List<String> findFavoriteMovieIdsByUserId(int userId) throws SQLException {
+        String sql = "SELECT id_filme FROM favorito WHERE id_usuario = ?";
+        List<String> movieIds = new ArrayList<>();
+
+        try {
+            InitDao conex = new InitDao();
+            Connection conn = conex.getConnection();
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                movieIds.add(rs.getString("id_filme"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return movieIds;
     }
 
 }

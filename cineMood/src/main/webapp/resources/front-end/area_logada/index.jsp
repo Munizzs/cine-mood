@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CineMood</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/resources/front-end/nao_logada/style.css?v=1.0">
+    <link rel="stylesheet" href="/resources/front-end/area_logada/style.css?v=1.0">
    <!--  <link rel="stylesheet" href="style.css">-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,7 +20,7 @@
       <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
           <a class="navbar-brand" href="/user/inicio">
-            <img src="/resources/front-end/nao_logada/image/logoFeliz.png" alt="Logo do site" style="height: 40px;">
+            <img src="/resources/front-end/area_logada/image/logoFeliz.png" alt="Logo do site" style="height: 40px;">
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -31,10 +31,10 @@
               <li class="nav-item"><a class="nav-link" href="/mood">Emoção</a></li>
               <li class="nav-item"><a class="nav-link" href="/user/favorito-filme">Filmes Salvos</a></li>
               <li class="nav-item"><a class="nav-link" href="/user/historico-filme">Historico de Filme</a></li>
+              <a class="nav-link" href="/user/pesquisa">
+                <img src="/resources/front-end/area_logada/image/lupa.png" alt="Ícone de lupa" style="height: 25px;" class="me-2">
+              </a>
             </ul>
-            <a class="nav-link" href="/user/pesquisa">
-              <img src="/resources/front-end/nao_logada/image/lupa.png" alt="Ícone de lupa" style="height: 25px;" class="me-2">
-            </a>
 
             <c:if test="${sessionScope.loggedUser != null}">
               <div class="dropdown">
