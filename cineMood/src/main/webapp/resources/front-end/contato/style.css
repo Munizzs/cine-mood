@@ -60,7 +60,9 @@ main {
     display:flex;
     gap:10px;
     margin-left: 30px;
-    padding-top: 50px;
+    padding-top: 100px;
+    display:flex;
+    position:absolute;
 
 }
 
@@ -94,20 +96,26 @@ main {
      display:flex;
      gap:10px;
      margin-left: 30px;
-     padding-top: 50px;
+     padding-top: 190px;
+     display:flex;
+     position:absolute;
 }
 
 #zapmsg{
       color: #fff;
       margin:0;
       padding-top: 5px;
+
 }
 
 .link{
      display:flex;
      gap:10px;
      margin-left: 30px;
-     padding-top: 50px;
+     padding-top: 280px;
+     display:flex;
+     position: absolute;
+
 }
 
 #linkmsg{
@@ -116,34 +124,31 @@ main {
       padding-top: 5px;
 }
 
-.trampo h2{
-    margin-right: 35px;
-    align-itens:center;
-    color:#fff;
-    padding-top: 60px;
-    text-align: center;
-    font-size:25px;
+.trabalha {
+    display: flex;
+    flex-direction: column; /* Garante que os elementos fiquem em linhas */
+    align-items: center;    /* Centraliza horizontalmente */
+    gap: 5px;               /* Espaçamento entre as linhas */
+    margin-top: 50px;       /* Adiciona espaço acima dos textos */
 }
 
-#id1{
-
-    align-itens:center;
-    text-align:center;
-    font-size:13px;
-    margin-top: -40px;
-    color:#fff;
+#trampo {
+    color: #fff;
+    font-size: 25px;
+    margin-bottom: 5px; /* Espaço entre o título e o parágrafo */
 }
 
-#id2{
-     align-itens:center;
-     text-align:center;
-     font-size:12px;
-     margin-top: -10px;
-     color:#fff;
+#id1, #id2 {
+    color: #fff;
+    font-size: 14px; /* Deixe os textos menores */
+    margin: 0;       /* Remove margens padrão */
+    text-align: center; /* Centraliza o texto */
 }
+
 
 .curiosidade{
-   margin-top: -400px;
-   margin-right: 150px;
-
+   position: absolute;
+   margin-top: 60px;
+   align-item: right;
+   right: 80px;
     }

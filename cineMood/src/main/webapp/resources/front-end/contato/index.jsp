@@ -41,7 +41,9 @@
     </header>
 
 
-    <main>
+<main>
+<h2><br></h2>
+   <div class="row row-cols-1 row-cols-md-3 row-cols-lg-3 g-3 text-center" style="border-radius: 2.5%;background-color: #6a1b9a; color: #ffffff; margin-right: 20px; margin-left: 20px; padding-bottom: 250px;">
         <div class = "titulo1">
             <h1>Nos siga nas redes sociais!</h1>
         </div>
@@ -58,16 +60,17 @@
              <p id = "linkmsg">CineMood<p>
         </div>
 
-        <div class = "trampo">
-            <h2>Trabalhe conosco!<h2>
-            <p id = "id1">Mande seu currículo para:<p>
-            <p id = "id2">rhrecrutamento@cinemood.com.br<p>
+        <div class = "trabalha">
+            <h2 id = "trampo">Trabalhe conosco!</h2>
+            <p id = "id1">Mande seu currículo para:</p>
+            <p id = "id2">rhrecrutamento@cinemood.com.br</p>
         </div>
 
         <div class = "curiosidade">
             <img src="/resources/front-end/contato/image/curiosidadeLogo.png" alt="Logo do site" style="height: 250px;" class="float-end custom-img">
         </div>
-    </main>
+   </div>
+</main>
 
 
 

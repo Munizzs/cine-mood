@@ -18,7 +18,7 @@
             <div class="col-lg-6 col-md-12 left_login d-flex flex-column justify-content-center align-items-center">
                 <p class="titulo text-center">Faça seu login</p>
                 <form class="formulario_login text-center w-75" action="/login" method="post">
-                    <label class="texto_input form-label" for="email">Nome:</label>
+                    <label class="texto_input form-label" for="email">E-mail:</label>
                     <input class="input form-control" type="text" id="email" name="email">
                     <label class="texto_input form-label" for="senha">Senha:</label>
                     <input class="input form-control" type="password" id="senha" name="senha">
