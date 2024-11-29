@@ -39,7 +39,7 @@
                                         <img src="${movie.poster_path}" class="card-img-top" alt="${movie.title}">
                                     </a>
                                 <div class="card-body">
-                                    <h5 class="card-title text-center">${movie.title}</h5>
+                                    <h5 class="card-title text-center">${movie.title != null ? movie.title : 'Título indisponível'}</h5>
                                 </div>
                             </div>
                         </div>
@@ -51,7 +51,7 @@
         <!-- Mensagem de erro se não houver filme encontrado -->
         <c:if test="${empty movies}">
             <div class="alert alert-warning text-center" role="alert">
-                Nenhum filme encontrado com o título pesquisado.
+                Nenhum filme encontrado.
             </div>
         </c:if>
     </div>

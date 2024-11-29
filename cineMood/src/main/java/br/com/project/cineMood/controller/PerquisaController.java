@@ -23,8 +23,11 @@ public class PerquisaController extends HttpServlet {
         System.out.println("Servlet iniciado - recebendo requisição");
 
         String movieTitle = request.getParameter("title");
+        System.out.println("Parâmetro recebido no formulário: " + movieTitle);
 
-        if(movieTitle != null){
+        if (movieTitle == null || movieTitle.trim().isEmpty()) {
+            movieTitle = "faderisa";
+        } else {
             movieTitle = movieTitle.replace(" ", "&");
         }
 
@@ -42,7 +45,7 @@ public class PerquisaController extends HttpServlet {
             // Fazendo a requisição à API
             JSONObject responseJson = client.get(endpoint, params);
 
-            System.out.println("Resposta da API: " + responseJson.toString(2));
+            //System.out.println("Resposta da API: " + responseJson.toString(2));
 
             if (responseJson.has("results") && responseJson.getJSONArray("results").length() > 0) {
 
@@ -53,12 +56,19 @@ public class PerquisaController extends HttpServlet {
                 List<Filme> movies = new ArrayList<>();
                 for (int i = 0; i < results.length(); i++) {
                     JSONObject movieObject = results.getJSONObject(i);
-                    Filme filme = new Filme(
-                            movieObject.getString("title"),
-                            "https://image.tmdb.org/t/p/w500" + movieObject.optString("poster_path") // Ajuste o caminho da imagem conforme necessário
-                    );
-                    filme.setId(movieObject.optInt("id"));
+                    String title = movieObject.optString("title", "Título indisponível"); // Define título padrão
 
+                    String posterPath = movieObject.optString("poster_path"); // Caminho vazio caso não exista imagem
+
+                    // Exibir logs para cada filme
+                    System.out.println("Título: " + movieTitle);
+                    System.out.println("Poster: " + posterPath);
+
+                    Filme filme = new Filme(
+                            title,
+                            posterPath.isEmpty() ? "/resources/front-end/pesquisa/image/default-poster.jpg" : "https://image.tmdb.org/t/p/w500" + posterPath // Imagem padrão caso não haja poster
+                    );
+                    filme.setId(movieObject.optInt("id", 0)); // ID padrão (0) caso não exista
                     movies.add(filme);
                 }
 
