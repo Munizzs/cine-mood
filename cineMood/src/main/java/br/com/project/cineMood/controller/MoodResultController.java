@@ -39,15 +39,11 @@ public class MoodResultController extends HttpServlet {
                 System.out.println(generoList);
 
                 List<Integer> seleccaoids=selctById(recommendedFilmes);
-                System.out.println(seleccaoids);
-                //for (Filme recommendedFilme : recommendedFilmes) {
-                //    System.out.println("title: "+recommendedFilme.getTitle());
-                //    System.out.println("poster_path: "+recommendedFilme.getPoster_path());
-                //    System.out.println("id: "+recommendedFilme.getId());
-                //}
-
-
-
+                List<Filme> filmesSelecionados = new ArrayList<>();
+                for (int id : seleccaoids) {
+                    filmesSelecionados.add(recommendedFilmes.get(id));
+                }
+                req.setAttribute("recommendedFilmes", filmesSelecionados);
             } else {
                 resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Emoção não encontrada");
             }
