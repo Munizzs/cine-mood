@@ -63,6 +63,29 @@ public class DetalheFilmeController extends HttpServlet {
                     }
 
                     request.setAttribute("filme", filme);
+
+                    // Obtém os provedores de streaming
+                    String watchProvidersEndpoint = "/movie/" + movieId + "/watch/providers";
+                    JSONObject watchProvidersResponse = client.get(watchProvidersEndpoint, new HashMap<>());
+
+                    if (watchProvidersResponse != null) {
+                        JSONObject results = watchProvidersResponse.optJSONObject("results");
+                        if (results != null) {
+                            JSONObject brazilProviders = results.optJSONObject("BR"); // Exemplo: dados do Brasil
+                            if (brazilProviders != null) {
+                                JSONObject flatrate = brazilProviders.optJSONArray("flatrate") != null ? brazilProviders.optJSONArray("flatrate").optJSONObject(0) : null;
+                                if (flatrate != null) {
+                                    String providerName = flatrate.optString("provider_name");
+                                    String providerLogo = "https://image.tmdb.org/t/p/w92" + flatrate.optString("logo_path");
+
+                                    // Adicione os dados ao request
+                                    request.setAttribute("providerName", providerName);
+                                    request.setAttribute("providerLogo", providerLogo);
+                                }
+                            }
+                        }
+                    }
+
                 } else {
                     request.setAttribute("error", "Não foi possível obter os detalhes do filme.");
                 }

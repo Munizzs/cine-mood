@@ -47,6 +47,8 @@
 
         .botoes {
             margin-top: 30px;
+            display: flex;
+            gap: 10px;
         }
 
         .botoes button {
@@ -72,17 +74,23 @@
                         <p class="info"><strong>Título Original:</strong> ${filme.originalTitle}</p>
                         <p class="info"><strong>Avaliação:</strong> ${filme.voteAverage}</p>
                         <p class="info"><strong>Data de Lançamento:</strong> ${filme.releaseDate}</p>
+                        <c:if test="${not empty providerName}">
+                            <p class="info"><strong>Disponível em:</strong>
+                                <img src="${providerLogo}" alt="${providerName}" style="height: 30px; margin-right: 10px;">
+                                ${providerName}
+                            </p>
+                        </c:if>
+
 
                         <!-- Botões -->
                         <div class="botoes">
-                            <a href="/user/inicio" class="btn btn-secondary">Inicio</a>
-                            <a href="/user/pesquisa" class="btn btn-secondary">Pesquisar</a>
+                            <a href="/user/inicio" class="btn btn-outline-dark">Inicio</a>
+                            <a href="/user/pesquisa" class="btn btn-outline-dark">Pesquisar</a>
                             <form action="/favoritar" method="post">
                                 <input type="hidden" name="idFilme" value="${filme.id}">
                                 <input type="hidden" name="genero" value="${filme.genres}">
-                                <button type="submit" class="btn btn-primary">Favoritar</button>
+                                <button type="submit" class="btn btn-outline-primary">Favoritar</button>
                             </form>
-
                         </div>
                     </div>
                 </div>
