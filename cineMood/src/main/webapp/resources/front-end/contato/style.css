@@ -152,3 +152,18 @@ main {
    align-item: right;
    right: 80px;
     }
+
+    .opine{
+    display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        margin-top: 250px;
+        position: absolute;
+        left: 415px;
+        font-size: 13px;
+    }
+
+    #opine1{
+        font-size: 18px;
+    }

@@ -66,6 +66,11 @@
             <p id = "id2">rhrecrutamento@cinemood.com.br</p>
         </div>
 
+    <div class = "opine">
+        <h2 id = "opine1"> Opinião de um funcionário!</h2>
+        <p id = "opine2">Adoro trabalhar no CineMood porque fazemos a diferença na vida das pessoas! - Anônimo.</p>
+    </div>
+
         <div class = "curiosidade">
             <img src="/resources/front-end/contato/image/curiosidadeLogo.png" alt="Logo do site" style="height: 250px;" class="float-end custom-img">
         </div>
