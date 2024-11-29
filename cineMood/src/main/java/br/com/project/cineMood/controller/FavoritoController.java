@@ -28,16 +28,21 @@ public class FavoritoController extends HttpServlet {
         try {
             int userId = (int) req.getSession().getAttribute("idUsuario");
             String statusParam = req.getParameter("status"); // Obtém o parâmetro de filtro
-            System.out.println("-------------------" + statusParam);
-            List<Favorito> favoritos;
 
+            List<Favorito> favoritos;
             if (statusParam != null && !statusParam.isEmpty()) {
-                // Tentando converter o parâmetro de status para o enum de forma segura
-                Status status = Status.fromString(statusParam);
-                if (status == null) {
-                    throw new ServletException("Status inválido: " + statusParam);
+                if ("SemStatus".equalsIgnoreCase(statusParam)) {
+                    // Busca favoritos sem status definido
+                    favoritos = favoritoDao.findFavoritosByUserIdAndStatus(userId, null);
+                } else {
+                    // Valida o status informado
+                    try {
+                        Status status = Status.valueOf(statusParam); // Converte o parâmetro para enum
+                        favoritos = favoritoDao.findFavoritosByUserIdAndStatus(userId, status); // Busca filtrada
+                    } catch (IllegalArgumentException e) {
+                        throw new ServletException("Status inválido: " + statusParam, e);
+                    }
                 }
-                favoritos = favoritoDao.findFavoritosByUserIdAndStatus(userId, status); // Busca filtrada
             } else {
                 // Busca todos os favoritos se nenhum status for informado
                 favoritos = favoritoDao.findFavoritosByUserId(userId);
@@ -45,6 +50,7 @@ public class FavoritoController extends HttpServlet {
 
             req.setAttribute("favoritos", favoritos);
 
+            // Busca informações dos filmes favoritos
             List<String> movieIds = new ArrayList<>();
             for (Favorito favorito : favoritos) {
                 movieIds.add(favorito.getIdFilme());
@@ -78,10 +84,9 @@ public class FavoritoController extends HttpServlet {
             req.getRequestDispatcher("/resources/front-end/favorito/index.jsp").forward(req, resp);
 
         } catch (Exception e) {
-            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erro ao buscar favoritos.");
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erro ao buscar favoritos.\n" + e.getMessage());
         }
     }
-
 
 
 

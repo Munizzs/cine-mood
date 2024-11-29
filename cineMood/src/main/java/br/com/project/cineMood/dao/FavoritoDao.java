@@ -199,12 +199,12 @@ public class FavoritoDao {
     }
 
     public List<Favorito> findFavoritosByUserIdAndStatus(int userId, Status status) throws SQLException {
-        String sql = "SELECT * FROM favorito WHERE id_usuario = ? AND status = ?";
+        String sql = "SELECT * FROM favorito WHERE id_usuario = ? AND status = ?::status_favorito";
         try (Connection conn = getConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
 
             preparedStatement.setInt(1, userId);
-            preparedStatement.setObject(2, status, java.sql.Types.OTHER); // Envia como ENUM
+            preparedStatement.setString(2, status.name()); // Envia como ENUM
 
             try (ResultSet rs = preparedStatement.executeQuery()) {
                 List<Favorito> favoritos = new ArrayList<>();
@@ -213,7 +213,7 @@ public class FavoritoDao {
                     favorito.setIdFavorito(rs.getInt("id_favorito"));
                     favorito.setIdUsuario(rs.getInt("id_usuario"));
                     favorito.setIdFilme(rs.getString("id_filme"));
-                    favorito.setStatus((Status) rs.getObject("status")); // Recupera diretamente o ENUM
+                    favorito.setStatus(Status.valueOf(rs.getString("status"))); // Recupera diretamente o ENUM
                     favoritos.add(favorito);
                 }
                 return favoritos;
