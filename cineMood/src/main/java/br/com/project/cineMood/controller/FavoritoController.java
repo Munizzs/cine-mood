@@ -26,31 +26,40 @@ public class FavoritoController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            // Obtendo o ID do usuário da sessão
             int userId = (int) req.getSession().getAttribute("idUsuario");
+            String statusParam = req.getParameter("status"); // Obtém o parâmetro de filtro
+            System.out.println("-------------------" + statusParam);
+            List<Favorito> favoritos;
 
-            // Buscando os favoritos do banco de dados
-            List<Favorito> favoritos = favoritoDao.findFavoritosByUserId(userId);
-            req.setAttribute("favoritos", favoritos); // Passa os favoritos do banco para o JSP
+            if (statusParam != null && !statusParam.isEmpty()) {
+                // Tentando converter o parâmetro de status para o enum de forma segura
+                Status status = Status.fromString(statusParam);
+                if (status == null) {
+                    throw new ServletException("Status inválido: " + statusParam);
+                }
+                favoritos = favoritoDao.findFavoritosByUserIdAndStatus(userId, status); // Busca filtrada
+            } else {
+                // Busca todos os favoritos se nenhum status for informado
+                favoritos = favoritoDao.findFavoritosByUserId(userId);
+            }
 
-            // Buscando os IDs dos filmes favoritos do usuário
-            List<String> movieIds = favoritoDao.findFavoriteMovieIdsByUserId(userId);
+            req.setAttribute("favoritos", favoritos);
+
+            List<String> movieIds = new ArrayList<>();
+            for (Favorito favorito : favoritos) {
+                movieIds.add(favorito.getIdFilme());
+            }
 
             List<Filme> filmesFavoritos = new ArrayList<>();
-
-            // Fazendo a requisição à API para cada filme favorito
             for (String movieId : movieIds) {
                 try (TmdbApiClient client = new TmdbApiClient()) {
-                    // Configurando os parâmetros para a busca
-                    String endpoint = "/movie/" + movieId; // Requisição para detalhes do filme
+                    String endpoint = "/movie/" + movieId;
                     Map<String, String> params = new HashMap<>();
                     params.put("api_key", "SUA_CHAVE_API");
                     params.put("language", "pt-BR");
 
-                    // Fazendo a requisição à API para buscar os detalhes do filme
                     JSONObject responseJson = client.get(endpoint, params);
 
-                    // Verificando se a resposta contém dados
                     if (responseJson != null && responseJson.has("title")) {
                         Filme filme = new Filme(
                                 responseJson.getString("title"),
@@ -58,26 +67,22 @@ public class FavoritoController extends HttpServlet {
                                 0
                         );
                         filme.setId(responseJson.optInt("id"));
-                        //filme.setOverview(responseJson.optString("overview"));
-                        //filme.setReleaseDate(responseJson.optString("release_date"));
-
-                        // Adicionando o filme à lista de favoritos
                         filmesFavoritos.add(filme);
                     }
                 } catch (Exception e) {
-                    e.printStackTrace(); // Log de erro ao buscar o filme
+                    e.printStackTrace();
                 }
             }
 
-            // Passando a lista de filmes favoritos para o JSP
             req.setAttribute("filmesFavoritos", filmesFavoritos);
             req.getRequestDispatcher("/resources/front-end/favorito/index.jsp").forward(req, resp);
 
         } catch (Exception e) {
-            // Em caso de erro, envia uma mensagem de erro para o cliente
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erro ao buscar favoritos.");
         }
     }
+
+
 
 
     @Override

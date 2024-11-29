@@ -53,6 +53,21 @@
       </nav>
     </header>
     <main>
+    <div class="mb-4">
+        <form method="get" action="/user/favorito-filme" class="d-flex align-items-center">
+            <label for="status" class="me-2 text-white">Filtrar por Status:</label>
+            <select name="status" id="status" class="form-select me-2" style="width: auto;">
+                <option value="">Todos</option>
+                <option value="Assistido" <%= "Assistido".equals(request.getParameter("status")) ? "selected" : "" %>>Assistido</option>
+                <option value="Assistindo" <%= "Assistindo".equals(request.getParameter("status")) ? "selected" : "" %>>Assistindo</option>
+                <option value="Quero_Assistir" <%= "Quero_Assistir".equals(request.getParameter("status")) ? "selected" : "" %>>Quero Assistir</option>
+            </select>
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+        </form>
+    </div>
+
+
+
         <div class="container mt-2 py-5 mb-4">
             <h1 class="mb-4 fs-3 fw-bold text-white">Filmes Favoritados</h1>
             <div class="row gy-4">

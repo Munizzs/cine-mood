@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static br.com.project.cineMood.dao.InitDao.getConnection;
+
 public class FavoritoDao {
 
     public void createFavorito(Favorito favorito) throws SQLException {
@@ -18,7 +20,7 @@ public class FavoritoDao {
 
         try {
             InitDao conex = new InitDao();
-            Connection conn = conex.getConnection();
+            Connection conn = getConnection();
             System.out.println("Success in database connection(createFavorito)");
 
             PreparedStatement preparedStatement = conn.prepareStatement(SQL);
@@ -41,7 +43,7 @@ public class FavoritoDao {
         String SQL = "SELECT * FROM favorito";
         try {
             InitDao conex = new InitDao();
-            Connection conn = conex.getConnection();
+            Connection conn = getConnection();
             System.out.println("Success in database connection (to list)");
 
             PreparedStatement preparedStatement = conn.prepareStatement(SQL);
@@ -76,7 +78,7 @@ public class FavoritoDao {
         String SQL = "DELETE FROM favorito WHERE id_favorito = ?";
         try {
             InitDao conex = new InitDao();
-            Connection conn = conex.getConnection();
+            Connection conn = getConnection();
             System.out.println("Success in connection (Delete Favorito)");
 
             PreparedStatement preparedStatement = conn.prepareStatement(SQL);
@@ -112,7 +114,7 @@ public class FavoritoDao {
         String SQL = "SELECT * FROM favorito WHERE id_favorito = ?";
         try {
             InitDao conex = new InitDao();
-            Connection conn = conex.getConnection();
+            Connection conn = getConnection();
 
             PreparedStatement preparedStatement = conn.prepareStatement(SQL);
             preparedStatement.setInt(1, id);
@@ -141,7 +143,7 @@ public class FavoritoDao {
         String SQL = "SELECT * FROM favorito WHERE id_usuario = ?";
         try {
             InitDao conex = new InitDao();
-            Connection conn = conex.getConnection();
+            Connection conn = getConnection();
 
             PreparedStatement preparedStatement = conn.prepareStatement(SQL);
             preparedStatement.setInt(1, userId);
@@ -180,7 +182,7 @@ public class FavoritoDao {
 
         try {
             InitDao conex = new InitDao();
-            Connection conn = conex.getConnection();
+            Connection conn = getConnection();
 
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, userId);
@@ -195,5 +197,31 @@ public class FavoritoDao {
 
         return movieIds;
     }
+
+    public List<Favorito> findFavoritosByUserIdAndStatus(int userId, Status status) throws SQLException {
+        String sql = "SELECT * FROM favorito WHERE id_usuario = ? AND status = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setObject(2, status, java.sql.Types.OTHER); // Envia como ENUM
+
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+                List<Favorito> favoritos = new ArrayList<>();
+                while (rs.next()) {
+                    Favorito favorito = new Favorito();
+                    favorito.setIdFavorito(rs.getInt("id_favorito"));
+                    favorito.setIdUsuario(rs.getInt("id_usuario"));
+                    favorito.setIdFilme(rs.getString("id_filme"));
+                    favorito.setStatus((Status) rs.getObject("status")); // Recupera diretamente o ENUM
+                    favoritos.add(favorito);
+                }
+                return favoritos;
+            }
+        } catch (SQLException | IllegalArgumentException e) {
+            throw new RuntimeException("Erro ao buscar favoritos", e);
+        }
+    }
+
 
 }
