@@ -38,11 +38,15 @@ public class MoodResultController extends HttpServlet {
                 List<Filme> recommendedFilmes = fetchMoviesFromApi(generoList,"/discover/movie");
                 System.out.println(generoList);
 
-                for (Filme recommendedFilme : recommendedFilmes) {
-                    System.out.println("title: "+recommendedFilme.getTitle());
-                    System.out.println("poster_path: "+recommendedFilme.getPoster_path());
-                    System.out.println("id: "+recommendedFilme.getId());
-                }
+                List<Integer> seleccaoids=selctById(recommendedFilmes);
+                System.out.println(seleccaoids);
+                //for (Filme recommendedFilme : recommendedFilmes) {
+                //    System.out.println("title: "+recommendedFilme.getTitle());
+                //    System.out.println("poster_path: "+recommendedFilme.getPoster_path());
+                //    System.out.println("id: "+recommendedFilme.getId());
+                //}
+
+
 
             } else {
                 resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Emoção não encontrada");
@@ -88,10 +92,10 @@ public class MoodResultController extends HttpServlet {
 
             // Chama o cliente para a API
             for(int j = 0; j < 10; j++) {
+                //para retornar as primeiras 10 paginas da api
                 params.put("page", ""+j);
             JSONObject response = client.get(endpoint, params);
-            System.out.println("Resposta da API: " + response.toString(2));
-
+            //System.out.println("Resposta da API: " + response.toString(2));
             if (response.has("results") && response.getJSONArray("results").length() > 0) {
                 JSONArray results = response.getJSONArray("results");
                 for (int i = 0; i < results.length(); i++) {
@@ -112,10 +116,21 @@ public class MoodResultController extends HttpServlet {
 
         return filmes;
     }
-
-    public List<Filme> randFilm(List<Filme> filmes) {
+    public int randFilm(List<Filme> filmes) {
         Random rand  = new Random();
-        rand.ints(0,filmes.size() );
-        return  filmes;
+        return rand.nextInt(0,filmes.size());
     }
+    public List<Integer> selctById(List<Filme> filmes) {
+        List<Integer> randList =  new ArrayList<>();
+        while (randList.size() < Math.min(20, filmes.size())) {
+            int addid = randFilm(filmes);
+
+            // Verifica se o valor já existe na lista antes de adicionar
+            if (!randList.contains(addid)) {
+                randList.add(addid);
+            }
+        }
+        return randList;
+    }
+
 }
