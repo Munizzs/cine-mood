@@ -18,6 +18,7 @@ public class Emocao {
         this.nome = nome;
         this.genre = genre;
     }
+    public Emocao() {}
 
     public int getIdEmocao() {return idEmocao;}
 

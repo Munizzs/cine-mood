@@ -13,9 +13,14 @@ public class Filme {
     private String emocao;           // Emoção associada
 
     // Construtores
-    public Filme(String title, String backdrop_path, int nada) {
+    public Filme(String title, String backdrop_path,Double nada) {
         this.title = title;
         this.backdrop_path = backdrop_path;
+    }
+    public Filme(String title, String poster_path, int id) {
+        this.title = title;
+        this.poster_path = poster_path;
+        this.id = id;
     }
 
     public Filme(String title, String poster_path) {

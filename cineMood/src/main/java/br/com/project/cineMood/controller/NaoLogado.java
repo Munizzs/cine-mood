@@ -1,24 +1,25 @@
 package br.com.project.cineMood.controller;
 
-import br.com.project.cineMood.config.Config;
 import br.com.project.cineMood.config.TmdbApiClient;
 import br.com.project.cineMood.model.Filme;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+
+
 
 @WebServlet("/a")
 public class NaoLogado extends HttpServlet {

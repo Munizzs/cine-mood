@@ -92,4 +92,36 @@ public class EmocaoDao {
             System.out.println("Erro: " + e.getMessage());
         }
     }
+
+    public Emocao findEmocaoById(String id) {
+        String SQL = "SELECT * FROM emocoes WHERE id_emocao = ?";
+        Emocao emocoes = null;
+
+        try (Connection conn = new InitDao().getConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(SQL)) {
+
+            preparedStatement.setInt(1, Integer.parseInt(id));
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                int idEmocao = resultSet.getInt("id_emocao");
+                String nome = resultSet.getString("nome");
+                String genres = resultSet.getString("genre"); // Corrigido o nome do campo
+                String image = resultSet.getString("image");
+
+                // Cria o objeto Emocao com os dados obtidos
+                emocoes = new Emocao(idEmocao, nome, genres, image);
+
+                System.out.println("Busca realizada com sucesso para o id: " + id);
+            } else {
+                System.out.println("Nenhum registro encontrado para o id: " + id);
+            }
+        } catch (Exception e) {
+            System.out.println("Erro ao buscar emoção: " + e.getMessage());
+        }
+
+        // Retorna o objeto Emocao ou null se não encontrado
+        return emocoes;
+    }
+
 }
