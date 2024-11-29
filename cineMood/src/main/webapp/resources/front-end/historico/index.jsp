@@ -32,7 +32,6 @@
               <li class="nav-item"><a class="nav-link" href="/user/inicio">Início</a></li>
               <li class="nav-item"><a class="nav-link" href="/mood">Emoção</a></li>
               <li class="nav-item"><a class="nav-link" href="/user/favorito-filme">Filmes Salvos</a></li>
-              <li class="nav-item"><a class="nav-link" href="/user/historico-filme">Historico de Filme</a></li>
             </ul>
              <a class="nav-link" href="/user/pesquisa">
                <img src="/resources/front-end/nao_logada/image/lupa.png" alt="Ícone de lupa" style="height: 25px;" class="me-2">
