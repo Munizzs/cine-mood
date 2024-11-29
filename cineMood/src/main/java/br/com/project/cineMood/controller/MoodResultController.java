@@ -30,9 +30,9 @@ public class MoodResultController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String idEmocao = req.getParameter("idEmocao");
-
+        String moodW = req.getParameter("moodW");
         if (idEmocao != null) {
-            Emocao emocao = pesquisaID(idEmocao);
+            Emocao emocao = pesquisaID(idEmocao, moodW);
             if (emocao != null) {
                 List<Integer> generoList = separarStringParaLista(emocao.getGenre(), ",");
                 List<Filme> recommendedFilmes = fetchMoviesFromApi(generoList,"/discover/movie");
@@ -55,9 +55,15 @@ public class MoodResultController extends HttpServlet {
         req.getRequestDispatcher("/resources/front-end/mood/moodResult.jsp").forward(req, resp);
     }
 
-    public Emocao pesquisaID(String id) {
+    public Emocao pesquisaID(String id,String moodW) {
         EmocaoDao dao = new EmocaoDao();
-        Emocao emocoes = dao.findEmocaoById(id);
+        Emocao emocoes =null;
+        if (moodW.equals("0")) {
+            emocoes=dao.findEmocaoById(id);
+        }if (moodW.equals("1")) {
+            emocoes=dao.findEmocaoById_(id);
+        }
+
         return emocoes;
     }
     private List<Integer> separarStringParaLista(String input, String separador) {
@@ -76,7 +82,7 @@ public class MoodResultController extends HttpServlet {
             params.put("language", "pt-BR");
             params.put("sort_by", "popularity.desc");
             params.put("include_video", "fslse");
-            params.put("include_adult", "true");
+            params.put("include_adult", "false");
 
             // Concatena os gêneros e codifica
             String genresString = genres.stream()

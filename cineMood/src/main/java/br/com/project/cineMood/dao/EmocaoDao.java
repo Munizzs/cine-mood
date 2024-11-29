@@ -30,6 +30,7 @@ public class EmocaoDao {
 
     // Método para buscar todas as emoções do banco de dados
     public List<Emocao> findAllEmocao() {
+
         String SQL = "SELECT * FROM emocoes";
         List<Emocao> emocaoList = new ArrayList<>();
 
@@ -41,6 +42,33 @@ public class EmocaoDao {
                 int id = resultSet.getInt("id_emocao");
                 String nome = resultSet.getString("nome");
                 String genre = resultSet.getString("genre");
+                String image = resultSet.getString("image");
+                Emocao emocao = new Emocao(id, nome, genre,image);
+                emocaoList.add(emocao);
+            }
+
+            System.out.println("Achou a emoção no bdd");
+
+        } catch (Exception e) {
+            System.out.println("Falhou na procura da emoção: " + e.getMessage());
+            return Collections.emptyList();
+        }
+
+        return emocaoList;
+    }
+    public List<Emocao> findAllEmocao_() {
+
+        String SQL = "SELECT * FROM emocoes";
+        List<Emocao> emocaoList = new ArrayList<>();
+
+        try (Connection conn = new InitDao().getConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(SQL);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id_emocao");
+                String nome = resultSet.getString("nome");
+                String genre = resultSet.getString("genre_");
                 String image = resultSet.getString("image");
                 Emocao emocao = new Emocao(id, nome, genre,image);
                 emocaoList.add(emocao);
@@ -107,6 +135,36 @@ public class EmocaoDao {
                 int idEmocao = resultSet.getInt("id_emocao");
                 String nome = resultSet.getString("nome");
                 String genres = resultSet.getString("genre"); // Corrigido o nome do campo
+                String image = resultSet.getString("image");
+
+                // Cria o objeto Emocao com os dados obtidos
+                emocoes = new Emocao(idEmocao, nome, genres, image);
+
+                System.out.println("Busca realizada com sucesso para o id: " + id);
+            } else {
+                System.out.println("Nenhum registro encontrado para o id: " + id);
+            }
+        } catch (Exception e) {
+            System.out.println("Erro ao buscar emoção: " + e.getMessage());
+        }
+
+        // Retorna o objeto Emocao ou null se não encontrado
+        return emocoes;
+    }
+    public Emocao findEmocaoById_(String id) {
+        String SQL = "SELECT * FROM emocoes WHERE id_emocao = ?";
+        Emocao emocoes = null;
+
+        try (Connection conn = new InitDao().getConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(SQL)) {
+
+            preparedStatement.setInt(1, Integer.parseInt(id));
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                int idEmocao = resultSet.getInt("id_emocao");
+                String nome = resultSet.getString("nome");
+                String genres = resultSet.getString("genre_"); // Corrigido o nome do campo
                 String image = resultSet.getString("image");
 
                 // Cria o objeto Emocao com os dados obtidos

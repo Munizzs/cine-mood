@@ -5,12 +5,21 @@ public class Emocao {
     private String nome;
     private String genre;
     private String image;
+    private int modid;
 
     public Emocao(int idEmocao, String nome, String genre, String image) {
         this.idEmocao = idEmocao;
         this.nome = nome;
         this.genre = genre;
         this.image = image;
+
+    }
+    public Emocao(int idEmocao, String nome, String genre, String image, int modid) {
+        this.idEmocao = idEmocao;
+        this.nome = nome;
+        this.genre = genre;
+        this.image = image;
+        this.modid = modid;
     }
 
     public Emocao(int idEmocao, String nome, String genre) {

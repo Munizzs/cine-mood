@@ -44,22 +44,28 @@
     </nav>
 </header>
 <main>
-    <section class="container my-4">
-        <div class="container-fluid">
-            <h2 class="text-center mb-4" style="color: #ffffff;">Olá <c:out value="${usuario.nome}" />! O que você está sentindo hoje?</h2>
-            <div class="row row-cols-1 row-cols-md-3 row-cols-lg-3 g-3 text-center" style="border-radius: 2.5%;background-color: #6a1b9a; color: #ffffff;">
-                <c:forEach var="emocao" items="${emocoes}">
-                    <div class="col">
-                        <div class="card h-100 p-3 shadow-sm rounded" style="background-color: rgba(0, 0, 0, 0.0); color: rgba(0, 0, 0, 0.0);">
-                            <a href="/mood/result?idEmocao=${emocao.idEmocao}&moodW=${moodW}" class="text-decoration-none">
-                                <img src="/resources/front-end/mood/image/${emocao.image}" alt="${emocao.nome}" class="card-img-top mx-3" style="height: 120px; width: 120px; border-radius: 100%;">
-                                <div class="card-body" style="background-color: transparent;">
-                                    <h5 class="card-title" style="color: #ffffff;">${emocao.nome}</h5>
-                                </div>
-                            </a>
+    <section class="container my-5">
+        <h2 class="text-center mb-4" style="color: #ffffff;">Escolha o modo de recomendação para o seu filme :</h2>
+        <div class="row justify-content-center text-center">
+            <div class="col-md-5 mb-4">
+                <div class="card card-container p-4 shadow-sm rounded" style="background-color: #6a1b9a; color: #ffffff;">
+                    <a href="/mood/select?moodW=0" class="text-decoration-none">
+                        <div class="card-body d-flex flex-column align-items-center">
+                            <img src="/resources/front-end/mood/image/logoAmor.png" alt="Como me sinto" class="mb-3" style="height: 150px;">
                         </div>
-                    </div>
-                </c:forEach>
+                    </a>
+                </div>
+                <h5 class="text-center mb-4" style="color: #ffffff;">Como me Sinto</h5>
+            </div>
+            <div class="col-md-5 mb-4">
+                <div class="card card-container p-4 shadow-sm rounded" style="background-color: #6a1b9a; color: #ffffff;">
+                    <a href="/mood/select?moodW=1" class="text-decoration-none">
+                        <div class="card-body d-flex flex-column align-items-center">
+                            <img src="/resources/front-end/mood/image/queroSentir.png" alt="Quero Sentir" class="mb-3" style="height: 150px;">
+                        </div>
+                    </a>
+                </div>
+                <h5 class="text-center mb-4" style="color: #ffffff;">Quero Sentir</h5>
             </div>
         </div>
     </section>

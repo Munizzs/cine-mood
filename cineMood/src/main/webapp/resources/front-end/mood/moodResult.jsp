@@ -41,11 +41,13 @@
         <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4 text-center">
             <c:forEach var="filme" items="${recommendedFilmes}">
                 <div class="col">
-                    <div class="card h-100 p-3 shadow-sm rounded" style="background-color: #6a1b9a; color: #ffffff;">
+                    <div class="card bg-dark text-white w-100 h-100" style="background-color: #6a1b9a; color: #ffffff;">
+                        <a href="/user/detalhes?id=${filme.id}">
                         <img src="${filme.poster_path}" alt="${filme.title}" class="card-img-top" style="height: 300px;">
                         <div class="card-body">
-                            <h5 class="card-title">${filme.title}</h5>
+                            <h5 class="card-title text-white">${filme.title}</h5>
                         </div>
+                        </a>
                     </div>
                 </div>
             </c:forEach>
