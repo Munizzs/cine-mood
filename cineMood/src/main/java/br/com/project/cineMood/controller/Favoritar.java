@@ -27,7 +27,7 @@ public class Favoritar extends HttpServlet {
         favorito.setIdUsuario(idUsuario);
         favorito.setIdFilme(idFilme);
         favorito.setGenero(genero);
-        favorito.setStatus(Status.Quero_Assistir); // Define um status padrão
+        favorito.setStatus(Status.quero_assistir); // Define um status padrão
         favorito.setAvaliacao(0); // Define uma avaliação padrão
 
         // Chamando o DAO para salvar no banco

@@ -31,22 +31,18 @@ public class FavoritoController extends HttpServlet {
 
             List<Favorito> favoritos;
             if (statusParam != null && !statusParam.isEmpty()) {
-                if ("SemStatus".equalsIgnoreCase(statusParam)) {
-                    // Busca favoritos sem status definido
-                    favoritos = favoritoDao.findFavoritosByUserIdAndStatus(userId, null);
-                } else {
-                    // Valida o status informado
-                    try {
-                        Status status = Status.valueOf(statusParam); // Converte o parâmetro para enum
-                        favoritos = favoritoDao.findFavoritosByUserIdAndStatus(userId, status); // Busca filtrada
-                    } catch (IllegalArgumentException e) {
-                        throw new ServletException("Status inválido: " + statusParam, e);
-                    }
+                try {
+                    // Converte o parâmetro para enum e busca favoritos filtrados
+                    Status status = Status.valueOf(statusParam);
+                    favoritos = favoritoDao.findFavoritosByUserIdAndStatus(userId, status);
+                } catch (IllegalArgumentException e) {
+                    throw new ServletException("Status inválido: " + statusParam, e);
                 }
             } else {
                 // Busca todos os favoritos se nenhum status for informado
                 favoritos = favoritoDao.findFavoritosByUserId(userId);
             }
+
 
             req.setAttribute("favoritos", favoritos);
 

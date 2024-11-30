@@ -30,6 +30,14 @@ public class FavoritoDao {
             preparedStatement.setInt(4, favorito.getAvaliacao());
             preparedStatement.setString(5, favorito.getGenero());
 
+            System.out.println("Valores enviados ao banco:");
+            System.out.println("ID Usuário: " + favorito.getIdUsuario());
+            System.out.println("ID Filme: " + favorito.getIdFilme());
+            System.out.println("Status: " + favorito.getStatus().name());
+            System.out.println("Avaliação: " + favorito.getAvaliacao());
+            System.out.println("Gênero: " + favorito.getGenero());
+
+
             preparedStatement.execute();
             System.out.println("Success in insert favorito");
 

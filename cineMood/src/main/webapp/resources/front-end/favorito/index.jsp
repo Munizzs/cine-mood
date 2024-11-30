@@ -57,9 +57,9 @@
             <label for="status" class="me-2 text-white">Filtrar por Status:</label>
             <select name="status" id="status" class="form-select me-2" style="width: auto;">
                 <option value="">Todos</option>
-                <option value="Assistido" <%= "Assistido".equals(request.getParameter("status")) ? "selected" : "" %>>Assistido</option>
-                <option value="Assistindo" <%= "Assistindo".equals(request.getParameter("status")) ? "selected" : "" %>>Assistindo</option>
-                <option value="Quero_Assistir" <%= "Quero_Assistir".equals(request.getParameter("status")) ? "selected" : "" %>>Quero Assistir</option>
+                <option value="assistido" <%= "assistido".equals(request.getParameter("status")) ? "selected" : "" %>>Assistido</option>
+                <option value="assistindo" <%= "assistindo".equals(request.getParameter("status")) ? "selected" : "" %>>Assistindo</option>
+                <option value="quero_assistir" <%= "quero_assistir".equals(request.getParameter("status")) ? "selected" : "" %>>Quero Assistir</option>
             </select>
             <button type="submit" class="btn btn-primary">Filtrar</button>
         </form>
